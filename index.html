@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khoa Ngoại ngữ | FFl</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #2e3d32; background-color: #f4fbf5; }
+        
+        .an-giao-dien { display: none !important; }
+
+        header { background-color: #2e7d32; color: #fff; padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; box-shadow: 0 4px 12px rgba(46, 125, 50, 0.15); }
+        .logo { font-size: 1.8rem; font-weight: bold; color: #ffca28; letter-spacing: 1px; cursor: pointer; }
+        nav ul { list-style: none; display: flex; gap: 15px; }
+        nav a { color: #fff; text-decoration: none; font-weight: 600; padding: 10px 20px; border-radius: 30px; transition: all 0.3s; cursor: pointer; }
+        nav a:hover { background-color: #ffca28; color: #1b5e20; }
+        
+        .hero { background: linear-gradient(135deg, #4caf50, #2e7d32); color: white; text-align: center; padding: 5rem 20px; margin: 30px 5%; border-radius: 60px; box-shadow: 0 10px 20px rgba(46, 125, 50, 0.2); }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 15px; color: #ffffff; }
+        .hero p { font-size: 1.1rem; color: #e8f5e9; }
+        .container { width: 90%; max-width: 1200px; margin: 2rem auto; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+        .card { background: #fff; padding: 30px; border-radius: 40px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); margin-bottom: 20px; }
+        .card h2 { color: #2e7d32; margin-bottom: 25px; display: inline-block; border-bottom: 4px solid #ffca28; padding-bottom: 8px; }
+        .news-item { margin-bottom: 25px; background: #f9fdf9; padding: 20px 25px; border-radius: 30px; border-left: 6px solid #ffca28; transition: transform 0.3s; }
+        .news-item:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0,0,0,0.05); }
+        .news-item h3 { font-size: 1.25rem; color: #1b5e20; margin-bottom: 8px; }
+        .news-item p { font-size: 0.95rem; color: #555; margin-bottom: 15px; }
+        .btn { display: inline-block; padding: 10px 24px; background: #ffca28; color: #1b5e20; text-decoration: none; border-radius: 30px; font-weight: 700; font-size: 0.95rem; transition: all 0.3s; cursor: pointer; border: none; }
+        .btn:hover { background: #ffb300; transform: scale(1.05); }
+        .sidebar .resource-link { display: block; padding: 15px 20px; background: #e8f5e9; margin-bottom: 12px; text-decoration: none; color: #2e7d32; font-weight: bold; border-radius: 30px; transition: all 0.3s; border: 2px solid transparent; }
+        .sidebar .resource-link:hover { background: #c8e6c9; border-color: #81c784; padding-left: 25px; }
+        
+        .form-container { max-width: 800px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 40px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+        .table-container { max-width: 900px; margin: 0 auto 40px auto; background: #fff; padding: 30px; border-radius: 40px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+        .form-group { margin-bottom: 15px; }
+        input, select { width: 100%; padding: 15px 20px; border-radius: 30px; font-size: 16px; outline: none; border: 2px solid #e8f5e9; background-color: #f9fdf9; }
+        input:focus, select:focus { border-color: #81c784; }
+        select { appearance: none; cursor: pointer; }
+        .table-responsive { width: 100%; overflow-x: auto; border-radius: 20px; border: 2px solid #e8f5e9; }
+        table { width: 100%; border-collapse: collapse; white-space: nowrap; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #e8f5e9; font-size: 14px; }
+        th { background-color: #2e7d32; color: #fff; font-weight: bold; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background-color: #f4fbf5; }
+        
+        .status-tag { padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 12px; display: inline-block; }
+        .status-da-duyet { background-color: #e8f5e9; color: #2e7d32; }
+        .status-chua-duyet { background-color: #fff9c4; color: #f57f17; }
+
+        footer { text-align: center; padding: 30px; background: #1b5e20; color: #fff; margin-top: 50px; border-top-left-radius: 50px; border-top-right-radius: 50px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo" onclick="chuyenTrang('trangChu')">FFl</div>
+        <nav>
+            <ul>
+                <li><a onclick="chuyenTrang('trangChu')">Trang chủ</a></li>
+                <li><a onclick="chuyenTrang('trangDangKy')">Xét danh hiệu</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="trangChu">
+        <section class="hero">
+            <h1>Cổng thông tin Sinh viên</h1>
+            <p>Trải nghiệm học tập và kết nối tại Khoa Ngoại ngữ - Đại học Sài Gòn</p>
+        </section>
+
+        <div class="container">
+            <main>
+                <div class="card">
+                    <h2>Thông báo & Sự kiện</h2>
+                    <div class="news-item">
+                        <h3>Cổng nộp hồ sơ xét duyệt danh hiệu cấp Khoa</h3>
+                        <p>Hệ thống đăng ký trực tuyến đã chính thức mở. Các em học sinh chuẩn bị đầy đủ minh chứng trên Google Drive, điền thông tin và theo dõi kết quả xét duyệt tại đây.</p>
+                        <button class="btn" onclick="chuyenTrang('trangDangKy')">Nộp hồ sơ ngay</button>
+                    </div>
+                </div>
+            </main>
+            <aside class="sidebar">
+                <div class="card">
+                    <h2>Tài liệu nhanh</h2>
+                    <a href="#" class="resource-link">Kho tài liệu Sư phạm</a>
+                    <a href="#" class="resource-link">Giáo trình Hán ngữ 1</a>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <div id="trangDangKy" class="an-giao-dien">
+        <div class="form-container">
+            <h2>Hồ sơ xét duyệt danh hiệu</h2>
+            <form id="dataForm">
+                <div class="form-group"><input type="text" id="hoTen" placeholder="Họ và tên..." required></div>
+                <div class="form-group"><input type="text" id="mssv" placeholder="Mã số sinh viên..." required></div>
+                <div class="form-group"><input type="text" id="lop" placeholder="Lớp..." required></div>
+                <div class="form-group"><input type="tel" id="sdt" placeholder="Số điện thoại..." required></div>
+                <div class="form-group">
+                    <select id="nganh" required>
+                        <option value="" disabled selected>Chọn ngành học...</option>
+                        <option value="Sư phạm tiếng Anh">Sư phạm tiếng Anh</option>
+                        <option value="Ngôn ngữ Anh">Ngôn ngữ Anh</option>
+                        <option value="Ngôn ngữ Anh (chương trình CLC)">Ngôn ngữ Anh (chương trình CLC)</option>
+                    </select>
+                </div>
+                <div class="form-group"><input type="text" id="diaChi" placeholder="Địa chỉ nhà..." required></div>
+                <div class="form-group"><input type="email" id="email" placeholder="Email..." required></div>
+                <div class="form-group"><input type="text" id="chucVu" placeholder="Chức vụ (nếu có)..."></div>
+                <div class="form-group"><input type="text" id="danhHieu" placeholder="Tên danh hiệu ứng tuyển..." required></div>
+                <div class="form-group"><input type="url" id="linkDrive" placeholder="Đường dẫn thư mục Google Drive chứa tệp minh chứng..." required></div>
+                
+                <button type="submit" class="btn">Gửi hồ sơ</button>
+            </form>
+        </div>
+
+        <div class="table-container">
+            <h2>Tiến độ xét duyệt hồ sơ</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Họ tên</th>
+                            <th>Mã số sinh viên</th>
+                            <th>Danh hiệu ứng tuyển</th>
+                            <th>Tình hình xét duyệt</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataList">
+                        <!-- Trạng thái tự động cập nhật từ hệ thống -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Bản quyền thuộc về Khoa Ngoại ngữ, Đại học Sài Gòn.</p>
+    </footer>
+
+    <script>
+        function chuyenTrang(idTrang) {
+            document.getElementById('trangChu').classList.add('an-giao-dien');
+            document.getElementById('trangDangKy').classList.add('an-giao-dien');
+            document.getElementById(idTrang).classList.remove('an-giao-dien');
+            window.scrollTo(0, 0);
+        }
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, where, getDocs } 
+        from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD3VeuDPJz4iW8JWHBmz5sm-1SdFj-Nn4M",
+            authDomain: "xet-danh-hieu.firebaseapp.com",
+            projectId: "xet-danh-hieu",
+            storageBucket: "xet-danh-hieu.firebasestorage.app",
+            messagingSenderId: "147503377943",
+            appId: "1:147503377943:web:4181e69a0d963bcba77652",
+            measurementId: "G-0EQY61G439"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const form = document.getElementById("dataForm");
+        const dataList = document.getElementById("dataList");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const mssv = document.getElementById("mssv").value;
+            
+            const checkQuery = query(collection(db, "HoSo_BaoMat"), where("mssv", "==", mssv));
+            const querySnapshot = await getDocs(checkQuery);
+            
+            if (!querySnapshot.empty) {
+                alert("Mã số sinh viên này đã nộp hồ sơ. Bạn không thể nộp lại.");
+                return;
+            }
+
+            const hoTen = document.getElementById("hoTen").value;
+            const lop = document.getElementById("lop").value;
+            const sdt = document.getElementById("sdt").value;
+            const nganh = document.getElementById("nganh").value;
+            const diaChi = document.getElementById("diaChi").value;
+            const email = document.getElementById("email").value;
+            const chucVu = document.getElementById("chucVu").value;
+            const danhHieu = document.getElementById("danhHieu").value;
+            const linkDrive = document.getElementById("linkDrive").value;
+            const mssvAn = mssv.substring(0, 4) + "***";
+
+            try {
+                // Lưu vào bảng bảo mật (dùng chung mssv để admin quản lý)
+                await addDoc(collection(db, "HoSo_BaoMat"), {
+                    ho_ten: hoTen, mssv: mssv, lop: lop, sdt: sdt, nganh: nganh, 
+                    dia_chi: diaChi, email: email, chuc_vu: chucVu, danh_hieu: danhHieu, 
+                    link_drive: linkDrive, da_duyet: false, thoi_gian: new Date()
+                });
+                // Lưu vào bảng công khai
+                await addDoc(collection(db, "HoSo_CongKhai"), {
+                    ho_ten: hoTen, mssv_an: mssvAn, danh_hieu: danhHieu, da_duyet: false, thoi_gian: new Date()
+                });
+
+                form.reset();
+                alert("Gửi hồ sơ thành công!");
+            } catch (error) {
+                console.error("Lỗi: ", error);
+                alert("Đã xảy ra lỗi. Vui lòng kiểm tra lại hệ thống mạng.");
+            }
+        });
+
+        // Tự động cập nhật bảng công khai khi có thay đổi trạng thái duyệt
+        const q = query(collection(db, "HoSo_CongKhai"), orderBy("thoi_gian", "desc"));
+        onSnapshot(q, (snapshot) => {
+            dataList.innerHTML = "";
+            snapshot.forEach((docSnap) => {
+                const data = docSnap.data();
+                const tr = document.createElement("tr");
+                const trangThaiHTML = data.da_duyet 
+                    ? `<span class="status-tag status-da-duyet">Đã duyệt</span>` 
+                    : `<span class="status-tag status-chua-duyet">Chưa duyệt</span>`;
+
+                tr.innerHTML = `
+                    <td><strong>${data.ho_ten}</strong></td>
+                    <td>${data.mssv_an}</td>
+                    <td><strong>${data.danh_hieu}</strong></td>
+                    <td>${trangThaiHTML}</td>
+                `;
+                dataList.appendChild(tr);
+            });
+        });
+    </script>
+</body>
+</html>
