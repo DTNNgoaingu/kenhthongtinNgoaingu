@@ -47,6 +47,7 @@
         .status-tag { padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 12px; display: inline-block; }
         .status-da-duyet { background-color: #e8f5e9; color: #2e7d32; }
         .status-chua-duyet { background-color: #fff9c4; color: #f57f17; }
+        .status-khong-duyet { background-color: #ffebee; color: #c62828; }
 
         footer { text-align: center; padding: 30px; background: #1b5e20; color: #fff; margin-top: 50px; border-top-left-radius: 50px; border-top-right-radius: 50px; }
     </style>
@@ -193,15 +194,13 @@
             const mssvAn = mssv.substring(0, 4) + "***";
 
             try {
-                // Lưu vào bảng bảo mật (dùng chung mssv để admin quản lý)
                 await addDoc(collection(db, "HoSo_BaoMat"), {
                     ho_ten: hoTen, mssv: mssv, lop: lop, sdt: sdt, nganh: nganh, 
                     dia_chi: diaChi, email: email, chuc_vu: chucVu, danh_hieu: danhHieu, 
-                    link_drive: linkDrive, da_duyet: false, thoi_gian: new Date()
+                    link_drive: linkDrive, trang_thai: "Chưa duyệt", ly_do: "", thoi_gian: new Date()
                 });
-                // Lưu vào bảng công khai
                 await addDoc(collection(db, "HoSo_CongKhai"), {
-                    ho_ten: hoTen, mssv_an: mssvAn, danh_hieu: danhHieu, da_duyet: false, thoi_gian: new Date()
+                    ho_ten: hoTen, mssv_an: mssvAn, danh_hieu: danhHieu, trang_thai: "Chưa duyệt", ly_do: "", thoi_gian: new Date()
                 });
 
                 form.reset();
@@ -212,16 +211,19 @@
             }
         });
 
-        // Tự động cập nhật bảng công khai khi có thay đổi trạng thái duyệt
         const q = query(collection(db, "HoSo_CongKhai"), orderBy("thoi_gian", "desc"));
         onSnapshot(q, (snapshot) => {
             dataList.innerHTML = "";
             snapshot.forEach((docSnap) => {
                 const data = docSnap.data();
                 const tr = document.createElement("tr");
-                const trangThaiHTML = data.da_duyet 
-                    ? `<span class="status-tag status-da-duyet">Đã duyệt</span>` 
-                    : `<span class="status-tag status-chua-duyet">Chưa duyệt</span>`;
+                
+                let trangThaiHTML = `<span class="status-tag status-chua-duyet">Chưa duyệt</span>`;
+                if (data.trang_thai === 'Đã duyệt') {
+                    trangThaiHTML = `<span class="status-tag status-da-duyet">Đã duyệt</span>`;
+                } else if (data.trang_thai === 'Không duyệt') {
+                    trangThaiHTML = `<span class="status-tag status-khong-duyet">Không duyệt: ${data.ly_do || 'Không có lý do'}</span>`;
+                }
 
                 tr.innerHTML = `
                     <td><strong>${data.ho_ten}</strong></td>
