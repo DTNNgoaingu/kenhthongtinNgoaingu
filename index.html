@@ -76,7 +76,7 @@
                     <h2>Thông báo & Sự kiện</h2>
                     <div class="news-item">
                         <h3>Cổng nộp hồ sơ xét duyệt danh hiệu cấp Khoa</h3>
-                        <p>Hệ thống đăng ký trực tuyến đã chính thức mở. Các em học sinh chuẩn bị đầy đủ minh chứng trên Google Drive, điền thông tin và theo dõi kết quả xét duyệt tại đây.</p>
+                        <p>Hệ thống đăng ký trực tuyến đã chính thức mở. Các em sinh viên chuẩn bị đầy đủ minh chứng trên Google Drive, điền thông tin và theo dõi kết quả xét duyệt tại đây.</p>
                         <button class="btn" onclick="chuyenTrang('trangDangKy')">Nộp hồ sơ ngay</button>
                     </div>
                 </div>
@@ -152,7 +152,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, where, getDocs } 
+        import { getFirestore, collection, doc, setDoc, onSnapshot, query, orderBy, where, getDocs } 
         from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -194,12 +194,16 @@
             const mssvAn = mssv.substring(0, 4) + "***";
 
             try {
-                await addDoc(collection(db, "HoSo_BaoMat"), {
+                const newDocRef = doc(collection(db, "HoSo_BaoMat"));
+                const customId = newDocRef.id;
+
+                await setDoc(doc(db, "HoSo_BaoMat", customId), {
                     ho_ten: hoTen, mssv: mssv, lop: lop, sdt: sdt, nganh: nganh, 
                     dia_chi: diaChi, email: email, chuc_vu: chucVu, danh_hieu: danhHieu, 
                     link_drive: linkDrive, trang_thai: "Chưa duyệt", ly_do: "", thoi_gian: new Date()
                 });
-                await addDoc(collection(db, "HoSo_CongKhai"), {
+
+                await setDoc(doc(db, "HoSo_CongKhai", customId), {
                     ho_ten: hoTen, mssv_an: mssvAn, danh_hieu: danhHieu, trang_thai: "Chưa duyệt", ly_do: "", thoi_gian: new Date()
                 });
 
