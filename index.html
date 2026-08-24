@@ -16,10 +16,50 @@
         nav a { color: #166534; text-decoration: none; font-weight: 800; padding: 10px 22px; border-radius: 25px; transition: all 0.3s; cursor: pointer; background: #f0fdf4; border: 2px solid #bbf7d0; }
         nav a:hover { background: linear-gradient(135deg, #166534 0%, #ca8a04 100%); color: #fff; border-color: transparent; box-shadow: 0 4px 15px rgba(22, 101, 52, 0.3); }
         
-        .hero-wrapper { max-width: 1100px; margin: 40px auto 20px auto; padding: 0 20px; }
-        .hero { background: linear-gradient(135deg, #15803d 0%, #22c55e 50%, #eab308 100%); color: white; text-align: center; padding: 4rem 20px; border-radius: 40px; box-shadow: 0 15px 40px rgba(22, 101, 52, 0.25); position: relative; overflow: hidden; border: 3px solid #fef08a; }
-        .hero h1 { font-size: 3rem; margin-bottom: 12px; color: #ffffff; font-weight: 900; text-shadow: 0 3px 6px rgba(0,0,0,0.2); }
-        .hero p { font-size: 1.15rem; color: #fef08a; font-weight: 700; text-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+        .hero-wrapper { max-width: 1200px; margin: 40px auto 25px auto; padding: 0 20px; }
+        .hero { 
+            background: linear-gradient(135deg, rgba(21, 128, 61, 0.88) 0%, rgba(20, 83, 45, 0.92) 50%, rgba(15, 23, 42, 0.95) 100%), 
+                        url('Bản sao của DSCF9023.jpg') center/cover no-repeat;
+            color: white; 
+            text-align: center; 
+            padding: 5rem 2rem; 
+            border-radius: 35px; 
+            box-shadow: 0 20px 50px rgba(22, 101, 52, 0.2); 
+            position: relative; 
+            overflow: hidden; 
+            border: 2px solid rgba(254, 240, 138, 0.4); 
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);
+            transform: rotate(30deg);
+            pointer-events: none;
+        }
+
+        .hero h1 { 
+            font-size: 3.2rem; 
+            margin-bottom: 15px; 
+            color: #ffffff; 
+            font-weight: 900; 
+            letter-spacing: -0.5px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3); 
+        }
+
+        .hero p { 
+            font-size: 1.25rem; 
+            color: #fef08a; 
+            font-weight: 600; 
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2); 
+            opacity: 0.95;
+        }
 
         .container { width: 90%; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
         .card { background: #ffffff; padding: 35px; border-radius: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 25px; border: 3px solid #bbf7d0; }
@@ -43,8 +83,6 @@
         .ctdt-link:hover { background: linear-gradient(135deg, #166534 0%, #ca8a04 100%); color: #fff; border-color: transparent; padding-left: 20px; box-shadow: 0 4px 12px rgba(22, 101, 52, 0.2); }
         .ctdt-link span { font-size: 0.75rem; background: rgba(22, 101, 52, 0.1); padding: 3px 8px; border-radius: 10px; }
         .ctdt-link:hover span { background: rgba(255, 255, 255, 0.2); color: #fff; }
-
-        .about-doan { background: linear-gradient(135deg, #f0fdf4 0%, #eef2f6 100%); border-left: 6px solid #15803d; padding: 20px; border-radius: 20px; margin-bottom: 25px; font-size: 0.95rem; color: #374151; font-weight: 600; }
 
         .form-container, .table-container { max-width: 950px; margin: 30px auto; background: #ffffff; padding: 45px; border-radius: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 3px solid #bbf7d0; }
         .form-group { margin-bottom: 22px; }
@@ -94,7 +132,6 @@
                 <li><a onclick="chuyenTrang('trangGioiThieu')">Giới thiệu</a></li>
                 <li><a onclick="moManHinhChonSuKien()">Đăng ký sự kiện</a></li>
                 <li><a onclick="chuyenTrang('trangSV5Tot')">Sinh viên 5 Tốt</a></li>
-                <li><a onclick="chuyenTrang('trangDangKy')">Nộp hồ sơ</a></li>
                 <li><a onclick="chuyenTrang('trangDiemDanh')">Điểm danh</a></li>
             </ul>
         </nav>
@@ -105,7 +142,7 @@
         <div class="hero-wrapper">
             <section class="hero">
                 <h1>Cổng thông tin Sinh viên</h1>
-                <p>Trải nghiệm học tập và kết nối đỉnh cao tại Đoàn - Hội khoa Ngoại ngữ - Đại học Sài Gòn</p>
+                <p>Trải nghiệm học tập, rèn luyện và kết nối đỉnh cao tại Đoàn - Hội khoa Ngoại ngữ - Đại học Sài Gòn</p>
             </section>
         </div>
 
@@ -127,16 +164,10 @@
                 <div class="card">
                     <h2>Tiêu chí Sinh viên 5 Tốt</h2>
                     <div style="color: #4b5563; font-weight: 500; margin-bottom: 15px;">
-                        <p>Danh hiệu <strong>"Sinh viên 5 Tốt"</strong> là phần thưởng cao quý dành cho đoàn viên, sinh viên đạt chuẩn toàn diện về 5 tiêu chí:</p>
-                        <ul style="margin: 10px 0 15px 20px; line-height: 1.8;">
-                            <li><strong>Đạo đức tốt:</strong> Phẩm chất chính trị, đạo đức lối sống lành mạnh.</li>
-                            <li><strong>Học tập tốt:</strong> Kết quả học tập xuất sắc, tích cực nghiên cứu khoa học.</li>
-                            <li><strong>Thể lực tốt:</strong> Đạt danh hiệu "Thanh niên khỏe" hoặc tham gia tốt các hội thao.</li>
-                            <li><strong>Tình nguyện tốt:</strong> Tích cực tham gia các hoạt động cộng đồng, Mùa hè xanh.</li>
-                            <li><strong>Hội nhập tốt:</strong> Năng lực ngoại ngữ, tin học và kỹ năng mềm vững vàng.</li>
-                        </ul>
+                        <p>Danh hiệu <strong>"Sinh viên 5 Tốt"</strong> là phần thưởng cao quý dành cho đoàn viên, sinh viên đạt chuẩn toàn diện về 5 tiêu chí: <em>Đạo đức tốt, Học tập tốt, Thể lực tốt, Tình nguyện tốt và Hội nhập tốt</em>.</p>
                     </div>
-                    <button class="btn" onclick="chuyenTrang('trangDangKy')">Nộp hồ sơ xét duyệt ngay</button>
+                    <!-- Hyperlink chuyển hướng qua trang Sinh viên 5 Tốt trên menu -->
+                    <button class="btn" onclick="chuyenTrang('trangSV5Tot')">Xem chi tiết & Nộp hồ sơ ngay</button>
                 </div>
 
                 <div class="card">
@@ -148,10 +179,6 @@
 
             <aside class="sidebar">
                 <div class="card">
-                    <h2>Thông tin nhanh</h2>
-                    <div class="about-doan">
-                        <p>Hệ thống hỗ trợ sinh viên tra cứu thông tin hoạt động, đăng ký sự kiện và nộp hồ sơ xét duyệt danh hiệu cấp khoa.</p>
-                    </div>
                     <h2>Chương trình đào tạo</h2>
                     <div class="ctdt-grid">
                         <a href="https://drive.google.com/file/d/12A3_-kYWg13lPFj460SPZ4Qg8L6byxYy/view?usp=drive_fs" target="_blank" class="ctdt-link">Ngôn ngữ Anh <span>2020-2024</span></a>
@@ -227,19 +254,22 @@
         </div>
     </div>
 
-    <!-- TRANG SINH VIÊN 5 TỐT -->
+    <!-- TRANG SINH VIÊN 5 TỐT (TÍCH HỢP FORM NỘP HỒ SƠ VÀ TIẾN ĐỘ) -->
     <div id="trangSV5Tot" class="an-giao-dien">
         <div class="form-container" style="max-width: 900px;">
             <h2>Danh hiệu Sinh viên 5 Tốt (Năm học 2025 - 2026)</h2>
-            <div style="line-height: 1.8; color: #374151; font-size: 1rem; margin-top: 15px;">
-                <p style="margin-bottom: 15px;">Danh hiệu <strong>"Sinh viên 5 Tốt"</strong> bao gồm 5 tiêu chí: <strong>Đạo đức tốt, Học tập tốt, Thể lực tốt, Tình nguyện tốt, Hội nhập tốt</strong>.</p>
-                <button class="btn" onclick="chuyenTrang('trangDangKy')">Nộp hồ sơ ngay</button>
+            <div style="line-height: 1.8; color: #374151; font-size: 1rem; margin-top: 15px; margin-bottom: 30px;">
+                <p style="margin-bottom: 15px;">Danh hiệu <strong>"Sinh viên 5 Tốt"</strong> là phần thưởng cao quý cấp trường/cấp khoa dành cho đoàn viên, sinh viên đạt chuẩn toàn diện về 5 tiêu chí:</p>
+                <ul style="margin-left: 20px; line-height: 1.8; margin-bottom: 20px;">
+                    <li><strong>Đạo đức tốt:</strong> Điểm rèn luyện đạt loại Tốt trở lên, chấp hành tốt chủ trương, pháp luật.</li>
+                    <li><strong>Học tập tốt:</strong> Điểm trung bình chung học tập đạt từ 2.5/4.0 trở lên, tích cực nghiên cứu khoa học.</li>
+                    <li><strong>Thể lực tốt:</strong> Đạt danh hiệu "Thanh niên khỏe" hoặc tham gia các hoạt động thể thao.</li>
+                    <li><strong>Tình nguyện tốt:</strong> Tham gia ít nhất 1 hoạt động tình nguyện (Mùa hè xanh, Chủ nhật xanh,...).</li>
+                    <li><strong>Hội nhập tốt:</strong> Đạt chuẩn ngoại ngữ, tin học và tham gia các hoạt động hội nhập quốc tế.</li>
+                </ul>
             </div>
         </div>
-    </div>
 
-    <!-- TRANG NỘP HỒ SƠ -->
-    <div id="trangDangKy" class="an-giao-dien">
         <div class="form-container">
             <h2>Cổng Nộp Hồ Sơ Xét Duyệt Danh Hiệu</h2>
             <form id="dataForm">
@@ -285,7 +315,7 @@
         </div>
     </div>
 
-    <!-- MÀN HÌNH TRA CỨU ĐIỂM DANH (CHỈ GIỮ LẠI HỌC KỲ 1) -->
+    <!-- MÀN HÌNH TRA CỨU ĐIỂM DANH -->
     <div id="trangDiemDanh" class="an-giao-dien">
         <div class="table-container" style="max-width: 950px; margin-top: 40px;">
             <h2>Danh sách điểm danh hoạt động</h2>
@@ -343,7 +373,6 @@
             document.getElementById('trangGioiThieu').classList.add('an-giao-dien');
             document.getElementById('trangDangKyHoatDong').classList.add('an-giao-dien');
             document.getElementById('trangSV5Tot').classList.add('an-giao-dien');
-            document.getElementById('trangDangKy').classList.add('an-giao-dien');
             document.getElementById('trangDiemDanh').classList.add('an-giao-dien');
             document.getElementById(idTrang).classList.remove('an-giao-dien');
             window.scrollTo(0, 0);
