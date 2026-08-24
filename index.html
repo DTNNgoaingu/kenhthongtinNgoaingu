@@ -28,7 +28,8 @@
         .news-item { margin-bottom: 22px; background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%); padding: 25px; border-radius: 30px; border: 2px solid #bbf7d0; transition: all 0.3s; box-shadow: 0 4px 15px rgba(22, 101, 52, 0.04); }
         .news-item:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(22, 101, 52, 0.1); border-color: #22c55e; }
         .news-item h3 { font-size: 1.3rem; color: #166534; margin-bottom: 8px; font-weight: 900; }
-        .news-item p { font-size: 0.95rem; color: #4b5563; margin-bottom: 18px; font-weight: 500; }
+        .news-item p { font-size: 0.95rem; color: #4b5563; margin-bottom: 15px; font-weight: 500; }
+        .event-meta { font-size: 0.88rem; color: #15803d; font-weight: 800; margin-bottom: 15px; background: #dcfce7; padding: 6px 12px; border-radius: 12px; display: inline-block; }
         
         .btn { display: inline-block; padding: 14px 30px; background: linear-gradient(135deg, #22c55e 0%, #ca8a04 100%); color: #ffffff; text-decoration: none; border-radius: 30px; font-weight: 900; font-size: 1rem; transition: all 0.3s; cursor: pointer; border: none; box-shadow: 0 6px 20px rgba(202, 138, 4, 0.4); text-align: center; text-transform: uppercase; letter-spacing: 0.5px; }
         .btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(202, 138, 4, 0.6); }
@@ -59,6 +60,10 @@
         .status-chua-duyet { background-color: #fef9c3; color: #854d0e; border: 2px solid #fef08a; }
         .status-khong-duyet { background-color: #fee2e2; color: #991b1b; border: 2px solid #fecaca; }
 
+        .filter-tabs { display: flex; gap: 12px; margin-bottom: 20px; }
+        .filter-btn { flex: 1; padding: 12px 20px; background: #f0fdf4; color: #166534; border: 2px solid #bbf7d0; border-radius: 20px; font-weight: 900; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .filter-btn.active { background: linear-gradient(135deg, #15803d 0%, #ca8a04 100%); color: #fff; border-color: transparent; box-shadow: 0 4px 15px rgba(22, 101, 52, 0.25); }
+
         .hocky-tabs { display: flex; gap: 12px; margin-bottom: 25px; flex-wrap: wrap; background: #f0fdf4; padding: 10px; border-radius: 25px; border: 2px solid #bbf7d0; }
         .hk-btn { flex: 1; min-width: 200px; padding: 14px 20px; background: #ffffff; color: #166534; border: 2px solid #bbf7d0; border-radius: 18px; font-weight: 900; font-size: 0.95rem; cursor: pointer; transition: all 0.3s; text-align: center; }
         .hk-btn.active { background: linear-gradient(135deg, #15803d 0%, #ca8a04 100%); color: #fff; border-color: transparent; box-shadow: 0 4px 15px rgba(22, 101, 52, 0.25); }
@@ -82,9 +87,10 @@
         <nav>
             <ul>
                 <li><a onclick="chuyenTrang('trangChu')">Trang chủ</a></li>
-                <li><a onclick="chuyenTrang('trangSV5Tot')">Sinh viên 5 Tốt 2025-2026</a></li>
-                <li><a onclick="chuyenTrang('trangDangKy')">Nộp hồ sơ danh hiệu</a></li>
-                <li><a onclick="chuyenTrang('trangDiemDanh')">Theo dõi điểm danh</a></li>
+                <li><a onclick="chuyenTrang('trangDangKyHoatDong')">Đăng ký sự kiện</a></li>
+                <li><a onclick="chuyenTrang('trangSV5Tot')">Sinh viên 5 Tốt</a></li>
+                <li><a onclick="chuyenTrang('trangDangKy')">Nộp hồ sơ</a></li>
+                <li><a onclick="chuyenTrang('trangDiemDanh')">Điểm danh</a></li>
             </ul>
         </nav>
     </header>
@@ -100,16 +106,20 @@
         <div class="container">
             <main>
                 <div class="card">
-                    <h2>Thông báo & Sự kiện</h2>
+                    <h2>Hoạt động & Sự kiện sắp diễn ra</h2>
+                    
+                    <!-- SỰ KIỆN WORKSHOP LÀM ĐỒ DÂN GIAN -->
+                    <div class="news-item" style="border-left: 6px solid #eab308;">
+                        <h3>Workshop: Làm đồ dân gian truyền thống</h3>
+                        <div class="event-meta">⏰ 18h00 - Ngày 25/09/2026 | 📍 Cơ sở chính ĐH Sài Gòn</div>
+                        <p>Tham gia không gian trải nghiệm văn hóa thủ công truyền thống cực kỳ bổ ích do Đoàn Khoa tổ chức.</p>
+                        <button class="btn" onclick="chuyenTrang('trangDangKyHoatDong')">Đăng ký tham gia ngay</button>
+                    </div>
+
                     <div class="news-item">
                         <h3>Danh hiệu Sinh viên 5 Tốt năm học 2025 - 2026</h3>
-                        <p>Triển khai kế hoạch xét chọn danh hiệu "Sinh viên 5 Tốt" cấp Khoa và cấp Trường năm học 2025 - 2026. Xem chi tiết tiêu chí.</p>
+                        <p>Triển khai kế hoạch xét chọn danh hiệu "Sinh viên 5 Tốt" cấp Khoa và cấp Trường năm học 2025 - 2026.</p>
                         <button class="btn" onclick="chuyenTrang('trangSV5Tot')">Xem chi tiết</button>
-                    </div>
-                    <div class="news-item">
-                        <h3>Cổng nộp hồ sơ xét duyệt danh hiệu cấp Khoa</h3>
-                        <p>Nộp hồ sơ trực tuyến cho danh hiệu Sinh viên 5 Tốt hoặc Đoàn viên Ưu tú ngay tại hệ thống.</p>
-                        <button class="btn" onclick="chuyenTrang('trangDangKy')">Nộp hồ sơ ngay</button>
                     </div>
                 </div>
             </main>
@@ -131,18 +141,31 @@
         </div>
     </div>
 
-    <!-- THÔNG TIN SINH VIÊN 5 TỐT -->
+    <!-- TRANG ĐĂNG KÝ THAM GIA SỰ KIỆN WORKSHOP -->
+    <div id="trangDangKyHoatDong" class="an-giao-dien">
+        <div class="form-container" style="max-width: 600px;">
+            <h2>Đăng ký tham gia Workshop</h2>
+            <p style="margin-bottom: 20px; color: #555; font-size: 0.95rem;">Sự kiện: <strong>Làm đồ dân gian</strong> (25/09/2026 - Cơ sở chính SGU)</p>
+            <form id="formDangKySuKien">
+                <div class="form-group"><input type="text" id="dkHoTen" placeholder="Họ và tên sinh viên..." required></div>
+                <div class="form-group"><input type="text" id="dkMssv" placeholder="Mã số sinh viên (VD: 3123130144)..." required></div>
+                <div class="form-group"><input type="text" id="dkLop" placeholder="Lớp (VD: DNA23)". required></div>
+                <button type="submit" class="btn" style="width: 100%;">Xác nhận đăng ký giữ chỗ</button>
+            </form>
+        </div>
+    </div>
+
     <div id="trangSV5Tot" class="an-giao-dien">
         <div class="form-container" style="max-width: 900px;">
             <h2>Danh hiệu Sinh viên 5 Tốt (Năm học 2025 - 2026)</h2>
             <div style="line-height: 1.8; color: #374151; font-size: 1rem; margin-top: 15px;">
                 <p style="margin-bottom: 15px;">Danh hiệu <strong>"Sinh viên 5 Tốt"</strong> bao gồm 5 tiêu chí: <strong>Đạo đức tốt, Học tập tốt, Thể lực tốt, Tình nguyện tốt, Hội nhập tốt</strong>.</p>
-                <button class="btn" onclick="chuyenTrang('trangDangKy')">Nộp hồ sơ Sinh viên 5 Tốt</button>
+                <button class="btn" onclick="chuyenTrang('trangDangKy')">Nộp hồ sơ ngay</button>
             </div>
         </div>
     </div>
 
-    <!-- TRANG NỘP HỒ SƠ -->
+    <!-- TRANG NỘP HỒ SƠ DANH HIỆU -->
     <div id="trangDangKy" class="an-giao-dien">
         <div class="form-container">
             <h2>Cổng Nộp Hồ Sơ Xét Duyệt Danh Hiệu</h2>
@@ -163,7 +186,6 @@
                 <div class="form-group"><input type="email" id="email" placeholder="Email..." required></div>
                 <div class="form-group"><input type="text" id="chucVu" placeholder="Chức vụ (nếu có)..."></div>
                 
-                <!-- Phân loại danh hiệu ứng tuyển -->
                 <div class="form-group">
                     <select id="danhHieu" required>
                         <option value="" disabled selected>-- Chọn danh hiệu ứng tuyển --</option>
@@ -177,27 +199,12 @@
             </form>
         </div>
 
-        <!-- BẢNG 1: SINH VIÊN 5 TỐT -->
         <div class="table-container">
-            <h2>Tiến độ hồ sơ: Sinh viên 5 Tốt</h2>
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Họ tên</th>
-                            <th>Mã số sinh viên</th>
-                            <th>Tình hình xét duyệt</th>
-                        </tr>
-                    </thead>
-                    <tbody id="listSV5Tot"></tbody>
-                </table>
+            <h2>Tiến độ xét duyệt hồ sơ</h2>
+            <div class="filter-tabs">
+                <button class="filter-btn active" onclick="locDanhHieu('Sinh viên 5 Tốt', this)">Sinh viên 5 Tốt</button>
+                <button class="filter-btn" onclick="locDanhHieu('Đoàn viên Ưu tú', this)">Đoàn viên Ưu tú</button>
             </div>
-        </div>
-
-        <!-- BẢNG 2: ĐOÀN VIÊN ƯU TÚ -->
-        <div class="table-container">
-            <h2>Tiến độ hồ sơ: Đoàn viên Ưu tú</h2>
             <div class="table-responsive">
                 <table>
                     <thead>
@@ -208,7 +215,7 @@
                             <th>Tình hình xét duyệt</th>
                         </tr>
                     </thead>
-                    <tbody id="listDoanVien"></tbody>
+                    <tbody id="listHoSoChung"></tbody>
                 </table>
             </div>
         </div>
@@ -218,78 +225,21 @@
     <div id="trangDiemDanh" class="an-giao-dien">
         <div class="table-container" style="max-width: 950px; margin-top: 40px;">
             <h2>Danh sách điểm danh hoạt động</h2>
-            <p style="margin-bottom: 20px; color: #4b5563; font-weight: 700;">Chọn Học kỳ và Hoạt động bên dưới để tra cứu:</p>
+            <p style="margin-bottom: 20px; color: #4b5563; font-weight: 700;">Tra cứu danh sách sinh viên đã điểm danh:</p>
             
             <div class="hocky-tabs">
                 <button class="hk-btn active" onclick="chuyenHocKy('hk1')">Học kỳ 1 (2026 - 2027)</button>
-                <button class="hk-btn" onclick="chuyenHocKy('hk2')">Học kỳ 2 (2026 - 2027)</button>
-                <button class="hk-btn" onclick="chuyenHocKy('hk3')">Học kỳ 3 (2026 - 2027)</button>
             </div>
 
             <div id="hk1" class="hocky-content active">
                 <div class="hoat-dong-header">
-                    <button class="hd-btn active" onclick="chuyenHoatDongSub('hk1', 'hd1_1', this)">Ngày hội CLB khoa NN</button>
-                    <button class="hd-btn" onclick="chuyenHoatDongSub('hk1', 'hd1_2', this)">Lễ đón TSV K26</button>
+                    <button class="hd-btn active" onclick="chuyenHoatDongSub('hk1', 'hd_workshop', this)">Workshop Làm đồ dân gian</button>
                 </div>
-                <div id="hd1_1" class="hd-subcontent active">
+                <div id="hd_workshop" class="hd-subcontent active">
                     <div class="table-responsive">
                         <table>
-                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
-                            <tbody id="listDiemDanhHK1_HD1"></tbody>
-                        </table>
-                    </div>
-                </div>
-                <div id="hd1_2" class="hd-subcontent">
-                    <div class="table-responsive">
-                        <table>
-                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
-                            <tbody id="listDiemDanhHK1_HD2"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div id="hk2" class="hocky-content">
-                <div class="hoat-dong-header">
-                    <button class="hd-btn active" onclick="chuyenHoatDongSub('hk2', 'hd2_1', this)">Hội thao truyền thống</button>
-                    <button class="hd-btn" onclick="chuyenHoatDongSub('hk2', 'hd2_2', this)">Cuộc thi Hùng biện tiếng Anh</button>
-                </div>
-                <div id="hd2_1" class="hd-subcontent active">
-                    <div class="table-responsive">
-                        <table>
-                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
-                            <tbody id="listDiemDanhHK2_HD1"></tbody>
-                        </table>
-                    </div>
-                </div>
-                <div id="hd2_2" class="hd-subcontent">
-                    <div class="table-responsive">
-                        <table>
-                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
-                            <tbody id="listDiemDanhHK2_HD2"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div id="hk3" class="hocky-content">
-                <div class="hoat-dong-header">
-                    <button class="hd-btn active" onclick="chuyenHoatDongSub('hk3', 'hd3_1', this)">Tổng kết chiến dịch Mùa hè xanh</button>
-                    <button class="hd-btn" onclick="chuyenHoatDongSub('hk3', 'hd3_2', this)">Đêm hội văn nghệ khoa</button>
-                </div>
-                <div id="hd3_1" class="hd-subcontent active">
-                    <div class="table-responsive">
-                        <table>
-                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
-                            <tbody id="listDiemDanhHK3_HD1"></tbody>
-                        </table>
-                    </div>
-                </div>
-                <div id="hd3_2" class="hd-subcontent">
-                    <div class="table-responsive">
-                        <table>
-                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
-                            <tbody id="listDiemDanhHK3_HD2"></tbody>
+                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Họ tên</th><th>Thời gian điểm danh</th></tr></thead>
+                            <tbody id="listDiemDanhWorkshop"></tbody>
                         </table>
                     </div>
                 </div>
@@ -302,8 +252,12 @@
     </footer>
 
     <script>
+        let selectedDanhHieu = "Sinh viên 5 Tốt";
+        let globalSnapshot = null;
+
         function chuyenTrang(idTrang) {
             document.getElementById('trangChu').classList.add('an-giao-dien');
+            document.getElementById('trangDangKyHoatDong').classList.add('an-giao-dien');
             document.getElementById('trangSV5Tot').classList.add('an-giao-dien');
             document.getElementById('trangDangKy').classList.add('an-giao-dien');
             document.getElementById('trangDiemDanh').classList.add('an-giao-dien');
@@ -311,12 +265,38 @@
             window.scrollTo(0, 0);
         }
 
+        function locDanhHieu(danhHieu, btnElement) {
+            selectedDanhHieu = danhHieu;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            renderHoSoTable();
+        }
+
+        function renderHoSoTable() {
+            if (!globalSnapshot) return;
+            const container = document.getElementById("listHoSoChung");
+            container.innerHTML = "";
+            let stt = 1;
+
+            globalSnapshot.forEach((docSnap) => {
+                const data = docSnap.data();
+                if (data.danh_hieu === selectedDanhHieu) {
+                    let trangThaiHTML = `<span class="status-tag status-chua-duyet">Chưa duyệt</span>`;
+                    if (data.trang_thai === 'Đã duyệt') {
+                        trangThaiHTML = `<span class="status-tag status-da-duyet">Đã duyệt</span>`;
+                    } else if (data.trang_thai === 'Không duyệt') {
+                        trangThaiHTML = `<span class="status-tag status-khong-duyet">Không duyệt: ${data.ly_do || ''}</span>`;
+                    }
+
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.ho_ten}</strong></td><td>${data.mssv_an}</td><td>${trangThaiHTML}</td>`;
+                    container.appendChild(tr);
+                }
+            });
+        }
+
         function chuyenHocKy(idHk) {
-            document.getElementById('hk1').classList.remove('active');
-            document.getElementById('hk2').classList.remove('active');
-            document.getElementById('hk3').classList.remove('active');
-            document.querySelectorAll('.hk-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(idHk).classList.add('active');
+            document.getElementById('hk1').classList.add('active');
             event.currentTarget.classList.add('active');
         }
 
@@ -347,15 +327,51 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        // Xử lý sinh viên đăng ký tham gia Workshop trước
+        const formDangKySuKien = document.getElementById("formDangKySuKien");
+        formDangKySuKien.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const mssv = document.getElementById("dkMssv").value.trim();
+            const mssvRegex = /^312\d{7}$/;
+            if (!mssvRegex.test(mssv)) {
+                alert("Mã số sinh viên không hợp lệ! Phải bắt đầu bằng '312' và đúng 10 chữ số.");
+                return;
+            }
+
+            const hoTen = document.getElementById("dkHoTen").value.trim();
+            const lop = document.getElementById("dkLop").value.trim();
+
+            // Kiểm tra xem đã đăng ký chưa
+            const checkQ = query(collection(db, "DangKy_Workshop"), where("mssv", "==", mssv));
+            const snap = await getDocs(checkQ);
+            if (!snap.empty) {
+                alert("Bạn đã đăng ký tham gia hoạt động này rồi!");
+                return;
+            }
+
+            try {
+                const newRef = doc(collection(db, "DangKy_Workshop"));
+                await setDoc(doc(db, "DangKy_Workshop", newRef.id), {
+                    mssv: mssv,
+                    ho_ten: hoTen,
+                    lop: lop,
+                    thoi_gian_dk: new Date()
+                });
+                formDangKySuKien.reset();
+                alert("Đăng ký giữ chỗ thành công! Hẹn gặp bạn tại sự kiện.");
+                chuyenTrang('trangChu');
+            } catch (err) {
+                alert("Lỗi kết nối, vui lòng thử lại.");
+            }
+        });
+
         const form = document.getElementById("dataForm");
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
             const mssv = document.getElementById("mssv").value.trim();
-            
-            // Validate định dạng MSSV bắt đầu bằng 312
             const mssvRegex = /^312\d{7}$/;
             if (!mssvRegex.test(mssv)) {
-                alert("Mã số sinh viên không hợp lệ! Phải bắt đầu bằng '312' và đúng định dạng 10 chữ số (VD: 3123130144).");
+                alert("Mã số sinh viên không hợp lệ!");
                 return;
             }
 
@@ -379,15 +395,13 @@
 
             try {
                 const newDocRef = doc(collection(db, "HoSo_BaoMat"));
-                const customId = newDocRef.id;
-
-                await setDoc(doc(db, "HoSo_BaoMat", customId), {
+                await setDoc(doc(db, "HoSo_BaoMat", newDocRef.id), {
                     ho_ten: hoTen, mssv: mssv, lop: lop, sdt: sdt, nganh: nganh, 
                     dia_chi: diaChi, email: email, chuc_vu: chucVu, danh_hieu: danhHieu, 
                     link_drive: linkDrive, trang_thai: "Chưa duyệt", ly_do: "", thoi_gian: new Date()
                 });
 
-                await setDoc(doc(db, "HoSo_CongKhai", customId), {
+                await setDoc(doc(db, "HoSo_CongKhai", newDocRef.id), {
                     ho_ten: hoTen, mssv_an: mssvAn, danh_hieu: danhHieu, trang_thai: "Chưa duyệt", ly_do: "", thoi_gian: new Date()
                 });
 
@@ -398,58 +412,25 @@
             }
         });
 
-        // Lắng nghe dữ liệu tách riêng 2 bảng Sinh viên 5 Tốt & Đoàn viên Ưu tú
-        const listSV5Tot = document.getElementById("listSV5Tot");
-        const listDoanVien = document.getElementById("listDoanVien");
         const q = query(collection(db, "HoSo_CongKhai"), orderBy("thoi_gian", "desc"));
-        
         onSnapshot(q, (snapshot) => {
-            listSV5Tot.innerHTML = "";
-            listDoanVien.innerHTML = "";
-            let stt5Tot = 1;
-            let sttDoanVien = 1;
-
-            snapshot.forEach((docSnap) => {
-                const data = docSnap.data();
-                let trangThaiHTML = `<span class="status-tag status-chua-duyet">Chưa duyệt</span>`;
-                if (data.trang_thai === 'Đã duyệt') {
-                    trangThaiHTML = `<span class="status-tag status-da-duyet">Đã duyệt</span>`;
-                } else if (data.trang_thai === 'Không duyệt') {
-                    trangThaiHTML = `<span class="status-tag status-khong-duyet">Không duyệt: ${data.ly_do || ''}</span>`;
-                }
-
-                const tr = document.createElement("tr");
-                tr.innerHTML = `<td><strong>${data.danh_hieu === 'Sinh viên 5 Tốt' ? stt5Tot++ : sttDoanVien++}</strong></td><td><strong>${data.ho_ten}</strong></td><td>${data.mssv_an}</td><td>${trangThaiHTML}</td>`;
-
-                if (data.danh_hieu === 'Sinh viên 5 Tốt') {
-                    listSV5Tot.appendChild(tr);
-                } else if (data.danh_hieu === 'Đoàn viên Ưu tú') {
-                    listDoanVien.appendChild(tr);
-                }
-            });
+            window.globalSnapshot = snapshot;
+            renderHoSoTable();
         });
 
-        function bindDiemDanh(colName, elementId) {
-            const container = document.getElementById(elementId);
-            onSnapshot(query(collection(db, colName), orderBy("thoi_gian", "desc")), (snapshot) => {
-                container.innerHTML = "";
-                let stt = 1;
-                snapshot.forEach((docSnap) => {
-                    const data = docSnap.data();
-                    let thoiGianStr = data.thoi_gian ? data.thoi_gian.toDate().toLocaleTimeString('vi-VN') + " - " + data.thoi_gian.toDate().toLocaleDateString('vi-VN') : "";
-                    const tr = document.createElement("tr");
-                    tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv}</strong></td><td>${thoiGianStr}</td>`;
-                    container.appendChild(tr);
-                });
+        // Load danh sách điểm danh Workshop
+        const containerWs = document.getElementById("listDiemDanhWorkshop");
+        onSnapshot(query(collection(db, "DiemDanh_Workshop"), orderBy("thoi_gian", "desc")), (snapshot) => {
+            containerWs.innerHTML = "";
+            let stt = 1;
+            snapshot.forEach((docSnap) => {
+                const data = docSnap.data();
+                let thoiGianStr = data.thoi_gian ? data.thoi_gian.toDate().toLocaleTimeString('vi-VN') + " - " + data.thoi_gian.toDate().toLocaleDateString('vi-VN') : "";
+                const tr = document.createElement("tr");
+                tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv}</strong></td><td>${data.ho_ten}</td><td>${thoiGianStr}</td>`;
+                containerWs.appendChild(tr);
             });
-        }
-
-        bindDiemDanh("DiemDanh_HK1_HD1", "listDiemDanhHK1_HD1");
-        bindDiemDanh("DiemDanh_HK1_HD2", "listDiemDanhHK1_HD2");
-        bindDiemDanh("DiemDanh_HK2_HD1", "listDiemDanhHK2_HD1");
-        bindDiemDanh("DiemDanh_HK2_HD2", "listDiemDanhHK2_HD2");
-        bindDiemDanh("DiemDanh_HK3_HD1", "listDiemDanhHK3_HD1");
-        bindDiemDanh("DiemDanh_HK3_HD2", "listDiemDanhHK3_HD2");
+        });
     </script>
 </body>
 </html>
