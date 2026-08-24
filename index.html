@@ -49,6 +49,13 @@
         .status-chua-duyet { background-color: #fff9c4; color: #f57f17; }
         .status-khong-duyet { background-color: #ffebee; color: #c62828; }
 
+        /* Thẻ chọn hoạt động điểm danh */
+        .hoat-dong-header { display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; }
+        .hd-btn { padding: 12px 24px; background: #e8f5e9; color: #2e7d32; border: 2px solid #81c784; border-radius: 30px; font-weight: bold; font-size: 15px; cursor: pointer; transition: all 0.3s; }
+        .hd-btn.active { background: #2e7d32; color: #fff; border-color: #2e7d32; box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2); }
+        .hd-content { display: none; }
+        .hd-content.active { display: block; }
+
         footer { text-align: center; padding: 30px; background: #1b5e20; color: #fff; margin-top: 50px; border-top-left-radius: 50px; border-top-right-radius: 50px; }
     </style>
 </head>
@@ -77,7 +84,7 @@
                     <h2>Thông báo & Sự kiện</h2>
                     <div class="news-item">
                         <h3>Danh sách điểm danh hoạt động Đoàn khoa</h3>
-                        <p>Các bạn sinh viên có thể theo dõi danh sách điểm danh trực tuyến do Đoàn khoa cập nhật trực tiếp tại đây.</p>
+                        <p>Theo dõi danh sách Mã số sinh viên đã tham gia điểm danh trực tuyến cho các hoạt động.</p>
                         <button class="btn" onclick="chuyenTrang('trangDiemDanh')">Xem điểm danh</button>
                     </div>
                     <div class="news-item">
@@ -97,7 +104,7 @@
         </div>
     </div>
 
-    <!-- GIAO DIỆN XÉT DUYỆT DANH HIỆU -->
+    <!-- GIAO DIỆN XÉT DUYỆT HỒ SƠ -->
     <div id="trangDangKy" class="an-giao-dien">
         <div class="form-container">
             <h2>Hồ sơ xét duyệt danh hiệu</h2>
@@ -141,23 +148,46 @@
         </div>
     </div>
 
-    <!-- GIAO DIỆN XEM ĐIỂM DANH -->
+    <!-- GIAO DIỆN XEM ĐIỂM DANH THEO HOẠT ĐỘNG -->
     <div id="trangDiemDanh" class="an-giao-dien">
-        <div class="table-container" style="max-width: 1000px; margin-top: 40px;">
-            <h2>Danh sách sinh viên đã điểm danh</h2>
-            <p style="margin-bottom: 20px; color: #555;">Dữ liệu được cập nhật trực tiếp từ ban tổ chức Đoàn khoa.</p>
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Họ tên</th>
-                            <th>Mã số sinh viên</th>
-                            <th>Lớp</th>
-                            <th>Thời gian điểm danh</th>
-                        </tr>
-                    </thead>
-                    <tbody id="diemDanhList"></tbody>
-                </table>
+        <div class="table-container" style="max-width: 800px; margin-top: 40px;">
+            <h2>Danh sách điểm danh hoạt động</h2>
+            <p style="margin-bottom: 25px; color: #555;">Chọn hoạt động bên dưới để xem danh sách Mã số sinh viên đã điểm danh:</p>
+            
+            <!-- Thẻ chọn hoạt động -->
+            <div class="hoat-dong-header">
+                <button class="hd-btn active" onclick="chuyenHoatDong('hd1')">Ngày hội CLB khoa NN</button>
+                <button class="hd-btn" onclick="chuyenHoatDong('hd2')">Lễ đón TSV K26</button>
+            </div>
+
+            <!-- HOẠT ĐỘNG 1 -->
+            <div id="hd1" class="hd-content active">
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mã số sinh viên</th>
+                                <th>Thời gian điểm danh</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listDiemDanhHD1"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- HOẠT ĐỘNG 2 -->
+            <div id="hd2" class="hd-content">
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mã số sinh viên</th>
+                                <th>Thời gian điểm danh</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listDiemDanhHD2"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -173,6 +203,15 @@
             document.getElementById('trangDiemDanh').classList.add('an-giao-dien');
             document.getElementById(idTrang).classList.remove('an-giao-dien');
             window.scrollTo(0, 0);
+        }
+
+        function chuyenHoatDong(idHd) {
+            document.getElementById('hd1').classList.remove('active');
+            document.getElementById('hd2').classList.remove('active');
+            document.querySelectorAll('.hd-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(idHd).classList.add('active');
+            event.currentTarget.classList.add('active');
         }
     </script>
 
@@ -194,7 +233,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Xử lý nộp hồ sơ xét danh hiệu
+        // Nộp hồ sơ xét danh hiệu
         const form = document.getElementById("dataForm");
         const dataList = document.getElementById("dataList");
 
@@ -258,28 +297,39 @@
             });
         });
 
-        // Hiển thị danh sách điểm danh (Chỉ xem)
-        const diemDanhList = document.getElementById("diemDanhList");
-        const ddQuery = query(collection(db, "DiemDanh"), orderBy("thoi_gian", "desc"));
-        onSnapshot(ddQuery, (snapshot) => {
-            diemDanhList.innerHTML = "";
+        // Lấy dữ liệu điểm danh Hoạt động 1
+        const listHD1 = document.getElementById("listDiemDanhHD1");
+        const qHD1 = query(collection(db, "DiemDanh_HD1"), orderBy("thoi_gian", "desc"));
+        onSnapshot(qHD1, (snapshot) => {
+            listHD1.innerHTML = "";
             snapshot.forEach((docSnap) => {
                 const data = docSnap.data();
-                const tr = document.createElement("tr");
-                
                 let thoiGianStr = "Vừa xong";
                 if (data.thoi_gian) {
                     const dateObj = data.thoi_gian.toDate();
                     thoiGianStr = dateObj.toLocaleTimeString('vi-VN') + " - " + dateObj.toLocaleDateString('vi-VN');
                 }
+                const tr = document.createElement("tr");
+                tr.innerHTML = `<td><strong>${data.mssv}</strong></td><td>${thoiGianStr}</td>`;
+                listHD1.appendChild(tr);
+            });
+        });
 
-                tr.innerHTML = `
-                    <td><strong>${data.ho_ten}</strong></td>
-                    <td>${data.mssv}</td>
-                    <td>${data.lop}</td>
-                    <td>${thoiGianStr}</td>
-                `;
-                diemDanhList.appendChild(tr);
+        // Lấy dữ liệu điểm danh Hoạt động 2
+        const listHD2 = document.getElementById("listDiemDanhHD2");
+        const qHD2 = query(collection(db, "DiemDanh_HD2"), orderBy("thoi_gian", "desc"));
+        onSnapshot(qHD2, (snapshot) => {
+            listHD2.innerHTML = "";
+            snapshot.forEach((docSnap) => {
+                const data = docSnap.data();
+                let thoiGianStr = "Vừa xong";
+                if (data.thoi_gian) {
+                    const dateObj = data.thoi_gian.toDate();
+                    thoiGianStr = dateObj.toLocaleTimeString('vi-VN') + " - " + dateObj.toLocaleDateString('vi-VN');
+                }
+                const tr = document.createElement("tr");
+                tr.innerHTML = `<td><strong>${data.mssv}</strong></td><td>${thoiGianStr}</td>`;
+                listHD2.appendChild(tr);
             });
         });
     </script>
