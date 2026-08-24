@@ -367,8 +367,8 @@
             document.getElementById('buocChonSuKien').classList.add('an-giao-dien');
             document.getElementById('formDangKySuKien').classList.remove('an-giao-dien');
 
-            if (typeof window.loadDanhSachDaDangKy === 'function') {
-                window.loadDanhSachDaDangKy(activeSuKienDangChon);
+            if (typeof window.taiDanhSachDangKyTheoSuKien === 'function') {
+                window.taiDanhSachDangKyTheoSuKien(activeSuKienDangChon);
             }
         }
 
@@ -440,11 +440,20 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        window.loadDanhSachDaDangKy = function(skName) {
+        let unsubscribeCurrent = null;
+
+        window.taiDanhSachDangKyTheoSuKien = function(skName) {
             const tableBody = document.getElementById("listDaDangKySv");
             if (!tableBody) return;
+
+            // Hủy listener cũ nếu có để tránh chồng chéo data giữa các sự kiện
+            if (unsubscribeCurrent) {
+                unsubscribeCurrent();
+            }
+
             const qReg = query(collection(db, "DangKy_SuKien"), where("su_kien", "==", skName), orderBy("thoi_gian_dk", "desc"));
-            onSnapshot(qReg, (snapshot) => {
+            
+            unsubscribeCurrent = onSnapshot(qReg, (snapshot) => {
                 tableBody.innerHTML = "";
                 let stt = 1;
                 snapshot.forEach((docSnap) => {
@@ -453,6 +462,21 @@
                     const tr = document.createElement("tr");
                     tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${mssvAn}</strong></td>`;
                     tableBody.appendChild(tr);
+                });
+            }, (error) => {
+                // Trường hợp Firestore chưa tạo Index cho query phức hợp, log ra console và dùng query dự phòng
+                console.warn("Đang dùng query dự phòng do chưa tạo index:", error);
+                const qFallback = query(collection(db, "DangKy_SuKien"), where("su_kien", "==", skName));
+                onSnapshot(qFallback, (snapshot) => {
+                    tableBody.innerHTML = "";
+                    let stt = 1;
+                    snapshot.forEach((docSnap) => {
+                        const data = docSnap.data();
+                        let mssvAn = data.mssv ? data.mssv.substring(0, 4) + "***" : "";
+                        const tr = document.createElement("tr");
+                        tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${mssvAn}</strong></td>`;
+                        tableBody.appendChild(tr);
+                    });
                 });
             });
         };
@@ -482,13 +506,12 @@
                     mssv: mssv, ho_ten: hoTen, lop: lop, su_kien: skName, thoi_gian_dk: new Date()
                 });
                 
-                // Giữ nguyên input tên sự kiện ẩn để load lại danh sách chính xác
                 document.getElementById("dkHoTen").value = "";
                 document.getElementById("dkMssv").value = "";
                 document.getElementById("dkLop").value = "";
 
                 alert("Đăng ký giữ chỗ thành công!");
-                window.loadDanhSachDaDangKy(skName);
+                window.taiDanhSachDangKyTheoSuKien(skName);
             } catch (err) {
                 alert("Lỗi kết nối.");
             }
