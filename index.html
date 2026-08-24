@@ -140,7 +140,7 @@
         </div>
     </div>
 
-    <!-- MÀN HÌNH ĐĂNG KÝ SỰ KIỆN: BƯỚC 1 CHỌN SỰ KIỆN, BƯỚC 2 NHẬP FORM -->
+    <!-- MÀN HÌNH ĐĂNG KÝ SỰ KIỆN -->
     <div id="trangDangKyHoatDong" class="an-giao-dien">
         <div class="form-container" style="max-width: 600px;">
             <h2 id="tieuDeChonHoatDong">Đăng ký giữ chỗ sự kiện</h2>
@@ -149,7 +149,7 @@
             <div id="buocChonSuKien" style="margin-bottom: 25px;">
                 <p style="margin-bottom: 12px; font-weight: 700; color: #374151;">Chọn hoạt động bạn muốn tham gia:</p>
                 <div class="form-group">
-                    <select id="selectHoatDongTimeline" onchange="chonHoatDongTuDropdown(this.value)">
+                    <select id="selectHoatDongTimeline">
                         <option value="Workshop Làm đồ dân gian">Workshop: Làm đồ dân gian truyền thống (25/09/2026)</option>
                         <option value="Ngày hội CLB khoa NN">Ngày hội các Câu lạc bộ khoa Ngoại ngữ</option>
                         <option value="Lễ đón TSV K26">Lễ đón Tân sinh viên khóa K26</option>
@@ -160,7 +160,7 @@
                 <button type="button" class="btn" onclick="chuyenSangBuocNhapForm()" style="width: 100%;">Tiếp tục đăng ký</button>
             </div>
 
-            <!-- Bước 2: Form nhập thông tin (Ẩn mặc định, hiện sau khi bấm tiếp tục) -->
+            <!-- Bước 2: Form nhập thông tin -->
             <form id="formDangKySuKien" class="an-giao-dien">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                     <span id="nhanTenSuKienDangChon" style="color: #15803d; font-weight: 900; font-size: 1rem;"></span>
@@ -339,7 +339,7 @@
     <script>
         let selectedDanhHieu = "Sinh viên 5 Tốt";
         let globalSnapshot = null;
-        let currentSuKien = "Workshop Làm đồ dân gian";
+        let activeSuKienDangChon = "Workshop Làm đồ dân gian";
 
         function chuyenTrang(idTrang) {
             document.getElementById('trangChu').classList.add('an-giao-dien');
@@ -357,21 +357,19 @@
             chuyenTrang('trangDangKyHoatDong');
         }
 
-        function chonHoatDongTuDropdown(tenSk) {
-            currentSuKien = tenSk;
-        }
-
         function chuyenSangBuocNhapForm() {
             const selectEl = document.getElementById('selectHoatDongTimeline');
-            currentSuKien = selectEl.value;
+            activeSuKienDangChon = selectEl.value;
 
-            document.getElementById('nhanTenSuKienDangChon').innerText = `Hoạt động: ${currentSuKien}`;
-            document.getElementById('tenSuKienInput').value = currentSuKien;
+            document.getElementById('nhanTenSuKienDangChon').innerText = `Hoạt động: ${activeSuKienDangChon}`;
+            document.getElementById('tenSuKienInput').value = activeSuKienDangChon;
 
             document.getElementById('buocChonSuKien').classList.add('an-giao-dien');
             document.getElementById('formDangKySuKien').classList.remove('an-giao-dien');
 
-            loadDanhSachDaDangKy(currentSuKien);
+            if (typeof window.loadDanhSachDaDangKy === 'function') {
+                window.loadDanhSachDaDangKy(activeSuKienDangChon);
+            }
         }
 
         function quayLaiChonSuKien() {
@@ -442,41 +440,9 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        const formDangKySuKien = document.getElementById("formDangKySuKien");
-        formDangKySuKien.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const mssv = document.getElementById("dkMssv").value.trim();
-            if (!/^312\d{7}$/.test(mssv)) {
-                alert("Mã số sinh viên không hợp lệ! Phải bắt đầu bằng '312' và đúng 10 chữ số.");
-                return;
-            }
-
-            const hoTen = document.getElementById("dkHoTen").value.trim();
-            const lop = document.getElementById("dkLop").value.trim();
-            const skName = document.getElementById("tenSuKienInput").value || currentSuKien;
-
-            const checkQ = query(collection(db, "DangKy_SuKien"), where("mssv", "==", mssv), where("su_kien", "==", skName));
-            if (!(await getDocs(checkQ)).empty) {
-                alert("Bạn đã đăng ký tham gia sự kiện này rồi!");
-                return;
-            }
-
-            try {
-                const newRef = doc(collection(db, "DangKy_SuKien"));
-                await setDoc(doc(db, "DangKy_SuKien", newRef.id), {
-                    mssv: mssv, ho_ten: hoTen, lop: lop, su_kien: skName, thoi_gian_dk: new Date()
-                });
-                formDangKySuKien.reset();
-                document.getElementById("tenSuKienInput").value = skName;
-                alert("Đăng ký giữ chỗ thành công!");
-                loadDanhSachDaDangKy(skName);
-            } catch (err) {
-                alert("Lỗi kết nối.");
-            }
-        });
-
         window.loadDanhSachDaDangKy = function(skName) {
             const tableBody = document.getElementById("listDaDangKySv");
+            if (!tableBody) return;
             const qReg = query(collection(db, "DangKy_SuKien"), where("su_kien", "==", skName), orderBy("thoi_gian_dk", "desc"));
             onSnapshot(qReg, (snapshot) => {
                 tableBody.innerHTML = "";
@@ -489,7 +455,44 @@
                     tableBody.appendChild(tr);
                 });
             });
-        }
+        };
+
+        const formDangKySuKien = document.getElementById("formDangKySuKien");
+        formDangKySuKien.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const mssv = document.getElementById("dkMssv").value.trim();
+            if (!/^312\d{7}$/.test(mssv)) {
+                alert("Mã số sinh viên không hợp lệ! Phải bắt đầu bằng '312' và đúng 10 chữ số.");
+                return;
+            }
+
+            const hoTen = document.getElementById("dkHoTen").value.trim();
+            const lop = document.getElementById("dkLop").value.trim();
+            const skName = document.getElementById("tenSuKienInput").value;
+
+            const checkQ = query(collection(db, "DangKy_SuKien"), where("mssv", "==", mssv), where("su_kien", "==", skName));
+            if (!(await getDocs(checkQ)).empty) {
+                alert("Bạn đã đăng ký tham gia sự kiện này rồi!");
+                return;
+            }
+
+            try {
+                const newRef = doc(collection(db, "DangKy_SuKien"));
+                await setDoc(doc(db, "DangKy_SuKien", newRef.id), {
+                    mssv: mssv, ho_ten: hoTen, lop: lop, su_kien: skName, thoi_gian_dk: new Date()
+                });
+                
+                // Giữ nguyên input tên sự kiện ẩn để load lại danh sách chính xác
+                document.getElementById("dkHoTen").value = "";
+                document.getElementById("dkMssv").value = "";
+                document.getElementById("dkLop").value = "";
+
+                alert("Đăng ký giữ chỗ thành công!");
+                window.loadDanhSachDaDangKy(skName);
+            } catch (err) {
+                alert("Lỗi kết nối.");
+            }
+        });
 
         const form = document.getElementById("dataForm");
         form.addEventListener("submit", async (e) => {
