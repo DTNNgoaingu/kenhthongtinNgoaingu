@@ -569,11 +569,13 @@
                 let stt = 1;
                 let count = 0;
                 snapshot.forEach((docSnap) => {
-                    count++;
                     const data = docSnap.data();
-                    const tr = document.createElement("tr");
-                    tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv}</strong></td>`;
-                    tableBody.appendChild(tr);
+                    if (!data.la_cau_hinh) {
+                        count++;
+                        const tr = document.createElement("tr");
+                        tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv}</strong></td>`;
+                        tableBody.appendChild(tr);
+                    }
                 });
                 kiemTraGioiHanDangKy(skName, count);
             }, (error) => {
@@ -583,11 +585,13 @@
                     let stt = 1;
                     let count = 0;
                     snapshot.forEach((docSnap) => {
-                        count++;
                         const data = docSnap.data();
-                        const tr = document.createElement("tr");
-                        tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv}</strong></td>`;
-                        tableBody.appendChild(tr);
+                        if (!data.la_cau_hinh) {
+                            count++;
+                            const tr = document.createElement("tr");
+                            tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv}</strong></td>`;
+                            tableBody.appendChild(tr);
+                        }
                     });
                     kiemTraGioiHanDangKy(skName, count);
                 });
@@ -599,12 +603,12 @@
             const thongBaoHetCho = document.getElementById("thongBaoHetCho");
             
             try {
-                const limitQuery = query(collection(db, "CauHinh_SuKien"), where("su_kien", "==", skName));
+                const limitQuery = query(collection(db, "DangKy_SuKien"), where("su_kien", "==", skName), where("la_cau_hinh", "==", true));
                 const limitSnap = await getDocs(limitQuery);
                 
                 let maxLimit = null;
                 if (!limitSnap.empty) {
-                    maxLimit = limitSnap.docs[0].data().gioi_han;
+                    maxLimit = limitSnap.docs[0].data().gioi_han_toi_da;
                 }
 
                 if (maxLimit !== null && currentCount >= maxLimit) {
