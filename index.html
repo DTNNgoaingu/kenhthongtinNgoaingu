@@ -10,21 +10,21 @@
         
         .an-giao-dien { display: none !important; }
 
-        header { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #bbf7d0; box-shadow: 0 4px 20px rgba(22, 101, 52, 0.08); position: sticky; top: 0; z-index: 100; }
-        .logo { font-size: 2.2rem; font-weight: 900; background: linear-gradient(135deg, #15803d 0%, #ca8a04 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; letter-spacing: 1px; }
-        nav ul { list-style: none; display: flex; gap: 12px; }
-        nav a { color: #166534; text-decoration: none; font-weight: 800; padding: 10px 22px; border-radius: 25px; transition: all 0.3s; cursor: pointer; background: #f0fdf4; border: 2px solid #bbf7d0; }
+        header { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 1rem 3%; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #bbf7d0; box-shadow: 0 4px 20px rgba(22, 101, 52, 0.08); position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 10px; }
+        .logo { font-size: 2rem; font-weight: 900; background: linear-gradient(135deg, #15803d 0%, #ca8a04 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; letter-spacing: 1px; }
+        nav ul { list-style: none; display: flex; gap: 8px; flex-wrap: wrap; }
+        nav a { color: #166534; text-decoration: none; font-weight: 800; padding: 8px 14px; border-radius: 20px; transition: all 0.3s; cursor: pointer; background: #f0fdf4; border: 2px solid #bbf7d0; font-size: 0.85rem; }
         nav a:hover { background: linear-gradient(135deg, #166534 0%, #ca8a04 100%); color: #fff; border-color: transparent; box-shadow: 0 4px 15px rgba(22, 101, 52, 0.3); }
         
-        /* BANNER / HERO SÁNG SỦA, SANG TRỌNG & RÕ NÉT */
-        .hero-wrapper { max-width: 1200px; margin: 40px auto 25px auto; padding: 0 20px; }
+        /* BANNER / HERO CHO MÁY TÍNH & MOBILE */
+        .hero-wrapper { max-width: 1200px; margin: 30px auto 20px auto; padding: 0 15px; }
         .hero { 
             background: linear-gradient(135deg, rgba(21, 128, 61, 0.52) 0%, rgba(20, 83, 45, 0.62) 60%, rgba(15, 23, 42, 0.68) 100%), 
                         url('banner.jpg') center/cover no-repeat;
             color: white; 
             text-align: center; 
-            padding: 4.5rem 2rem 3rem 2rem; 
-            border-radius: 35px; 
+            padding: 4rem 1.5rem 2.5rem 1.5rem; 
+            border-radius: 30px; 
             box-shadow: 0 20px 40px rgba(22, 101, 52, 0.18); 
             position: relative; 
             overflow: hidden; 
@@ -36,19 +36,19 @@
             background: rgba(21, 128, 61, 0.85);
             border: 1px solid #fef08a;
             color: #fef08a;
-            padding: 6px 18px;
+            padding: 5px 14px;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.25);
         }
 
         .hero h1 { 
-            font-size: 3.2rem; 
-            margin-bottom: 12px; 
+            font-size: 2.8rem; 
+            margin-bottom: 10px; 
             color: #ffffff; 
             font-weight: 900; 
             letter-spacing: -0.5px;
@@ -56,33 +56,33 @@
         }
 
         .hero p { 
-            font-size: 1.15rem; 
+            font-size: 1rem; 
             color: #fef08a; 
             font-weight: 700; 
-            max-width: 800px;
-            margin: 0 auto 35px auto;
+            max-width: 750px;
+            margin: 0 auto 25px auto;
             text-shadow: 0 2px 8px rgba(0,0,0,0.8); 
         }
 
         .hero-stats {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            max-width: 550px;
+            gap: 15px;
+            max-width: 480px;
             margin: 0 auto;
             background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(12px);
-            padding: 15px 25px;
-            border-radius: 25px;
+            padding: 12px 20px;
+            border-radius: 22px;
             border: 2px solid rgba(187, 247, 208, 0.4);
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
 
         .stat-item { text-align: center; }
-        .stat-number { font-size: 1.6rem; font-weight: 900; color: #fef08a; display: block; }
-        .stat-label { font-size: 0.82rem; color: #e5e7eb; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-number { font-size: 1.4rem; font-weight: 900; color: #fef08a; display: block; }
+        .stat-label { font-size: 0.75rem; color: #e5e7eb; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* DÃY HÌNH KHỐI NẰM NGANG CÓ THỂ VUỐT (SCROLL NGANG) */
+        /* DÃY HÌNH KHỐI NẰM NGANG CÓ THỂ VUỐT */
         .event-timeline-horizontal {
             display: flex;
             gap: 15px;
@@ -91,17 +91,9 @@
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
         }
-        .event-timeline-horizontal::-webkit-scrollbar {
-            height: 8px;
-        }
-        .event-timeline-horizontal::-webkit-scrollbar-track {
-            background: #f0fdf4;
-            border-radius: 10px;
-        }
-        .event-timeline-horizontal::-webkit-scrollbar-thumb {
-            background: #22c55e;
-            border-radius: 10px;
-        }
+        .event-timeline-horizontal::-webkit-scrollbar { height: 8px; }
+        .event-timeline-horizontal::-webkit-scrollbar-track { background: #f0fdf4; border-radius: 10px; }
+        .event-timeline-horizontal::-webkit-scrollbar-thumb { background: #22c55e; border-radius: 10px; }
 
         .event-pick-card {
             min-width: 260px;
@@ -115,91 +107,95 @@
             flex-shrink: 0;
             box-shadow: 0 4px 15px rgba(22, 101, 52, 0.04);
         }
-        .event-pick-card:hover {
-            transform: translateY(-4px);
-            border-color: #22c55e;
-            box-shadow: 0 10px 25px rgba(22, 101, 52, 0.12);
-        }
+        .event-pick-card:hover { transform: translateY(-4px); border-color: #22c55e; box-shadow: 0 10px 25px rgba(22, 101, 52, 0.12); }
         .event-pick-card.selected {
             background: linear-gradient(135deg, #15803d 0%, #166534 100%);
             color: #ffffff;
             border-color: #eab308;
             box-shadow: 0 8px 25px rgba(22, 101, 52, 0.3);
         }
-        .event-pick-card.selected h4, .event-pick-card.selected p {
-            color: #ffffff;
-        }
-        .event-pick-card h4 {
-            font-size: 1.05rem;
-            font-weight: 900;
-            color: #166534;
-            margin-bottom: 8px;
-        }
-        .event-pick-card p {
-            font-size: 0.82rem;
-            color: #555;
-            font-weight: 600;
-        }
+        .event-pick-card.selected h4, .event-pick-card.selected p { color: #ffffff; }
+        .event-pick-card h4 { font-size: 1.05rem; font-weight: 900; color: #166534; margin-bottom: 8px; }
+        .event-pick-card p { font-size: 0.82rem; color: #555; font-weight: 600; }
 
-        .container { width: 90%; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
-        .card { background: #ffffff; padding: 35px; border-radius: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 25px; border: 3px solid #bbf7d0; }
-        .card h2 { color: #166534; margin-bottom: 22px; font-size: 1.6rem; font-weight: 900; background: linear-gradient(135deg, #15803d 0%, #166534 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .container { width: 92%; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
+        .card { background: #ffffff; padding: 30px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 25px; border: 3px solid #bbf7d0; }
+        .card h2 { color: #166534; margin-bottom: 20px; font-size: 1.5rem; font-weight: 900; background: linear-gradient(135deg, #15803d 0%, #166534 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        .timeline { position: relative; padding-left: 30px; margin-top: 15px; }
-        .timeline::before { content: ''; position: absolute; left: 10px; top: 5px; bottom: 5px; width: 4px; background: #bbf7d0; border-radius: 4px; }
-        .timeline-item { position: relative; margin-bottom: 30px; background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%); padding: 25px; border-radius: 30px; border: 2px solid #bbf7d0; box-shadow: 0 4px 15px rgba(22, 101, 52, 0.04); transition: all 0.3s; }
+        .timeline { position: relative; padding-left: 25px; margin-top: 15px; }
+        .timeline::before { content: ''; position: absolute; left: 8px; top: 5px; bottom: 5px; width: 4px; background: #bbf7d0; border-radius: 4px; }
+        .timeline-item { position: relative; margin-bottom: 25px; background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%); padding: 20px; border-radius: 25px; border: 2px solid #bbf7d0; box-shadow: 0 4px 15px rgba(22, 101, 52, 0.04); transition: all 0.3s; }
         .timeline-item:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(22, 101, 52, 0.1); border-color: #22c55e; }
-        .timeline-dot { position: absolute; left: -26px; top: 28px; width: 16px; height: 16px; background: #15803d; border: 3px solid #fef08a; border-radius: 50%; box-shadow: 0 0 0 4px #dcfce7; }
+        .timeline-dot { position: absolute; left: -24px; top: 22px; width: 14px; height: 14px; background: #15803d; border: 3px solid #fef08a; border-radius: 50%; box-shadow: 0 0 0 3px #dcfce7; }
         
-        .timeline-item h3 { font-size: 1.3rem; color: #166534; margin-bottom: 6px; font-weight: 900; }
-        .event-meta { font-size: 0.88rem; color: #15803d; font-weight: 800; margin-bottom: 12px; background: #dcfce7; padding: 5px 12px; border-radius: 12px; display: inline-block; }
-        .timeline-item p { font-size: 0.95rem; color: #4b5563; margin-bottom: 15px; font-weight: 500; }
+        .timeline-item h3 { font-size: 1.2rem; color: #166534; margin-bottom: 6px; font-weight: 900; }
+        .event-meta { font-size: 0.82rem; color: #15803d; font-weight: 800; margin-bottom: 10px; background: #dcfce7; padding: 4px 10px; border-radius: 10px; display: inline-block; }
+        .timeline-item p { font-size: 0.9rem; color: #4b5563; margin-bottom: 12px; font-weight: 500; }
         
-        .btn { display: inline-block; padding: 12px 25px; background: linear-gradient(135deg, #22c55e 0%, #ca8a04 100%); color: #ffffff; text-decoration: none; border-radius: 30px; font-weight: 900; font-size: 0.9rem; transition: all 0.3s; cursor: pointer; border: none; box-shadow: 0 6px 20px rgba(202, 138, 4, 0.4); text-align: center; text-transform: uppercase; }
-        .btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(202, 138, 4, 0.6); }
+        .btn { display: inline-block; padding: 12px 22px; background: linear-gradient(135deg, #22c55e 0%, #ca8a04 100%); color: #ffffff; text-decoration: none; border-radius: 25px; font-weight: 900; font-size: 0.85rem; transition: all 0.3s; cursor: pointer; border: none; box-shadow: 0 6px 20px rgba(202, 138, 4, 0.4); text-align: center; text-transform: uppercase; }
+        .btn:hover { transform: scale(1.03); box-shadow: 0 8px 25px rgba(202, 138, 4, 0.6); }
 
-        .ctdt-grid { display: flex; flex-direction: column; gap: 10px; }
-        .ctdt-link { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #f0fdf4; text-decoration: none; color: #166534; font-weight: 800; border-radius: 16px; border: 2px solid #bbf7d0; transition: all 0.3s; font-size: 0.88rem; }
-        .ctdt-link:hover { background: linear-gradient(135deg, #166534 0%, #ca8a04 100%); color: #fff; border-color: transparent; padding-left: 20px; box-shadow: 0 4px 12px rgba(22, 101, 52, 0.2); }
-        .ctdt-link span { font-size: 0.75rem; background: rgba(22, 101, 52, 0.1); padding: 3px 8px; border-radius: 10px; }
+        .ctdt-grid { display: flex; flex-direction: column; gap: 8px; }
+        .ctdt-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #f0fdf4; text-decoration: none; color: #166534; font-weight: 800; border-radius: 14px; border: 2px solid #bbf7d0; transition: all 0.3s; font-size: 0.85rem; }
+        .ctdt-link:hover { background: linear-gradient(135deg, #166534 0%, #ca8a04 100%); color: #fff; border-color: transparent; padding-left: 16px; box-shadow: 0 4px 12px rgba(22, 101, 52, 0.2); }
+        .ctdt-link span { font-size: 0.72rem; background: rgba(22, 101, 52, 0.1); padding: 2px 6px; border-radius: 8px; }
         .ctdt-link:hover span { background: rgba(255, 255, 255, 0.2); color: #fff; }
 
-        .form-container, .table-container { max-width: 950px; margin: 30px auto; background: #ffffff; padding: 45px; border-radius: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 3px solid #bbf7d0; }
-        .form-group { margin-bottom: 22px; }
-        input, select { width: 100%; padding: 18px 24px; border-radius: 25px; font-size: 16px; outline: none; border: 2px solid #bbf7d0; background-color: #fafdfa; color: #1f2937; font-weight: 700; transition: all 0.3s; }
-        input:focus, select:focus { border-color: #22c55e; background-color: #ffffff; box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.15); }
+        .form-container, .table-container { width: 92%; max-width: 900px; margin: 25px auto; background: #ffffff; padding: 30px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 3px solid #bbf7d0; }
+        .form-group { margin-bottom: 18px; }
+        input, select { width: 100%; padding: 15px 20px; border-radius: 20px; font-size: 15px; outline: none; border: 2px solid #bbf7d0; background-color: #fafdfa; color: #1f2937; font-weight: 700; transition: all 0.3s; }
+        input:focus, select:focus { border-color: #22c55e; background-color: #ffffff; box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15); }
         select { appearance: none; cursor: pointer; }
         
-        .table-responsive { width: 100%; overflow-x: auto; border-radius: 25px; border: 2px solid #bbf7d0; margin-top: 15px; }
+        .table-responsive { width: 100%; overflow-x: auto; border-radius: 20px; border: 2px solid #bbf7d0; margin-top: 12px; }
         table { width: 100%; border-collapse: collapse; white-space: nowrap; }
-        th, td { padding: 15px 20px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 14px; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 13px; }
         th { background: linear-gradient(135deg, #15803d 0%, #166534 100%); color: #fef08a; font-weight: 900; text-transform: uppercase; }
         tr:last-child td { border-bottom: none; }
         tr:hover td { background-color: #f0fdf4; }
         
-        .status-tag { padding: 8px 16px; border-radius: 20px; font-weight: 900; font-size: 13px; display: inline-block; }
+        .status-tag { padding: 6px 12px; border-radius: 15px; font-weight: 900; font-size: 12px; display: inline-block; }
         .status-da-duyet { background-color: #dcfce7; color: #166534; border: 2px solid #bbf7d0; }
         .status-chua-duyet { background-color: #fef9c3; color: #854d0e; border: 2px solid #fef08a; }
         .status-khong-duyet { background-color: #fee2e2; color: #991b1b; border: 2px solid #fecaca; }
 
-        .filter-tabs { display: flex; gap: 12px; margin-bottom: 20px; }
-        .filter-btn { flex: 1; padding: 12px 20px; background: #f0fdf4; color: #166534; border: 2px solid #bbf7d0; border-radius: 20px; font-weight: 900; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .filter-tabs { display: flex; gap: 10px; margin-bottom: 15px; }
+        .filter-btn { flex: 1; padding: 10px 15px; background: #f0fdf4; color: #166534; border: 2px solid #bbf7d0; border-radius: 18px; font-weight: 900; cursor: pointer; transition: all 0.3s; text-align: center; font-size: 0.85rem; }
         .filter-btn.active { background: linear-gradient(135deg, #15803d 0%, #ca8a04 100%); color: #fff; border-color: transparent; box-shadow: 0 4px 15px rgba(22, 101, 52, 0.25); }
 
-        .hocky-tabs { display: flex; gap: 12px; margin-bottom: 25px; flex-wrap: wrap; background: #f0fdf4; padding: 10px; border-radius: 25px; border: 2px solid #bbf7d0; }
-        .hk-btn { flex: 1; min-width: 200px; padding: 14px 20px; background: #ffffff; color: #166534; border: 2px solid #bbf7d0; border-radius: 18px; font-weight: 900; font-size: 0.95rem; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .hocky-tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; background: #f0fdf4; padding: 8px; border-radius: 20px; border: 2px solid #bbf7d0; }
+        .hk-btn { flex: 1; min-width: 160px; padding: 12px 15px; background: #ffffff; color: #166534; border: 2px solid #bbf7d0; border-radius: 15px; font-weight: 900; font-size: 0.9rem; cursor: pointer; transition: all 0.3s; text-align: center; }
         .hk-btn.active { background: linear-gradient(135deg, #15803d 0%, #ca8a04 100%); color: #fff; border-color: transparent; box-shadow: 0 4px 15px rgba(22, 101, 52, 0.25); }
         
         .hocky-content { display: none; }
         .hocky-content.active { display: block; }
 
-        .hoat-dong-header { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
-        .hd-btn { padding: 12px 24px; background: #fefce8; color: #854d0e; border: 2px solid #fef08a; border-radius: 20px; font-weight: 800; font-size: 0.92rem; cursor: pointer; transition: all 0.3s; }
+        .hoat-dong-header { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+        .hd-btn { padding: 10px 18px; background: #fefce8; color: #854d0e; border: 2px solid #fef08a; border-radius: 18px; font-weight: 800; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; }
         .hd-btn.active { background: #166534; color: #fef08a; border-color: #166534; box-shadow: 0 4px 12px rgba(22, 101, 52, 0.15); }
         .hd-subcontent { display: none; }
         .hd-subcontent.active { display: block; }
 
-        footer { text-align: center; padding: 40px; background: linear-gradient(135deg, #166534 0%, #15803d 100%); color: #fff; margin-top: 70px; border-top-left-radius: 40px; border-top-right-radius: 40px; font-weight: 800; border-top: 4px solid #eab308; }
+        footer { text-align: center; padding: 30px; background: linear-gradient(135deg, #166534 0%, #15803d 100%); color: #fff; margin-top: 50px; border-top-left-radius: 35px; border-top-right-radius: 35px; font-weight: 800; border-top: 4px solid #eab308; font-size: 0.9rem; }
+
+        /* RESPONSIVE CHO ĐIỆN THOẠI DI ĐỘNG */
+        @media (max-width: 768px) {
+            header { padding: 10px 15px; justify-content: center; }
+            .logo { display: none; } /* Ẩn logo chữ FFL trên mobile cho menu thoáng hẳn */
+            nav ul { justify-content: center; width: 100%; gap: 6px; }
+            nav a { padding: 6px 10px; font-size: 0.75rem; border-radius: 15px; }
+            
+            .container { grid-template-columns: 1fr; width: 95%; }
+            .hero { padding: 3rem 1rem 2rem 1.5rem; border-radius: 20px; }
+            .hero h1 { font-size: 2.1rem; }
+            .hero p { font-size: 0.9rem; }
+            .hero-stats { max-width: 100%; gap: 10px; padding: 10px 15px; }
+            .stat-number { font-size: 1.2rem; }
+            .stat-label { font-size: 0.68rem; }
+            
+            .form-container, .table-container { padding: 20px; border-radius: 20px; width: 95%; margin: 15px auto; }
+            input, select { padding: 12px 15px; font-size: 14px; border-radius: 18px; }
+        }
     </style>
 </head>
 <body>
@@ -255,7 +251,7 @@
 
                 <div class="card">
                     <h2>Tiêu chí Sinh viên 5 Tốt</h2>
-                    <div style="color: #4b5563; font-weight: 500; margin-bottom: 15px;">
+                    <div style="color: #4b5563; font-weight: 500; margin-bottom: 15px; font-size: 0.95rem;">
                         <p>Danh hiệu <strong>"Sinh viên 5 Tốt"</strong> là phần thưởng cao quý dành cho đoàn viên, sinh viên đạt chuẩn toàn diện về 5 tiêu chí: <em>Đạo đức tốt, Học tập tốt, Thể lực tốt, Tình nguyện tốt và Hội nhập tốt</em>.</p>
                     </div>
                     <button class="btn" onclick="chuyenTrang('trangSV5Tot')">Xem chi tiết & Nộp hồ sơ ngay</button>
@@ -263,7 +259,7 @@
 
                 <div class="card">
                     <h2>Tra cứu Điểm danh nhanh</h2>
-                    <p style="color: #4b5563; margin-bottom: 15px; font-weight: 500;">Bạn có thể tra cứu nhanh danh sách mã số sinh viên đã check-in tham gia các chương trình cấp khoa tại mục Điểm danh chi tiết.</p>
+                    <p style="color: #4b5563; margin-bottom: 15px; font-weight: 500; font-size: 0.95rem;">Bạn có thể tra cứu nhanh danh sách mã số sinh viên đã check-in tham gia các chương trình cấp khoa tại mục Điểm danh chi tiết.</p>
                     <button class="btn" onclick="chuyenTrang('trangDiemDanh')">Đến trang tra cứu điểm danh</button>
                 </div>
             </main>
@@ -286,13 +282,13 @@
     <div id="trangGioiThieu" class="an-giao-dien">
         <div class="form-container" style="max-width: 900px;">
             <h2>Giới thiệu Đoàn - Hội khoa Ngoại ngữ</h2>
-            <div style="line-height: 1.8; color: #374151; font-size: 1rem; margin-top: 15px;">
+            <div style="line-height: 1.8; color: #374151; font-size: 0.95rem; margin-top: 15px;">
                 <p style="margin-bottom: 15px;"><strong>Đoàn TNCS Hồ Chí Minh - Hội Sinh viên khoa Ngoại ngữ (Đại học Sài Gòn)</strong> là ngôi nhà chung năng động, nhiệt huyết và là môi trường rèn luyện uy tín của toàn thể đoàn viên, sinh viên khối ngành ngôn ngữ và sư phạm.</p>
                 
-                <h3 style="color: #166534; margin: 20px 0 10px 0; font-size: 1.2rem;">Sứ mệnh và Tầm nhìn</h3>
+                <h3 style="color: #166534; margin: 20px 0 10px 0; font-size: 1.1rem;">Sứ mệnh và Tầm nhìn</h3>
                 <p style="margin-bottom: 15px;">Tiên phong trong học tập, sáng tạo, chuyển đổi số và hội nhập quốc tế. Đồng thời tạo môi trường rèn luyện các tiêu chí trong phong trào "Sinh viên 5 Tốt", bồi dưỡng bản lĩnh chính trị và kỹ năng thực tế cho thế hệ trẻ.</p>
 
-                <h3 style="color: #166534; margin: 20px 0 10px 0; font-size: 1.2rem;">Các Câu lạc bộ trực thuộc</h3>
+                <h3 style="color: #166534; margin: 20px 0 10px 0; font-size: 1.1rem;">Các Câu lạc bộ trực thuộc</h3>
                 <ul style="margin-left: 20px; margin-bottom: 15px;">
                     <li><strong>CLB Tiếng Anh - EC:</strong> Môi trường trau dồi và phát triển kỹ năng giao tiếp ngoại ngữ.</li>
                     <li><strong>CLB Truyền thông - FFL Media:</strong> Đội ngũ sáng tạo nội dung, thiết kế và sản xuất ấn phẩm truyền thông.</li>
@@ -304,13 +300,12 @@
         </div>
     </div>
 
-    <!-- MÀN HÌNH ĐĂNG KÝ SỰ KIỆN (DÃY HÌNH KHỐI NẰM NGANG CÓ THỂ VUỐT) -->
+    <!-- MÀN HÌNH ĐĂNG KÝ SỰ KIỆN -->
     <div id="trangDangKyHoatDong" class="an-giao-dien">
         <div class="form-container" style="max-width: 750px;">
             <h2 style="margin-bottom: 10px;">Đăng ký giữ chỗ sự kiện</h2>
-            <p style="color: #555; font-weight: 600; margin-bottom: 20px; font-size: 0.95rem;">Vuốt sang phải để xem thêm và chọn sự kiện bạn muốn tham gia:</p>
+            <p style="color: #555; font-weight: 600; margin-bottom: 20px; font-size: 0.9rem;">Vuốt sang phải để xem thêm và chọn sự kiện bạn muốn tham gia:</p>
             
-            <!-- Bước 1: Chọn sự kiện bằng dãy hình khối nằm ngang (Scroll ngang) -->
             <div id="buocChonSuKien">
                 <div class="event-timeline-horizontal">
                     <div class="event-pick-card selected" onclick="chonTheSuKien(this, 'Workshop Làm đồ dân gian')">
@@ -330,10 +325,9 @@
                 <button type="button" class="btn" onclick="chuyenSangBuocNhapForm()" style="width: 100%; margin-top: 15px;">Tiếp tục đăng ký</button>
             </div>
 
-            <!-- Bước 2: Form nhập thông tin -->
             <form id="formDangKySuKien" class="an-giao-dien">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                    <span id="nhanTenSuKienDangChon" style="color: #15803d; font-weight: 900; font-size: 1rem;"></span>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                    <span id="nhanTenSuKienDangChon" style="color: #15803d; font-weight: 900; font-size: 0.95rem;"></span>
                     <button type="button" onclick="quayLaiChonSuKien()" style="background: none; border: none; color: #ca8a04; font-weight: 800; cursor: pointer; text-decoration: underline;">← Chọn sự kiện khác</button>
                 </div>
                 <input type="hidden" id="tenSuKienInput">
@@ -343,9 +337,9 @@
                 <button type="submit" class="btn" style="width: 100%;">Xác nhận đăng ký giữ chỗ</button>
             </form>
 
-            <div style="margin-top: 35px; border-top: 2px dashed #bbf7d0; padding-top: 25px;">
-                <h3 style="color: #166534; font-size: 1.1rem; margin-bottom: 12px;">Danh sách sinh viên đã đăng ký:</h3>
-                <div class="table-responsive" style="max-height: 220px; overflow-y: auto;">
+            <div style="margin-top: 30px; border-top: 2px dashed #bbf7d0; padding-top: 20px;">
+                <h3 style="color: #166534; font-size: 1.05rem; margin-bottom: 12px;">Danh sách sinh viên đã đăng ký:</h3>
+                <div class="table-responsive" style="max-height: 200px; overflow-y: auto;">
                     <table>
                         <thead><tr><th>STT</th><th>Mã số sinh viên</th></tr></thead>
                         <tbody id="listDaDangKySv"></tbody>
@@ -359,9 +353,9 @@
     <div id="trangSV5Tot" class="an-giao-dien">
         <div class="form-container" style="max-width: 900px;">
             <h2>Danh hiệu Sinh viên 5 Tốt (Năm học 2025 - 2026)</h2>
-            <div style="line-height: 1.8; color: #374151; font-size: 1rem; margin-top: 15px; margin-bottom: 30px;">
+            <div style="line-height: 1.8; color: #374151; font-size: 0.95rem; margin-top: 15px; margin-bottom: 25px;">
                 <p style="margin-bottom: 15px;">Danh hiệu <strong>"Sinh viên 5 Tốt"</strong> là phần thưởng cao quý cấp trường/cấp khoa dành cho đoàn viên, sinh viên đạt chuẩn toàn diện về 5 tiêu chí:</p>
-                <ul style="margin-left: 20px; line-height: 1.8; margin-bottom: 20px;">
+                <ul style="margin-left: 20px; line-height: 1.8; margin-bottom: 15px;">
                     <li><strong>Đạo đức tốt:</strong> Điểm rèn luyện đạt loại Tốt trở lên, chấp hành tốt chủ trương, pháp luật.</li>
                     <li><strong>Học tập tốt:</strong> Điểm trung bình chung học tập đạt từ 2.5/4.0 trở lên, tích cực nghiên cứu khoa học.</li>
                     <li><strong>Thể lực tốt:</strong> Đạt danh hiệu "Thanh niên khỏe" hoặc tham gia các hoạt động thể thao.</li>
@@ -418,9 +412,9 @@
 
     <!-- MÀN HÌNH TRA CỨU ĐIỂM DANH -->
     <div id="trangDiemDanh" class="an-giao-dien">
-        <div class="table-container" style="max-width: 950px; margin-top: 40px;">
+        <div class="table-container" style="max-width: 950px; margin-top: 30px;">
             <h2>Danh sách điểm danh hoạt động</h2>
-            <p style="margin-bottom: 20px; color: #4b5563; font-weight: 700;">Chọn hoạt động Học kỳ 1 bên dưới để tra cứu:</p>
+            <p style="margin-bottom: 15px; color: #4b5563; font-weight: 700; font-size: 0.9rem;">Chọn hoạt động Học kỳ 1 bên dưới để tra cứu:</p>
             
             <div class="hocky-tabs">
                 <button class="hk-btn active">Học kỳ 1 (2026 - 2027)</button>
