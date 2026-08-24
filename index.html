@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khoa Ngoại ngữ | FFl</title>
+    <title>Khoa Ngoại ngữ | FFL</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #2e3d32; background-color: #f4fbf5; }
@@ -55,11 +55,12 @@
 <body>
 
     <header>
-        <div class="logo" onclick="chuyenTrang('trangChu')">FFl</div>
+        <div class="logo" onclick="chuyenTrang('trangChu')">FFL</div>
         <nav>
             <ul>
                 <li><a onclick="chuyenTrang('trangChu')">Trang chủ</a></li>
                 <li><a onclick="chuyenTrang('trangDangKy')">Xét danh hiệu</a></li>
+                <li><a onclick="chuyenTrang('trangDiemDanh')">Điểm danh Đoàn khoa</a></li>
             </ul>
         </nav>
     </header>
@@ -75,8 +76,13 @@
                 <div class="card">
                     <h2>Thông báo & Sự kiện</h2>
                     <div class="news-item">
+                        <h3>Cổng điểm danh trực tuyến Đoàn khoa</h3>
+                        <p>Các bạn sinh viên tham gia chương trình có thể sử dụng cổng điểm danh nhanh bằng Mã số sinh viên để ghi nhận kết quả trực tiếp.</p>
+                        <button class="btn" onclick="chuyenTrang('trangDiemDanh')">Điểm danh ngay</button>
+                    </div>
+                    <div class="news-item">
                         <h3>Cổng nộp hồ sơ xét duyệt danh hiệu cấp Khoa</h3>
-                        <p>Hệ thống đăng ký trực tuyến đã chính thức mở. Các em sinh viên chuẩn bị đầy đủ minh chứng trên Google Drive, điền thông tin và theo dõi kết quả xét duyệt tại đây.</p>
+                        <p>Hệ thống đăng ký trực tuyến đã chính thức mở. Các em sinh viên chuẩn bị đầy đủ minh chứng trên Google Drive và theo dõi tiến độ tại đây.</p>
                         <button class="btn" onclick="chuyenTrang('trangDangKy')">Nộp hồ sơ ngay</button>
                     </div>
                 </div>
@@ -91,6 +97,7 @@
         </div>
     </div>
 
+    <!-- GIAO DIỆN XÉT DUYỆT DANH HIỆU -->
     <div id="trangDangKy" class="an-giao-dien">
         <div class="form-container">
             <h2>Hồ sơ xét duyệt danh hiệu</h2>
@@ -112,7 +119,6 @@
                 <div class="form-group"><input type="text" id="chucVu" placeholder="Chức vụ (nếu có)..."></div>
                 <div class="form-group"><input type="text" id="danhHieu" placeholder="Tên danh hiệu ứng tuyển..." required></div>
                 <div class="form-group"><input type="url" id="linkDrive" placeholder="Đường dẫn thư mục Google Drive chứa tệp minh chứng..." required></div>
-                
                 <button type="submit" class="btn">Gửi hồ sơ</button>
             </form>
         </div>
@@ -129,9 +135,37 @@
                             <th>Tình hình xét duyệt</th>
                         </tr>
                     </thead>
-                    <tbody id="dataList">
-                        <!-- Trạng thái tự động cập nhật từ hệ thống -->
-                    </tbody>
+                    <tbody id="dataList"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- GIAO DIỆN ĐIỂM DANH -->
+    <div id="trangDiemDanh" class="an-giao-dien">
+        <div class="form-container">
+            <h2>Điểm danh hoạt động Đoàn khoa</h2>
+            <form id="diemDanhForm">
+                <div class="form-group"><input type="text" id="ddHoTen" placeholder="Họ và tên..." required></div>
+                <div class="form-group"><input type="text" id="ddMssv" placeholder="Mã số sinh viên..." required></div>
+                <div class="form-group"><input type="text" id="ddLop" placeholder="Lớp (Ví dụ: DSE1231)..." required></div>
+                <button type="submit" class="btn">Xác nhận điểm danh</button>
+            </form>
+        </div>
+
+        <div class="table-container">
+            <h2>Danh sách sinh viên đã điểm danh</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Họ tên</th>
+                            <th>Mã số sinh viên</th>
+                            <th>Lớp</th>
+                            <th>Thời gian điểm danh</th>
+                        </tr>
+                    </thead>
+                    <tbody id="diemDanhList"></tbody>
                 </table>
             </div>
         </div>
@@ -145,6 +179,7 @@
         function chuyenTrang(idTrang) {
             document.getElementById('trangChu').classList.add('an-giao-dien');
             document.getElementById('trangDangKy').classList.add('an-giao-dien');
+            document.getElementById('trangDiemDanh').classList.add('an-giao-dien');
             document.getElementById(idTrang).classList.remove('an-giao-dien');
             window.scrollTo(0, 0);
         }
@@ -152,7 +187,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, doc, setDoc, onSnapshot, query, orderBy, where, getDocs } 
+        import { getFirestore, collection, doc, setDoc, addDoc, onSnapshot, query, orderBy, where, getDocs } 
         from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -167,18 +202,19 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+
+        // Xử lý nộp hồ sơ xét danh hiệu
         const form = document.getElementById("dataForm");
         const dataList = document.getElementById("dataList");
 
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
             const mssv = document.getElementById("mssv").value;
-            
             const checkQuery = query(collection(db, "HoSo_BaoMat"), where("mssv", "==", mssv));
             const querySnapshot = await getDocs(checkQuery);
             
             if (!querySnapshot.empty) {
-                alert("Mã số sinh viên này đã nộp hồ sơ. Bạn không thể nộp lại.");
+                alert("Mã số sinh viên này đã nộp hồ sơ.");
                 return;
             }
 
@@ -210,8 +246,7 @@
                 form.reset();
                 alert("Gửi hồ sơ thành công!");
             } catch (error) {
-                console.error("Lỗi: ", error);
-                alert("Đã xảy ra lỗi. Vui lòng kiểm tra lại hệ thống mạng.");
+                alert("Đã xảy ra lỗi kết nối.");
             }
         });
 
@@ -221,21 +256,69 @@
             snapshot.forEach((docSnap) => {
                 const data = docSnap.data();
                 const tr = document.createElement("tr");
-                
                 let trangThaiHTML = `<span class="status-tag status-chua-duyet">Chưa duyệt</span>`;
                 if (data.trang_thai === 'Đã duyệt') {
                     trangThaiHTML = `<span class="status-tag status-da-duyet">Đã duyệt</span>`;
                 } else if (data.trang_thai === 'Không duyệt') {
-                    trangThaiHTML = `<span class="status-tag status-khong-duyet">Không duyệt: ${data.ly_do || 'Không có lý do'}</span>`;
+                    trangThaiHTML = `<span class="status-tag status-khong-duyet">Không duyệt: ${data.ly_do || ''}</span>`;
+                }
+                tr.innerHTML = `<td><strong>${data.ho_ten}</strong></td><td>${data.mssv_an}</td><td><strong>${data.danh_hieu}</strong></td><td>${trangThaiHTML}</td>`;
+                dataList.appendChild(tr);
+            });
+        });
+
+        // Xử lý tính năng điểm danh Đoàn khoa
+        const diemDanhForm = document.getElementById("diemDanhForm");
+        const diemDanhList = document.getElementById("diemDanhList");
+
+        diemDanhForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const ddMssv = document.getElementById("ddMssv").value.trim();
+            const ddHoTen = document.getElementById("ddHoTen").value.trim();
+            const ddLop = document.getElementById("ddLop").value.trim();
+
+            const checkDdQuery = query(collection(db, "DiemDanh"), where("mssv", "==", ddMssv));
+            const ddSnapshot = await getDocs(checkDdQuery);
+
+            if (!ddSnapshot.empty) {
+                alert("Mã số sinh viên này đã thực hiện điểm danh trước đó rồi!");
+                return;
+            }
+
+            try {
+                await addDoc(collection(db, "DiemDanh"), {
+                    ho_ten: ddHoTen,
+                    mssv: ddMssv,
+                    lop: ddLop,
+                    thoi_gian: new Date()
+                });
+                diemDanhForm.reset();
+                alert("Điểm danh thành công!");
+            } catch (error) {
+                alert("Không thể ghi nhận điểm danh. Vui lòng thử lại.");
+            }
+        });
+
+        const ddQuery = query(collection(db, "DiemDanh"), orderBy("thoi_gian", "desc"));
+        onSnapshot(ddQuery, (snapshot) => {
+            diemDanhList.innerHTML = "";
+            snapshot.forEach((docSnap) => {
+                const data = docSnap.data();
+                const tr = document.createElement("tr");
+                
+                let thoiGianStr = "Vừa xong";
+                if (data.thoi_gian) {
+                    const dateObj = data.thoi_gian.toDate();
+                    thoiGianStr = dateObj.toLocaleTimeString('vi-VN') + " - " + dateObj.toLocaleDateString('vi-VN');
                 }
 
                 tr.innerHTML = `
                     <td><strong>${data.ho_ten}</strong></td>
-                    <td>${data.mssv_an}</td>
-                    <td><strong>${data.danh_hieu}</strong></td>
-                    <td>${trangThaiHTML}</td>
+                    <td>${data.mssv}</td>
+                    <td>${data.lop}</td>
+                    <td>${thoiGianStr}</td>
                 `;
-                dataList.appendChild(tr);
+                diemDanhList.appendChild(tr);
             });
         });
     </script>
