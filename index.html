@@ -568,58 +568,55 @@
                 tableBody.innerHTML = "";
                 let stt = 1;
                 let count = 0;
+                let maxLimit = null;
+
                 snapshot.forEach((docSnap) => {
                     const data = docSnap.data();
-                    if (!data.la_cau_hinh) {
+                    if (data.la_cau_hinh) {
+                        maxLimit = data.gioi_han_toi_da;
+                    } else {
                         count++;
                         const tr = document.createElement("tr");
                         tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv}</strong></td>`;
                         tableBody.appendChild(tr);
                     }
                 });
-                kiemTraGioiHanDangKy(skName, count);
+
+                // Kiểm tra trực tiếp giới hạn từ dữ liệu snapshot tải về
+                kiemTraGioiHanDangKy(count, maxLimit);
             }, (error) => {
                 const qFallback = query(collection(db, "DangKy_SuKien"), where("su_kien", "==", skName));
                 onSnapshot(qFallback, (snapshot) => {
                     tableBody.innerHTML = "";
                     let stt = 1;
                     let count = 0;
+                    let maxLimit = null;
+
                     snapshot.forEach((docSnap) => {
                         const data = docSnap.data();
-                        if (!data.la_cau_hinh) {
+                        if (data.la_cau_hinh) {
+                            maxLimit = data.gioi_han_toi_da;
+                        } else {
                             count++;
                             const tr = document.createElement("tr");
                             tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv}</strong></td>`;
                             tableBody.appendChild(tr);
                         }
                     });
-                    kiemTraGioiHanDangKy(skName, count);
+                    kiemTraGioiHanDangKy(count, maxLimit);
                 });
             });
         };
 
-        async function kiemTraGioiHanDangKy(skName, currentCount) {
+        function kiemTraGioiHanDangKy(currentCount, maxLimit) {
             const btnSubmit = document.getElementById("btnSubmitDangKy");
             const thongBaoHetCho = document.getElementById("thongBaoHetCho");
             
-            try {
-                const limitQuery = query(collection(db, "DangKy_SuKien"), where("su_kien", "==", skName), where("la_cau_hinh", "==", true));
-                const limitSnap = await getDocs(limitQuery);
-                
-                let maxLimit = null;
-                if (!limitSnap.empty) {
-                    maxLimit = limitSnap.docs[0].data().gioi_han_toi_da;
-                }
-
-                if (maxLimit !== null && currentCount >= maxLimit) {
-                    btnSubmit.disabled = true;
-                    thongBaoHetCho.style.display = "block";
-                    thongBaoHetCho.innerText = `Sự kiện đã đạt số lượng tối đa (${maxLimit}/${maxLimit} sinh viên). Đã đóng đăng ký!`;
-                } else {
-                    btnSubmit.disabled = false;
-                    thongBaoHetCho.style.display = "none";
-                }
-            } catch (e) {
+            if (maxLimit !== null && maxLimit !== undefined && currentCount >= maxLimit) {
+                btnSubmit.disabled = true;
+                thongBaoHetCho.style.display = "block";
+                thongBaoHetCho.innerText = `Sự kiện đã đạt số lượng tối đa (${maxLimit}/${maxLimit} sinh viên). Đã đóng đăng ký!`;
+            } else {
                 btnSubmit.disabled = false;
                 thongBaoHetCho.style.display = "none";
             }
