@@ -25,7 +25,6 @@
         .card { background: #ffffff; padding: 35px; border-radius: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 25px; border: 3px solid #bbf7d0; }
         .card h2 { color: #166534; margin-bottom: 22px; font-size: 1.6rem; font-weight: 900; background: linear-gradient(135deg, #15803d 0%, #166534 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        /* Timeline hiện đại */
         .timeline { position: relative; padding-left: 30px; margin-top: 15px; }
         .timeline::before { content: ''; position: absolute; left: 10px; top: 5px; bottom: 5px; width: 4px; background: #bbf7d0; border-radius: 4px; }
         .timeline-item { position: relative; margin-bottom: 30px; background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%); padding: 25px; border-radius: 30px; border: 2px solid #bbf7d0; box-shadow: 0 4px 15px rgba(22, 101, 52, 0.04); transition: all 0.3s; }
@@ -112,7 +111,6 @@
             <main>
                 <div class="card">
                     <h2>Timeline Hoạt động & Sự kiện sắp diễn ra</h2>
-                    
                     <div class="timeline">
                         <div class="timeline-item">
                             <div class="timeline-dot"></div>
@@ -142,7 +140,6 @@
         </div>
     </div>
 
-    <!-- TRANG ĐĂNG KÝ SỰ KIỆN -->
     <div id="trangDangKyHoatDong" class="an-giao-dien">
         <div class="form-container" style="max-width: 600px;">
             <h2 id="tieuDeFormSK">Đăng ký tham gia sự kiện</h2>
@@ -222,7 +219,6 @@
         </div>
     </div>
 
-    <!-- TRANG ĐIỂM DANH (ĐÃ KHÔI PHỤC ĐẦY ĐỦ CÁC HOẠT ĐỘNG VÀ HỌC KỲ CHO SINH VIÊN TRA CỨU) -->
     <div id="trangDiemDanh" class="an-giao-dien">
         <div class="table-container" style="max-width: 950px; margin-top: 40px;">
             <h2>Danh sách điểm danh hoạt động</h2>
@@ -234,7 +230,6 @@
                 <button class="hk-btn" onclick="chuyenHocKy('hk3')">Học kỳ 3 (2026 - 2027)</button>
             </div>
 
-            <!-- HỌC KỲ 1 -->
             <div id="hk1" class="hocky-content active">
                 <div class="hoat-dong-header">
                     <button class="hd-btn active" onclick="chuyenHoatDongSub('hk1', 'hd1_workshop', this)">Workshop Làm đồ dân gian</button>
@@ -267,7 +262,6 @@
                 </div>
             </div>
 
-            <!-- HỌC KỲ 2 -->
             <div id="hk2" class="hocky-content">
                 <div class="hoat-dong-header">
                     <button class="hd-btn active" onclick="chuyenHoatDongSub('hk2', 'hd2_1', this)">Hội thao truyền thống</button>
@@ -291,7 +285,6 @@
                 </div>
             </div>
 
-            <!-- HỌC KỲ 3 -->
             <div id="hk3" class="hocky-content">
                 <div class="hoat-dong-header">
                     <button class="hd-btn active" onclick="chuyenHoatDongSub('hk3', 'hd3_1', this)">Tổng kết chiến dịch Mùa hè xanh</button>
@@ -495,7 +488,6 @@
             renderHoSoTable();
         });
 
-        // Hàm helper load bảng điểm danh các hoạt động
         function bindDiemDanh(colName, elementId) {
             const container = document.getElementById(elementId);
             if (!container) return;
@@ -504,7 +496,10 @@
                 let stt = 1;
                 snapshot.forEach((docSnap) => {
                     const data = docSnap.data();
-                    let thoiGianStr = data.thoi_gian ? data.thoi_gian.toDate().toLocaleTimeString('vi-VN') + " - " + data.thoi_gian.toDate().toLocaleDateString('vi-VN') : "";
+                    let thoiGianStr = "";
+                    if (data.thoi_gian && typeof data.thoi_gian.toDate === 'function') {
+                        thoiGianStr = data.thoi_gian.toDate().toLocaleTimeString('vi-VN') + " - " + data.thoi_gian.toDate().toLocaleDateString('vi-VN');
+                    }
                     const tr = document.createElement("tr");
                     tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv}</strong></td><td>${data.ho_ten || 'N/A'}</td><td>${thoiGianStr}</td>`;
                     container.appendChild(tr);
@@ -512,7 +507,7 @@
             });
         }
 
-        bindDiemDanh("DiemDanh_Workshop", "listDiemDanhWorkshop");
+        bindDiemDanh("DiemDanh_SuKien", "listDiemDanhWorkshop");
         bindDiemDanh("DiemDanh_HK1_HD1", "listDiemDanhHK1_HD1");
         bindDiemDanh("DiemDanh_HK1_HD2", "listDiemDanhHK1_HD2");
         bindDiemDanh("DiemDanh_HK2_HD1", "listDiemDanhHK2_HD1");
