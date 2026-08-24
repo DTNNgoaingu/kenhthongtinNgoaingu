@@ -6,63 +6,63 @@
     <title>Khoa Ngoại ngữ | FFL</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #2e3d32; background-color: #fcfdfc; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #1b382b; background-color: #f4fbf5; }
         
         .an-giao-dien { display: none !important; }
 
-        header { background-color: #ffffff; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e8f5e9; box-shadow: 0 4px 12px rgba(0,0,0,0.03); position: sticky; top: 0; z-index: 100; }
-        .logo { font-size: 1.8rem; font-weight: 900; color: #2e7d32; letter-spacing: 1px; cursor: pointer; }
-        nav ul { list-style: none; display: flex; gap: 10px; }
-        nav a { color: #2e7d32; text-decoration: none; font-weight: 700; padding: 8px 18px; border-radius: 20px; transition: all 0.3s; cursor: pointer; background: #f4fbf5; border: 1px solid #c8e6c9; }
-        nav a:hover { background: #2e7d32; color: #fff; }
+        header { background-color: #1b5e20; color: #fff; padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #ffca28; box-shadow: 0 4px 15px rgba(27, 94, 32, 0.2); position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 2rem; font-weight: 900; color: #ffca28; letter-spacing: 1px; cursor: pointer; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        nav ul { list-style: none; display: flex; gap: 12px; }
+        nav a { color: #fff; text-decoration: none; font-weight: 700; padding: 10px 20px; border-radius: 25px; transition: all 0.3s; cursor: pointer; background: rgba(255,255,255,0.1); border: 2px solid transparent; }
+        nav a:hover { background: #ffca28; color: #1b5e20; border-color: #ffca28; box-shadow: 0 4px 12px rgba(255,202,40,0.3); }
         
-        /* Banner chính dạng thẻ bo góc lớn rực rỡ */
-        .hero-card-wrapper { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-        .hero { background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 60%, #ffb300 100%); color: white; text-align: center; padding: 4rem 20px; border-radius: 30px; box-shadow: 0 10px 30px rgba(46, 125, 50, 0.15); position: relative; overflow: hidden; }
-        .hero h1 { font-size: 2.5rem; margin-bottom: 12px; color: #ffffff; font-weight: 900; }
-        .hero p { font-size: 1.05rem; color: #e8f5e9; font-weight: 500; }
+        /* Banner trắng điểm xuyết xanh và viền vàng nổi bật */
+        .hero-wrapper { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .hero { background: #ffffff; color: #1b5e20; text-align: center; padding: 4rem 20px; border-radius: 35px; border: 4px solid #ffca28; box-shadow: 0 10px 30px rgba(46, 125, 50, 0.1); position: relative; overflow: hidden; }
+        .hero h1 { font-size: 2.8rem; margin-bottom: 12px; color: #1b5e20; font-weight: 900; }
+        .hero p { font-size: 1.1rem; color: #444; font-weight: 600; }
 
         .container { width: 90%; max-width: 1200px; margin: 2rem auto; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
-        .card { background: #ffffff; padding: 30px; border-radius: 25px; box-shadow: 0 6px 20px rgba(0,0,0,0.04); margin-bottom: 20px; border: 2px solid #e8f5e9; }
-        .card h2 { color: #2e7d32; margin-bottom: 20px; font-size: 1.4rem; font-weight: 800; border-bottom: 3px solid #ffca28; display: inline-block; padding-bottom: 5px; }
+        .card { background: #ffffff; padding: 35px; border-radius: 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.04); margin-bottom: 25px; border: 3px solid #e8f5e9; }
+        .card h2 { color: #1b5e20; margin-bottom: 22px; font-size: 1.5rem; font-weight: 900; border-bottom: 4px solid #ffca28; display: inline-block; padding-bottom: 6px; }
         
-        .news-item { margin-bottom: 20px; background: #f9fdf9; padding: 20px; border-radius: 20px; border: 2px solid #e8f5e9; transition: all 0.3s; }
-        .news-item:hover { border-color: #81c784; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-        .news-item h3 { font-size: 1.15rem; color: #1b5e20; margin-bottom: 6px; font-weight: 800; }
-        .news-item p { font-size: 0.9rem; color: #555; margin-bottom: 15px; }
+        .news-item { margin-bottom: 22px; background: #f9fdf9; padding: 22px; border-radius: 22px; border: 2px solid #e8f5e9; transition: all 0.3s; }
+        .news-item:hover { border-color: #2e7d32; box-shadow: 0 6px 18px rgba(46,125,50,0.08); }
+        .news-item h3 { font-size: 1.2rem; color: #1b5e20; margin-bottom: 8px; font-weight: 900; }
+        .news-item p { font-size: 0.95rem; color: #555; margin-bottom: 16px; font-weight: 500; }
         
-        /* Nút bấm gradient rực rỡ chuẩn mẫu */
-        .btn { display: inline-block; padding: 10px 24px; background: linear-gradient(135deg, #ffca28 0%, #ff9800 100%); color: #1b5e20; text-decoration: none; border-radius: 25px; font-weight: 800; font-size: 0.9rem; transition: all 0.3s; cursor: pointer; border: none; box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3); text-align: center; }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(255, 152, 0, 0.45); }
+        /* Nút bấm Vàng - Cam rực rỡ chuẩn mẫu */
+        .btn { display: inline-block; padding: 12px 28px; background: linear-gradient(135deg, #ffca28 0%, #ff9800 100%); color: #1b5e20; text-decoration: none; border-radius: 25px; font-weight: 900; font-size: 0.95rem; transition: all 0.3s; cursor: pointer; border: none; box-shadow: 0 4px 15px rgba(255, 152, 0, 0.35); text-align: center; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 152, 0, 0.5); }
         
-        .sidebar .resource-link { display: block; padding: 14px 18px; background: #f4fbf5; margin-bottom: 10px; text-decoration: none; color: #2e7d32; font-weight: 700; border-radius: 20px; border: 2px solid #c8e6c9; transition: all 0.3s; }
-        .sidebar .resource-link:hover { background: #2e7d32; color: #fff; border-color: #2e7d32; padding-left: 22px; }
+        .sidebar .resource-link { display: block; padding: 16px 20px; background: #f9fdf9; margin-bottom: 12px; text-decoration: none; color: #1b5e20; font-weight: 800; border-radius: 20px; border: 2px solid #c8e6c9; transition: all 0.3s; }
+        .sidebar .resource-link:hover { background: #1b5e20; color: #ffca28; border-color: #1b5e20; padding-left: 25px; }
         
-        .form-container, .table-container { max-width: 900px; margin: 30px auto; background: #ffffff; padding: 35px; border-radius: 25px; box-shadow: 0 6px 20px rgba(0,0,0,0.04); border: 2px solid #e8f5e9; }
-        .form-group { margin-bottom: 15px; }
-        input, select { width: 100%; padding: 14px 18px; border-radius: 20px; font-size: 15px; outline: none; border: 2px solid #e8f5e9; background-color: #f9fdf9; color: #2e3d32; font-weight: 600; transition: all 0.3s; }
-        input:focus, select:focus { border-color: #4caf50; background-color: #ffffff; box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15); }
+        .form-container, .table-container { max-width: 900px; margin: 30px auto; background: #ffffff; padding: 40px; border-radius: 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.04); border: 3px solid #e8f5e9; }
+        .form-group { margin-bottom: 18px; }
+        input, select { width: 100%; padding: 16px 20px; border-radius: 20px; font-size: 15px; outline: none; border: 2px solid #c8e6c9; background-color: #fafdfa; color: #1b382b; font-weight: 700; transition: all 0.3s; }
+        input:focus, select:focus { border-color: #1b5e20; background-color: #ffffff; box-shadow: 0 0 0 4px rgba(27, 94, 32, 0.15); }
         select { appearance: none; cursor: pointer; }
         
-        .table-responsive { width: 100%; overflow-x: auto; border-radius: 15px; border: 2px solid #e8f5e9; margin-top: 15px; }
+        .table-responsive { width: 100%; overflow-x: auto; border-radius: 20px; border: 2px solid #c8e6c9; margin-top: 15px; }
         table { width: 100%; border-collapse: collapse; white-space: nowrap; }
-        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #e8f5e9; font-size: 14px; }
-        th { background-color: #2e7d32; color: #fff; font-weight: 800; }
+        th, td { padding: 16px 18px; text-align: left; border-bottom: 1px solid #e8f5e9; font-size: 14px; }
+        th { background-color: #1b5e20; color: #ffca28; font-weight: 900; }
         tr:last-child td { border-bottom: none; }
         tr:hover td { background-color: #f4fbf5; }
         
-        .status-tag { padding: 6px 14px; border-radius: 15px; font-weight: 800; font-size: 12px; display: inline-block; }
-        .status-da-duyet { background-color: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
-        .status-chua-duyet { background-color: #fffde7; color: #f57f17; border: 1px solid #fff9c4; }
-        .status-khong-duyet { background-color: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
+        .status-tag { padding: 6px 14px; border-radius: 15px; font-weight: 900; font-size: 12px; display: inline-block; }
+        .status-da-duyet { background-color: #e8f5e9; color: #1b5e20; border: 2px solid #c8e6c9; }
+        .status-chua-duyet { background-color: #fffde7; color: #f57f17; border: 2px solid #fff9c4; }
+        .status-khong-duyet { background-color: #ffebee; color: #c62828; border: 2px solid #ffcdd2; }
 
-        .hoat-dong-header { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
-        .hd-btn { padding: 10px 22px; background: #f4fbf5; color: #2e7d32; border: 2px solid #c8e6c9; border-radius: 20px; font-weight: 800; font-size: 14px; cursor: pointer; transition: all 0.3s; }
-        .hd-btn.active { background: #2e7d32; color: #ffca28; border-color: #2e7d32; box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2); }
+        .hoat-dong-header { display: flex; gap: 12px; margin-bottom: 22px; flex-wrap: wrap; }
+        .hd-btn { padding: 12px 25px; background: #f9fdf9; color: #1b5e20; border: 2px solid #c8e6c9; border-radius: 22px; font-weight: 900; font-size: 14px; cursor: pointer; transition: all 0.3s; }
+        .hd-btn.active { background: #1b5e20; color: #ffca28; border-color: #1b5e20; box-shadow: 0 4px 15px rgba(27,94,32,0.25); }
         .hd-content { display: none; }
         .hd-content.active { display: block; }
 
-        footer { text-align: center; padding: 30px; background: #1b5e20; color: #fff; margin-top: 50px; border-top-left-radius: 30px; border-top-right-radius: 30px; font-weight: 600; }
+        footer { text-align: center; padding: 35px; background: #1b5e20; color: #fff; margin-top: 60px; border-top-left-radius: 35px; border-top-right-radius: 35px; font-weight: 700; border-top: 4px solid #ffca28; }
     </style>
 </head>
 <body>
@@ -79,7 +79,7 @@
     </header>
 
     <div id="trangChu">
-        <div class="hero-card-wrapper">
+        <div class="hero-wrapper">
             <section class="hero">
                 <h1>Cổng thông tin Sinh viên</h1>
                 <p>Trải nghiệm học tập và kết nối đỉnh cao tại Khoa Ngoại ngữ - Đại học Sài Gòn</p>
@@ -158,7 +158,7 @@
     <div id="trangDiemDanh" class="an-giao-dien">
         <div class="table-container" style="max-width: 900px; margin-top: 40px;">
             <h2>Danh sách điểm danh hoạt động</h2>
-            <p style="margin-bottom: 20px; color: #555; font-weight: 600;">Chọn hoạt động bên dưới để tra cứu danh sách Mã số sinh viên chính thức:</p>
+            <p style="margin-bottom: 20px; color: #444; font-weight: 700;">Chọn hoạt động bên dưới để tra cứu danh sách Mã số sinh viên chính thức:</p>
             
             <div class="hoat-dong-header">
                 <button class="hd-btn active" onclick="chuyenHoatDong('hd1')">Ngày hội CLB khoa NN</button>
