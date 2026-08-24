@@ -33,9 +33,13 @@
         .btn { display: inline-block; padding: 14px 30px; background: linear-gradient(135deg, #22c55e 0%, #ca8a04 100%); color: #ffffff; text-decoration: none; border-radius: 30px; font-weight: 900; font-size: 1rem; transition: all 0.3s; cursor: pointer; border: none; box-shadow: 0 6px 20px rgba(202, 138, 4, 0.4); text-align: center; text-transform: uppercase; letter-spacing: 0.5px; }
         .btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(202, 138, 4, 0.6); }
         
-        .sidebar .resource-link { display: block; padding: 14px 18px; background: #f0fdf4; margin-bottom: 12px; text-decoration: none; color: #166534; font-weight: 800; border-radius: 20px; border: 2px solid #bbf7d0; transition: all 0.3s; font-size: 0.92rem; }
-        .sidebar .resource-link:hover { background: linear-gradient(135deg, #166534 0%, #ca8a04 100%); color: #fff; padding-left: 22px; }
-        
+        /* Trình bày danh sách CTĐT thanh lịch, gọn gàng dạng lưới icon/pill */
+        .ctdt-grid { display: flex; flex-direction: column; gap: 10px; }
+        .ctdt-link { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #f0fdf4; text-decoration: none; color: #166534; font-weight: 800; border-radius: 16px; border: 2px solid #bbf7d0; transition: all 0.3s; font-size: 0.88rem; }
+        .ctdt-link:hover { background: linear-gradient(135deg, #166534 0%, #ca8a04 100%); color: #fff; border-color: transparent; padding-left: 20px; box-shadow: 0 4px 12px rgba(22, 101, 52, 0.2); }
+        .ctdt-link span { font-size: 0.75rem; background: rgba(22, 101, 52, 0.1); padding: 3px 8px; border-radius: 10px; }
+        .ctdt-link:hover span { background: rgba(255, 255, 255, 0.2); color: #fff; }
+
         .about-doan { background: linear-gradient(135deg, #f0fdf4 0%, #eef2f6 100%); border-left: 6px solid #15803d; padding: 20px; border-radius: 20px; margin-bottom: 25px; font-size: 0.95rem; color: #374151; font-weight: 600; }
 
         .form-container, .table-container { max-width: 950px; margin: 30px auto; background: #ffffff; padding: 45px; border-radius: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 3px solid #bbf7d0; }
@@ -56,11 +60,19 @@
         .status-chua-duyet { background-color: #fef9c3; color: #854d0e; border: 2px solid #fef08a; }
         .status-khong-duyet { background-color: #fee2e2; color: #991b1b; border: 2px solid #fecaca; }
 
-        .hoat-dong-header { display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; }
-        .hd-btn { padding: 14px 30px; background: #f0fdf4; color: #166534; border: 2px solid #bbf7d0; border-radius: 25px; font-weight: 900; font-size: 15px; cursor: pointer; transition: all 0.3s; }
-        .hd-btn.active { background: linear-gradient(135deg, #15803d 0%, #ca8a04 100%); color: #ffffff; border-color: transparent; box-shadow: 0 6px 20px rgba(22, 101, 52, 0.3); }
-        .hd-content { display: none; }
-        .hd-content.active { display: block; }
+        /* Phân cấp Học kỳ và Hoạt động cho trang Điểm danh */
+        .hocky-tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; background: #f0fdf4; padding: 8px; border-radius: 20px; border: 2px solid #bbf7d0; }
+        .hk-btn { flex: 1; min-width: 180px; padding: 12px 15px; background: #ffffff; color: #166534; border: 2px solid #bbf7d0; border-radius: 15px; font-weight: 900; font-size: 0.9rem; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .hk-btn.active { background: linear-gradient(135deg, #15803d 0%, #ca8a04 100%); color: #fff; border-color: transparent; box-shadow: 0 4px 15px rgba(22, 101, 52, 0.25); }
+        
+        .hocky-content { display: none; }
+        .hocky-content.active { display: block; }
+
+        .hoat-dong-header { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .hd-btn { padding: 10px 20px; background: #fefce8; color: #854d0e; border: 2px solid #fef08a; border-radius: 18px; font-weight: 800; font-size: 0.88rem; cursor: pointer; transition: all 0.3s; }
+        .hd-btn.active { background: #166534; color: #fef08a; border-color: #166534; box-shadow: 0 4px 12px rgba(22, 101, 52, 0.15); }
+        .hd-subcontent { display: none; }
+        .hd-subcontent.active { display: block; }
 
         footer { text-align: center; padding: 40px; background: linear-gradient(135deg, #166534 0%, #15803d 100%); color: #fff; margin-top: 70px; border-top-left-radius: 40px; border-top-right-radius: 40px; font-weight: 800; border-top: 4px solid #eab308; }
     </style>
@@ -98,7 +110,7 @@
                     </div>
                     <div class="news-item">
                         <h3>Danh sách điểm danh hoạt động Đoàn khoa</h3>
-                        <p>Theo dõi trực quan danh sách Mã số sinh viên đã tham gia điểm danh các hoạt động lớn của Đoàn khoa.</p>
+                        <p>Theo dõi trực quan danh sách Mã số sinh viên đã tham gia điểm danh các hoạt động lớn của Đoàn khoa theo từng học kỳ.</p>
                         <button class="btn" onclick="chuyenTrang('trangDiemDanh')">Xem điểm danh ngay</button>
                     </div>
                     <div class="news-item">
@@ -115,10 +127,12 @@
                         <p><strong>Đoàn TNCS Hồ Chí Minh - Hội Sinh viên Khoa Ngoại ngữ (SGU)</strong> là ngôi nhà chung năng động, tiên phong trong học tập, nghiên cứu khoa học và các hoạt động tình nguyện.</p>
                     </div>
                     <h2>Chương trình đào tạo</h2>
-                    <a href="#" class="resource-link">Ngôn ngữ Anh (2020 - 2024)</a>
-                    <a href="#" class="resource-link">Ngôn ngữ Anh (2024 - 2028)</a>
-                    <a href="#" class="resource-link">Sư phạm tiếng Anh (2020 - 2024)</a>
-                    <a href="#" class="resource-link">Sư phạm tiếng Anh (2024 - 2028)</a>
+                    <div class="ctdt-grid">
+                        <a href="https://drive.google.com/file/d/12A3_-kYWg13lPFj460SPZ4Qg8L6byxYy/view?usp=drive_fs" target="_blank" class="ctdt-link">Ngôn ngữ Anh <span>2020-2024</span></a>
+                        <a href="https://drive.google.com/file/d/12A3_-kYWg13lPFj460SPZ4Qg8L6byxYy/view?usp=drive_fs" target="_blank" class="ctdt-link">Ngôn ngữ Anh <span>2024-2028</span></a>
+                        <a href="https://drive.google.com/file/d/12A3_-kYWg13lPFj460SPZ4Qg8L6byxYy/view?usp=drive_fs" target="_blank" class="ctdt-link">Sư phạm Anh <span>2020-2024</span></a>
+                        <a href="https://drive.google.com/file/d/12A3_-kYWg13lPFj460SPZ4Qg8L6byxYy/view?usp=drive_fs" target="_blank" class="ctdt-link">Sư phạm Anh <span>2024-2028</span></a>
+                    </div>
                 </div>
             </aside>
         </div>
@@ -131,7 +145,7 @@
             <div style="line-height: 1.8; color: #374151; font-size: 1rem; margin-top: 15px;">
                 <p style="margin-bottom: 15px;">Danh hiệu <strong>"Sinh viên 5 Tốt"</strong> là danh hiệu cao quý của Hội Sinh viên Việt Nam trao tặng cho sinh viên đạt đủ 5 tiêu chí cốt lõi:</p>
                 <ul style="padding-left: 20px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 10px;">
-                    <li><strong>Đạo đức tốt:</strong> Xếp hạng rèn luyện loại Khối trở lên, không vi phạm pháp luật và nội quy nhà trường.</li>
+                    <li><strong>Đạo đức tốt:</strong> Xếp hạng rèn luyện loại Khá trở lên, không vi phạm pháp luật và nội quy nhà trường.</li>
                     <li><strong>Học tập tốt:</strong> Điểm trung bình chung học tập đạt từ 2.5/4.0 trở lên (hoặc tương đương).</li>
                     <li><strong>Thể lực tốt:</strong> Đạt danh hiệu "Thanh niên khỏe" hoặc tham gia các hoạt động thể thao cấp Khoa/Trường.</li>
                     <li><strong>Tình nguyện tốt:</strong> Tham gia tích cực các hoạt động chiến dịch tình nguyện (Mùa hè xanh, Xuân tình nguyện, hiến máu nhân đạo,...).</li>
@@ -185,43 +199,91 @@
         </div>
     </div>
 
+    <!-- TRANG XEM ĐIỂM DANH THEO HỌC KỲ -->
     <div id="trangDiemDanh" class="an-giao-dien">
         <div class="table-container" style="max-width: 950px; margin-top: 40px;">
             <h2>Danh sách điểm danh hoạt động</h2>
-            <p style="margin-bottom: 22px; color: #4b5563; font-weight: 700;">Chọn hoạt động bên dưới để tra cứu danh sách Mã số sinh viên chính thức:</p>
+            <p style="margin-bottom: 20px; color: #4b5563; font-weight: 700;">Chọn Học kỳ bên dưới để tra cứu danh sách MSSV theo hoạt động:</p>
             
-            <div class="hoat-dong-header">
-                <button class="hd-btn active" onclick="chuyenHoatDong('hd1')">Ngày hội CLB khoa NN</button>
-                <button class="hd-btn" onclick="chuyenHoatDong('hd2')">Lễ đón TSV K26</button>
+            <!-- Tab chọn Học kỳ -->
+            <div class="hocky-tabs">
+                <button class="hk-btn active" onclick="chuyenHocKy('hk1')">Học kỳ 1 (2026 - 2027)</button>
+                <button class="hk-btn" onclick="chuyenHocKy('hk2')">Học kỳ 2 (2026 - 2027)</button>
+                <button class="hk-btn" onclick="chuyenHocKy('hk3')">Học kỳ 3 (2026 - 2027)</button>
             </div>
 
-            <div id="hd1" class="hd-content active">
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Mã số sinh viên</th>
-                                <th>Thời gian điểm danh</th>
-                            </tr>
-                        </thead>
-                        <tbody id="listDiemDanhHD1"></tbody>
-                    </table>
+            <!-- HỌC KỲ 1 -->
+            <div id="hk1" class="hocky-content active">
+                <div class="hoat-dong-header">
+                    <button class="hd-btn active" onclick="chuyenHoatDongSub('hk1', 'hd1_1', this)">Ngày hội CLB khoa NN</button>
+                    <button class="hd-btn" onclick="chuyenHoatDongSub('hk1', 'hd1_2', this)">Lễ đón TSV K26</button>
+                </div>
+                <div id="hd1_1" class="hd-subcontent active">
+                    <div class="table-responsive">
+                        <table>
+                            <thead><tr><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
+                            <tbody id="listDiemDanhHK1_HD1"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="hd1_2" class="hd-subcontent">
+                    <div class="table-responsive">
+                        <table>
+                            <thead><tr><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
+                            <tbody id="listDiemDanhHK1_HD2"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
-            <div id="hd2" class="hd-content">
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Mã số sinh viên</th>
-                                <th>Thời gian điểm danh</th>
-                            </tr>
-                        </thead>
-                        <tbody id="listDiemDanhHD2"></tbody>
-                    </table>
+            <!-- HỌC KỲ 2 -->
+            <div id="hk2" class="hocky-content">
+                <div class="hoat-dong-header">
+                    <button class="hd-btn active" onclick="chuyenHoatDongSub('hk2', 'hd2_1', this)">Hội thao truyền thống</button>
+                    <button class="hd-btn" onclick="chuyenHoatDongSub('hk2', 'hd2_2', this)">Cuộc thi Hùng biện tiếng Anh</button>
+                </div>
+                <div id="hd2_1" class="hd-subcontent active">
+                    <div class="table-responsive">
+                        <table>
+                            <thead><tr><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
+                            <tbody id="listDiemDanhHK2_HD1"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="hd2_2" class="hd-subcontent">
+                    <div class="table-responsive">
+                        <table>
+                            <thead><tr><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
+                            <tbody id="listDiemDanhHK2_HD2"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+
+            <!-- HỌC KỲ 3 -->
+            <div id="hk3" class="hocky-content">
+                <div class="hoat-dong-header">
+                    <button class="hd-btn active" onclick="chuyenHoatDongSub('hk3', 'hd3_1', this)">Tổng kết chiến dịch Mùa hè xanh</button>
+                    <button class="hd-btn" onclick="chuyenHoatDongSub('hk3', 'hd3_2', this)">Đêm hội văn nghệ khoa</button>
+                </div>
+                <div id="hd3_1" class="hd-subcontent active">
+                    <div class="table-responsive">
+                        <table>
+                            <thead><tr><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
+                            <tbody id="listDiemDanhHK3_HD1"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="hd3_2" class="hd-subcontent">
+                    <div class="table-responsive">
+                        <table>
+                            <thead><tr><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
+                            <tbody id="listDiemDanhHK3_HD2"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -239,13 +301,23 @@
             window.scrollTo(0, 0);
         }
 
-        function chuyenHoatDong(idHd) {
-            document.getElementById('hd1').classList.remove('active');
-            document.getElementById('hd2').classList.remove('active');
-            document.querySelectorAll('.hd-btn').forEach(btn => btn.classList.remove('active'));
+        function chuyenHocKy(idHk) {
+            document.getElementById('hk1').classList.remove('active');
+            document.getElementById('hk2').classList.remove('active');
+            document.getElementById('hk3').classList.remove('active');
+            document.querySelectorAll('.hk-btn').forEach(btn => btn.classList.remove('active'));
             
-            document.getElementById(idHd).classList.add('active');
+            document.getElementById(idHk).classList.add('active');
             event.currentTarget.classList.add('active');
+        }
+
+        function chuyenHoatDongSub(hkId, subId, btnElement) {
+            const hkContainer = document.getElementById(hkId);
+            hkContainer.querySelectorAll('.hd-subcontent').forEach(sub => sub.classList.remove('active'));
+            hkContainer.querySelectorAll('.hd-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(subId).classList.add('active');
+            btnElement.classList.add('active');
         }
     </script>
 
@@ -330,29 +402,27 @@
             });
         });
 
-        const listHD1 = document.getElementById("listDiemDanhHD1");
-        onSnapshot(query(collection(db, "DiemDanh_HD1"), orderBy("thoi_gian", "desc")), (snapshot) => {
-            listHD1.innerHTML = "";
-            snapshot.forEach((docSnap) => {
-                const data = docSnap.data();
-                let thoiGianStr = data.thoi_gian ? data.thoi_gian.toDate().toLocaleTimeString('vi-VN') + " - " + data.thoi_gian.toDate().toLocaleDateString('vi-VN') : "";
-                const tr = document.createElement("tr");
-                tr.innerHTML = `<td><strong>${data.mssv}</strong></td><td>${thoiGianStr}</td>`;
-                listHD1.appendChild(tr);
+        // Hàm helper đổ dữ liệu điểm danh realtime
+        function bindDiemDanh(colName, elementId) {
+            const container = document.getElementById(elementId);
+            onSnapshot(query(collection(db, colName), orderBy("thoi_gian", "desc")), (snapshot) => {
+                container.innerHTML = "";
+                snapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    let thoiGianStr = data.thoi_gian ? data.thoi_gian.toDate().toLocaleTimeString('vi-VN') + " - " + data.thoi_gian.toDate().toLocaleDateString('vi-VN') : "";
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `<td><strong>${data.mssv}</strong></td><td>${thoiGianStr}</td>`;
+                    container.appendChild(tr);
+                });
             });
-        });
+        }
 
-        const listHD2 = document.getElementById("listDiemDanhHD2");
-        onSnapshot(query(collection(db, "DiemDanh_HD2"), orderBy("thoi_gian", "desc")), (snapshot) => {
-            listHD2.innerHTML = "";
-            snapshot.forEach((docSnap) => {
-                const data = docSnap.data();
-                let thoiGianStr = data.thoi_gian ? data.thoi_gian.toDate().toLocaleTimeString('vi-VN') + " - " + data.thoi_gian.toDate().toLocaleDateString('vi-VN') : "";
-                const tr = document.createElement("tr");
-                tr.innerHTML = `<td><strong>${data.mssv}</strong></td><td>${thoiGianStr}</td>`;
-                listHD2.appendChild(tr);
-            });
-        });
+        bindDiemDanh("DiemDanh_HK1_HD1", "listDiemDanhHK1_HD1");
+        bindDiemDanh("DiemDanh_HK1_HD2", "listDiemDanhHK1_HD2");
+        bindDiemDanh("DiemDanh_HK2_HD1", "listDiemDanhHK2_HD1");
+        bindDiemDanh("DiemDanh_HK2_HD2", "listDiemDanhHK2_HD2");
+        bindDiemDanh("DiemDanh_HK3_HD1", "listDiemDanhHK3_HD1");
+        bindDiemDanh("DiemDanh_HK3_HD2", "listDiemDanhHK3_HD2");
     </script>
 </body>
 </html>
