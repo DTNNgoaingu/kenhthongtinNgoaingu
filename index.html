@@ -91,7 +91,7 @@
         <nav>
             <ul>
                 <li><a onclick="chuyenTrang('trangChu')">Trang chủ</a></li>
-                <li><a onclick="chuyenTrang('trangDangKyHoatDong')">Đăng ký sự kiện</a></li>
+                <li><a onclick="moManHinhChonSuKien()">Đăng ký sự kiện</a></li>
                 <li><a onclick="chuyenTrang('trangSV5Tot')">Sinh viên 5 Tốt</a></li>
                 <li><a onclick="chuyenTrang('trangDangKy')">Nộp hồ sơ</a></li>
                 <li><a onclick="chuyenTrang('trangDiemDanh')">Điểm danh</a></li>
@@ -103,7 +103,7 @@
         <div class="hero-wrapper">
             <section class="hero">
                 <h1>Cổng thông tin Sinh viên</h1>
-                <p>Trải nghiệm học tập và kết nối đỉnh cao tại Khoa Ngoại ngữ - Đại học Sài Gòn</p>
+                <p>Trải nghiệm học tập và kết nối đỉnh cao tại Đoàn - Hội khoa Ngoại ngữ - Đại học Sài Gòn</p>
             </section>
         </div>
 
@@ -116,8 +116,8 @@
                             <div class="timeline-dot"></div>
                             <h3>Workshop: Làm đồ dân gian truyền thống</h3>
                             <div class="event-meta">⏰ 18h00 - Ngày 25/09/2026 | 📍 Cơ sở chính ĐH Sài Gòn</div>
-                            <p>Không gian trải nghiệm văn hóa thủ công truyền thống do Đoàn Khoa tổ chức.</p>
-                            <button class="btn" onclick="chonSuKienDK('Workshop Làm đồ dân gian')">Đăng ký tham gia</button>
+                            <p>Không gian trải nghiệm văn hóa thủ công truyền thống do Đoàn - Hội khoa tổ chức.</p>
+                            <button class="btn" onclick="moManHinhChonSuKien()">Đăng ký tham gia</button>
                         </div>
                     </div>
                 </div>
@@ -140,20 +140,42 @@
         </div>
     </div>
 
+    <!-- MÀN HÌNH ĐĂNG KÝ SỰ KIỆN: BƯỚC 1 CHỌN SỰ KIỆN, BƯỚC 2 NHẬP FORM -->
     <div id="trangDangKyHoatDong" class="an-giao-dien">
         <div class="form-container" style="max-width: 600px;">
-            <h2 id="tieuDeFormSK">Đăng ký tham gia sự kiện</h2>
-            <form id="formDangKySuKien">
+            <h2 id="tieuDeChonHoatDong">Đăng ký giữ chỗ sự kiện</h2>
+            
+            <!-- Bước 1: Chọn hoạt động từ thanh thời gian -->
+            <div id="buocChonSuKien" style="margin-bottom: 25px;">
+                <p style="margin-bottom: 12px; font-weight: 700; color: #374151;">Chọn hoạt động bạn muốn tham gia:</p>
+                <div class="form-group">
+                    <select id="selectHoatDongTimeline" onchange="chonHoatDongTuDropdown(this.value)">
+                        <option value="Workshop Làm đồ dân gian">Workshop: Làm đồ dân gian truyền thống (25/09/2026)</option>
+                        <option value="Ngày hội CLB khoa NN">Ngày hội các Câu lạc bộ khoa Ngoại ngữ</option>
+                        <option value="Lễ đón TSV K26">Lễ đón Tân sinh viên khóa K26</option>
+                        <option value="Hội thao truyền thống">Hội thao truyền thống sinh viên</option>
+                        <option value="Cuộc thi Hùng biện tiếng Anh">Cuộc thi Hùng biện tiếng Anh cấp khoa</option>
+                    </select>
+                </div>
+                <button type="button" class="btn" onclick="chuyenSangBuocNhapForm()" style="width: 100%;">Tiếp tục đăng ký</button>
+            </div>
+
+            <!-- Bước 2: Form nhập thông tin (Ẩn mặc định, hiện sau khi bấm tiếp tục) -->
+            <form id="formDangKySuKien" class="an-giao-dien">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <span id="nhanTenSuKienDangChon" style="color: #15803d; font-weight: 900; font-size: 1rem;"></span>
+                    <button type="button" onclick="quayLaiChonSuKien()" style="background: none; border: none; color: #ca8a04; font-weight: 800; cursor: pointer; text-decoration: underline;">← Chọn sự kiện khác</button>
+                </div>
                 <input type="hidden" id="tenSuKienInput">
                 <div class="form-group"><input type="text" id="dkHoTen" placeholder="Họ và tên sinh viên..." required></div>
                 <div class="form-group"><input type="text" id="dkMssv" placeholder="Mã số sinh viên (VD: 3123130144)..." required></div>
                 <div class="form-group"><input type="text" id="dkLop" placeholder="Lớp (VD: DNA23)..." required></div>
-                <button type="submit" class="btn" style="width: 100%;">Xác nhận đăng ký</button>
+                <button type="submit" class="btn" style="width: 100%;">Xác nhận đăng ký giữ chỗ</button>
             </form>
 
             <div style="margin-top: 35px; border-top: 2px dashed #bbf7d0; padding-top: 25px;">
                 <h3 style="color: #166534; font-size: 1.1rem; margin-bottom: 12px;">Danh sách sinh viên đã đăng ký:</h3>
-                <div class="table-responsive" style="max-height: 200px; overflow-y: auto;">
+                <div class="table-responsive" style="max-height: 220px; overflow-y: auto;">
                     <table>
                         <thead><tr><th>STT</th><th>Mã số sinh viên (Đã ẩn)</th></tr></thead>
                         <tbody id="listDaDangKySv"></tbody>
@@ -311,7 +333,7 @@
     </div>
 
     <footer>
-        <p>Bản quyền thuộc về Đoàn TN - Hội Sinh viên Khoa Ngoại ngữ, Đại học Sài Gòn.</p>
+        <p>Bản quyền thuộc về Đoàn - Hội khoa Ngoại ngữ, Đại học Sài Gòn.</p>
     </footer>
 
     <script>
@@ -329,12 +351,32 @@
             window.scrollTo(0, 0);
         }
 
-        function chonSuKienDK(tenSk) {
-            currentSuKien = tenSk;
-            document.getElementById('tieuDeFormSK').innerText = `Đăng ký tham gia: ${tenSk}`;
-            document.getElementById('tenSuKienInput').value = tenSk;
+        function moManHinhChonSuKien() {
+            document.getElementById('buocChonSuKien').classList.remove('an-giao-dien');
+            document.getElementById('formDangKySuKien').classList.add('an-giao-dien');
             chuyenTrang('trangDangKyHoatDong');
-            loadDanhSachDaDangKy(tenSk);
+        }
+
+        function chonHoatDongTuDropdown(tenSk) {
+            currentSuKien = tenSk;
+        }
+
+        function chuyenSangBuocNhapForm() {
+            const selectEl = document.getElementById('selectHoatDongTimeline');
+            currentSuKien = selectEl.value;
+
+            document.getElementById('nhanTenSuKienDangChon').innerText = `Hoạt động: ${currentSuKien}`;
+            document.getElementById('tenSuKienInput').value = currentSuKien;
+
+            document.getElementById('buocChonSuKien').classList.add('an-giao-dien');
+            document.getElementById('formDangKySuKien').classList.remove('an-giao-dien');
+
+            loadDanhSachDaDangKy(currentSuKien);
+        }
+
+        function quayLaiChonSuKien() {
+            document.getElementById('formDangKySuKien').classList.add('an-giao-dien');
+            document.getElementById('buocChonSuKien').classList.remove('an-giao-dien');
         }
 
         function locDanhHieu(danhHieu, btnElement) {
@@ -411,7 +453,7 @@
 
             const hoTen = document.getElementById("dkHoTen").value.trim();
             const lop = document.getElementById("dkLop").value.trim();
-            const skName = document.getElementById("tenSuKienInput").value || "Workshop Làm đồ dân gian";
+            const skName = document.getElementById("tenSuKienInput").value || currentSuKien;
 
             const checkQ = query(collection(db, "DangKy_SuKien"), where("mssv", "==", mssv), where("su_kien", "==", skName));
             if (!(await getDocs(checkQ)).empty) {
@@ -448,7 +490,6 @@
                 });
             });
         }
-        loadDanhSachDaDangKy("Workshop Làm đồ dân gian");
 
         const form = document.getElementById("dataForm");
         form.addEventListener("submit", async (e) => {
