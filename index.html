@@ -3,262 +3,395 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ thống Quản trị | FFL Admin & Clubs</title>
+    <title>Khoa Ngoại ngữ | FFL</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #fefce8 100%); color: #2d3748; padding: 30px; min-height: 100vh; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #2d3748; background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #fefce8 100%); min-height: 100vh; padding-bottom: 50px; }
         
-        #loginOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 1000; }
-        .login-card { background: #ffffff; padding: 40px; border-radius: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.2); width: 100%; max-width: 400px; text-align: center; border: 3px solid #bbf7d0; }
-        .login-card h2 { color: #166534; margin-bottom: 10px; font-size: 1.5rem; font-weight: 900; }
-        .login-card p { margin-bottom: 20px; font-size: 0.88rem; color: #555; }
-        .login-card input { width: 100%; padding: 14px 20px; border-radius: 20px; border: 2px solid #bbf7d0; outline: none; margin-bottom: 20px; font-size: 15px; text-align: center; font-weight: 700; background: #fafdfa; }
-        .login-card button { width: 100%; padding: 14px; background: linear-gradient(135deg, #15803d 0%, #ca8a04 100%); color: #fff; border: none; border-radius: 20px; font-weight: 900; font-size: 15px; cursor: pointer; box-shadow: 0 4px 15px rgba(22, 101, 52, 0.3); text-transform: uppercase; }
+        .an-giao-dien { display: none !important; }
 
-        .container { max-width: 1400px; margin: 0 auto; background: #ffffff; padding: 45px; border-radius: 35px; box-shadow: 0 10px 30px rgba(22, 101, 52, 0.08); border: 3px solid #bbf7d0; display: none; }
+        header { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #bbf7d0; box-shadow: 0 4px 20px rgba(22, 101, 52, 0.08); position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 2.2rem; font-weight: 900; background: linear-gradient(135deg, #15803d 0%, #ca8a04 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; letter-spacing: 1px; }
+        nav ul { list-style: none; display: flex; gap: 12px; }
+        nav a { color: #166534; text-decoration: none; font-weight: 800; padding: 10px 22px; border-radius: 25px; transition: all 0.3s; cursor: pointer; background: #f0fdf4; border: 2px solid #bbf7d0; }
+        nav a:hover { background: linear-gradient(135deg, #166534 0%, #ca8a04 100%); color: #fff; border-color: transparent; box-shadow: 0 4px 15px rgba(22, 101, 52, 0.3); }
         
-        .admin-banner { background: linear-gradient(135deg, #15803d 0%, #22c55e 50%, #eab308 100%); color: white; padding: 25px 35px; border-radius: 25px; margin-bottom: 30px; box-shadow: 0 8px 25px rgba(22, 101, 52, 0.2); display: flex; justify-content: space-between; align-items: center; }
-        .admin-banner h1 { font-size: 1.8rem; font-weight: 900; text-shadow: 0 2px 4px rgba(0,0,0,0.15); }
-        .admin-banner p { font-size: 1rem; color: #fef08a; font-weight: 700; }
+        .hero-wrapper { max-width: 1100px; margin: 40px auto 20px auto; padding: 0 20px; }
+        .hero { background: linear-gradient(135deg, #15803d 0%, #22c55e 50%, #eab308 100%); color: white; text-align: center; padding: 4rem 20px; border-radius: 40px; box-shadow: 0 15px 40px rgba(22, 101, 52, 0.25); position: relative; overflow: hidden; border: 3px solid #fef08a; }
+        .hero h1 { font-size: 3rem; margin-bottom: 12px; color: #ffffff; font-weight: 900; text-shadow: 0 3px 6px rgba(0,0,0,0.2); }
+        .hero p { font-size: 1.15rem; color: #fef08a; font-weight: 700; text-shadow: 0 1px 3px rgba(0,0,0,0.15); }
 
-        .tab-header { display: flex; gap: 15px; margin-bottom: 25px; border-bottom: 3px solid #bbf7d0; padding-bottom: 15px; }
-        .tab-btn { padding: 14px 30px; background: #f0fdf4; color: #166534; border: 2px solid #bbf7d0; border-radius: 25px; font-weight: 900; font-size: 15px; cursor: pointer; transition: all 0.3s; }
-        .tab-btn.active { background: linear-gradient(135deg, #15803d 0%, #ca8a04 100%); color: #fff; border-color: transparent; box-shadow: 0 6px 20px rgba(22, 101, 52, 0.3); }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        .container { width: 90%; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+        .card { background: #ffffff; padding: 35px; border-radius: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 25px; border: 3px solid #bbf7d0; }
+        .card h2 { color: #166534; margin-bottom: 22px; font-size: 1.6rem; font-weight: 900; background: linear-gradient(135deg, #15803d 0%, #166534 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* Timeline hiện đại */
+        .timeline { position: relative; padding-left: 30px; margin-top: 15px; }
+        .timeline::before { content: ''; position: absolute; left: 10px; top: 5px; bottom: 5px; width: 4px; background: #bbf7d0; border-radius: 4px; }
+        .timeline-item { position: relative; margin-bottom: 30px; background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%); padding: 25px; border-radius: 30px; border: 2px solid #bbf7d0; box-shadow: 0 4px 15px rgba(22, 101, 52, 0.04); transition: all 0.3s; }
+        .timeline-item:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(22, 101, 52, 0.1); border-color: #22c55e; }
+        .timeline-dot { position: absolute; left: -26px; top: 28px; width: 16px; height: 16px; background: #15803d; border: 3px solid #fef08a; border-radius: 50%; box-shadow: 0 0 0 4px #dcfce7; }
+        
+        .timeline-item h3 { font-size: 1.3rem; color: #166534; margin-bottom: 6px; font-weight: 900; }
+        .event-meta { font-size: 0.88rem; color: #15803d; font-weight: 800; margin-bottom: 12px; background: #dcfce7; padding: 5px 12px; border-radius: 12px; display: inline-block; }
+        .timeline-item p { font-size: 0.95rem; color: #4b5563; margin-bottom: 15px; font-weight: 500; }
+        
+        .btn { display: inline-block; padding: 12px 25px; background: linear-gradient(135deg, #22c55e 0%, #ca8a04 100%); color: #ffffff; text-decoration: none; border-radius: 30px; font-weight: 900; font-size: 0.9rem; transition: all 0.3s; cursor: pointer; border: none; box-shadow: 0 6px 20px rgba(202, 138, 4, 0.4); text-align: center; text-transform: uppercase; }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(202, 138, 4, 0.6); }
 
-        h2 { color: #166534; margin-bottom: 22px; border-bottom: 4px solid #eab308; display: inline-block; padding-bottom: 6px; font-size: 1.6rem; font-weight: 900; }
-        .table-responsive { width: 100%; overflow-x: auto; border-radius: 25px; border: 2px solid #bbf7d0; margin-top: 20px; }
+        .ctdt-grid { display: flex; flex-direction: column; gap: 10px; }
+        .ctdt-link { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #f0fdf4; text-decoration: none; color: #166534; font-weight: 800; border-radius: 16px; border: 2px solid #bbf7d0; transition: all 0.3s; font-size: 0.88rem; }
+        .ctdt-link:hover { background: linear-gradient(135deg, #166534 0%, #ca8a04 100%); color: #fff; border-color: transparent; padding-left: 20px; box-shadow: 0 4px 12px rgba(22, 101, 52, 0.2); }
+        .ctdt-link span { font-size: 0.75rem; background: rgba(22, 101, 52, 0.1); padding: 3px 8px; border-radius: 10px; }
+        .ctdt-link:hover span { background: rgba(255, 255, 255, 0.2); color: #fff; }
+
+        .about-doan { background: linear-gradient(135deg, #f0fdf4 0%, #eef2f6 100%); border-left: 6px solid #15803d; padding: 20px; border-radius: 20px; margin-bottom: 25px; font-size: 0.95rem; color: #374151; font-weight: 600; }
+
+        .form-container, .table-container { max-width: 950px; margin: 30px auto; background: #ffffff; padding: 45px; border-radius: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 3px solid #bbf7d0; }
+        .form-group { margin-bottom: 22px; }
+        input, select { width: 100%; padding: 18px 24px; border-radius: 25px; font-size: 16px; outline: none; border: 2px solid #bbf7d0; background-color: #fafdfa; color: #1f2937; font-weight: 700; transition: all 0.3s; }
+        input:focus, select:focus { border-color: #22c55e; background-color: #ffffff; box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.15); }
+        select { appearance: none; cursor: pointer; }
+        
+        .table-responsive { width: 100%; overflow-x: auto; border-radius: 25px; border: 2px solid #bbf7d0; margin-top: 15px; }
         table { width: 100%; border-collapse: collapse; white-space: nowrap; }
-        th, td { padding: 20px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 15px; }
-        th { background: linear-gradient(135deg, #15803d 0%, #166534 100%); color: #fef08a; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
+        th, td { padding: 15px 20px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 14px; }
+        th { background: linear-gradient(135deg, #15803d 0%, #166534 100%); color: #fef08a; font-weight: 900; text-transform: uppercase; }
         tr:last-child td { border-bottom: none; }
         tr:hover td { background-color: #f0fdf4; }
         
-        .mini-btn { padding: 10px 18px; background: linear-gradient(135deg, #22c55e 0%, #ca8a04 100%); color: #ffffff; text-decoration: none; border-radius: 20px; font-weight: 900; font-size: 13px; display: inline-block; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3); }
-        .mini-btn:hover { transform: scale(1.05); }
-        
-        .review-box { display: flex; gap: 12px; align-items: center; }
-        select, input[type="text"] { padding: 12px 18px; border-radius: 20px; border: 2px solid #bbf7d0; outline: none; font-size: 14px; background: #fafdfa; font-weight: 700; color: #1f2937; }
-        select:focus, input[type="text"]:focus { border-color: #22c55e; background: #fff; box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15); }
-        
-        .save-eval-btn { padding: 12px 24px; background: linear-gradient(135deg, #15803d 0%, #166534 100%); color: #fef08a; border: none; border-radius: 20px; font-weight: 900; cursor: pointer; font-size: 14px; box-shadow: 0 4px 15px rgba(22, 101, 52, 0.25); }
-        .save-eval-btn:hover { background: #166534; }
-
-        .add-dd-box { background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%); padding: 25px; border-radius: 30px; border: 2px solid #bbf7d0; margin-bottom: 25px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap; }
-        .add-dd-box select, .add-dd-box input { flex: 1; min-width: 220px; padding: 14px 22px; border-radius: 20px; border: 2px solid #bbf7d0; outline: none; font-size: 15px; background: #fff; font-weight: 700; color: #1f2937; }
-        .add-dd-btn { padding: 14px 32px; background: linear-gradient(135deg, #22c55e 0%, #ca8a04 100%); color: #ffffff; border: none; border-radius: 20px; font-weight: 900; cursor: pointer; font-size: 15px; box-shadow: 0 6px 20px rgba(202, 138, 4, 0.4); text-transform: uppercase; }
-        .add-dd-btn:hover { transform: scale(1.03); }
-        
-        .delete-btn { padding: 8px 16px; background: #fee2e2; color: #991b1b; border: 2px solid #fecaca; border-radius: 18px; font-weight: 900; cursor: pointer; font-size: 13px; }
-        .delete-btn:hover { background: #fecaca; }
+        .status-tag { padding: 8px 16px; border-radius: 20px; font-weight: 900; font-size: 13px; display: inline-block; }
+        .status-da-duyet { background-color: #dcfce7; color: #166534; border: 2px solid #bbf7d0; }
+        .status-chua-duyet { background-color: #fef9c3; color: #854d0e; border: 2px solid #fef08a; }
+        .status-khong-duyet { background-color: #fee2e2; color: #991b1b; border: 2px solid #fecaca; }
 
         .filter-tabs { display: flex; gap: 12px; margin-bottom: 20px; }
         .filter-btn { flex: 1; padding: 12px 20px; background: #f0fdf4; color: #166534; border: 2px solid #bbf7d0; border-radius: 20px; font-weight: 900; cursor: pointer; transition: all 0.3s; text-align: center; }
         .filter-btn.active { background: linear-gradient(135deg, #15803d 0%, #ca8a04 100%); color: #fff; border-color: transparent; box-shadow: 0 4px 15px rgba(22, 101, 52, 0.25); }
 
-        /* Badge nhãn trạng thái Check-in thông minh */
-        .badge-dangky { background-color: #dcfce7; color: #166534; padding: 5px 12px; border-radius: 15px; font-weight: 800; font-size: 12px; border: 1px solid #bbf7d0; display: inline-block; }
-        .badge-vanglai { background-color: #fef9c3; color: #854d0e; padding: 5px 12px; border-radius: 15px; font-weight: 800; font-size: 12px; border: 1px solid #fef08a; display: inline-block; }
+        .hocky-tabs { display: flex; gap: 12px; margin-bottom: 25px; flex-wrap: wrap; background: #f0fdf4; padding: 10px; border-radius: 25px; border: 2px solid #bbf7d0; }
+        .hk-btn { flex: 1; min-width: 200px; padding: 14px 20px; background: #ffffff; color: #166534; border: 2px solid #bbf7d0; border-radius: 18px; font-weight: 900; font-size: 0.95rem; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .hk-btn.active { background: linear-gradient(135deg, #15803d 0%, #ca8a04 100%); color: #fff; border-color: transparent; box-shadow: 0 4px 15px rgba(22, 101, 52, 0.25); }
+        
+        .hocky-content { display: none; }
+        .hocky-content.active { display: block; }
+
+        .hoat-dong-header { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+        .hd-btn { padding: 12px 24px; background: #fefce8; color: #854d0e; border: 2px solid #fef08a; border-radius: 20px; font-weight: 800; font-size: 0.92rem; cursor: pointer; transition: all 0.3s; }
+        .hd-btn.active { background: #166534; color: #fef08a; border-color: #166534; box-shadow: 0 4px 12px rgba(22, 101, 52, 0.15); }
+        .hd-subcontent { display: none; }
+        .hd-subcontent.active { display: block; }
+
+        footer { text-align: center; padding: 40px; background: linear-gradient(135deg, #166534 0%, #15803d 100%); color: #fff; margin-top: 70px; border-top-left-radius: 40px; border-top-right-radius: 40px; font-weight: 800; border-top: 4px solid #eab308; }
     </style>
 </head>
 <body>
 
-    <div id="loginOverlay">
-        <div class="login-card">
-            <h2>Đăng nhập Quản trị</h2>
-            <p>Dành cho Đoàn Khoa & Ban Chủ nhiệm 5 CLB:<br><strong>MOD, EC, FFLC, Media, FMCC</strong></p>
-            <input type="password" id="adminPassword" placeholder="Nhập mật khẩu truy cập..." autofocus>
-            <button onclick="kiemTraMatKhau()">Đăng nhập</button>
+    <header>
+        <div class="logo" onclick="chuyenTrang('trangChu')">FFL</div>
+        <nav>
+            <ul>
+                <li><a onclick="chuyenTrang('trangChu')">Trang chủ</a></li>
+                <li><a onclick="chuyenTrang('trangDangKyHoatDong')">Đăng ký sự kiện</a></li>
+                <li><a onclick="chuyenTrang('trangSV5Tot')">Sinh viên 5 Tốt</a></li>
+                <li><a onclick="chuyenTrang('trangDangKy')">Nộp hồ sơ</a></li>
+                <li><a onclick="chuyenTrang('trangDiemDanh')">Điểm danh</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="trangChu">
+        <div class="hero-wrapper">
+            <section class="hero">
+                <h1>Cổng thông tin Sinh viên</h1>
+                <p>Trải nghiệm học tập và kết nối đỉnh cao tại Khoa Ngoại ngữ - Đại học Sài Gòn</p>
+            </section>
+        </div>
+
+        <div class="container">
+            <main>
+                <div class="card">
+                    <h2>Timeline Hoạt động & Sự kiện sắp diễn ra</h2>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <h3>Workshop: Làm đồ dân gian truyền thống</h3>
+                            <div class="event-meta">⏰ 18h00 - Ngày 25/09/2026 | 📍 Cơ sở chính ĐH Sài Gòn</div>
+                            <p>Không gian trải nghiệm văn hóa thủ công truyền thống do Đoàn Khoa tổ chức.</p>
+                            <button class="btn" onclick="chonSuKienDK('Workshop Làm đồ dân gian')">Đăng ký tham gia</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <aside class="sidebar">
+                <div class="card">
+                    <h2>Về Đoàn - Hội Khoa</h2>
+                    <div class="about-doan">
+                        <p><strong>Đoàn TNCS Hồ Chí Minh - Hội Sinh viên Khoa Ngoại ngữ (SGU)</strong> là ngôi nhà chung năng động, tiên phong trong học tập và các hoạt động tình nguyện.</p>
+                    </div>
+                    <h2>Chương trình đào tạo</h2>
+                    <div class="ctdt-grid">
+                        <a href="https://drive.google.com/file/d/12A3_-kYWg13lPFj460SPZ4Qg8L6byxYy/view?usp=drive_fs" target="_blank" class="ctdt-link">Ngôn ngữ Anh <span>2020-2024</span></a>
+                        <a href="https://drive.google.com/file/d/12A3_-kYWg13lPFj460SPZ4Qg8L6byxYy/view?usp=drive_fs" target="_blank" class="ctdt-link">Ngôn ngữ Anh <span>2024-2028</span></a>
+                        <a href="https://drive.google.com/file/d/12A3_-kYWg13lPFj460SPZ4Qg8L6byxYy/view?usp=drive_fs" target="_blank" class="ctdt-link">Sư phạm Anh <span>2020-2024</span></a>
+                        <a href="https://drive.google.com/file/d/12A3_-kYWg13lPFj460SPZ4Qg8L6byxYy/view?usp=drive_fs" target="_blank" class="ctdt-link">Sư phạm Anh <span>2024-2028</span></a>
+                    </div>
+                </div>
+            </aside>
         </div>
     </div>
 
-    <div class="container" id="adminContainer">
-        <div class="admin-banner">
-            <div>
-                <h1 id="bannerTitle">Hệ thống Quản trị & Điều hành FFL</h1>
-                <p id="bannerSub">Khoa Ngoại ngữ - Đại học Sài Gòn</p>
-            </div>
-        </div>
-
-        <div class="tab-header" id="tabHeaderNav">
-            <button class="tab-btn active" onclick="chuyenTab('tabHoSo')">Xét duyệt hồ sơ</button>
-            <button class="tab-btn" onclick="chuyenTab('tabDangKySK')">Danh sách đăng ký sự kiện</button>
-            <button class="tab-btn" onclick="chuyenTab('tabDiemDanh')">Check-in Điểm danh</button>
-        </div>
-
-        <!-- TAB 1: XÉT DUYỆT HỒ SƠ -->
-        <div id="tabHoSo" class="tab-content active">
-            <h2>Danh sách hồ sơ ứng tuyển danh hiệu</h2>
-            <div class="filter-tabs" style="max-width: 400px; margin-bottom: 20px;">
-                <button class="filter-btn active" onclick="locDanhHieuAdmin('Sinh viên 5 Tốt', this)">Sinh viên 5 Tốt</button>
-                <button class="filter-btn" onclick="locDanhHieuAdmin('Đoàn viên Ưu tú', this)">Đoàn viên Ưu tú</button>
-            </div>
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr><th>STT</th><th>Họ tên</th><th>MSSV</th><th>Lớp</th><th>SĐT</th><th>Ngành</th><th>Địa chỉ</th><th>Email</th><th>Chức vụ</th><th>Danh hiệu</th><th>Minh chứng</th><th>Xét duyệt</th></tr>
-                    </thead>
-                    <tbody id="dataList"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- TAB 2: DANH SÁCH ĐĂNG KÝ SỰ KIỆN -->
-        <div id="tabDangKySK" class="tab-content">
-            <h2>Danh sách sinh viên đăng ký giữ chỗ sự kiện</h2>
-            <div class="table-responsive">
-                <table>
-                    <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Họ và tên</th><th>Lớp</th><th>Sự kiện đăng ký</th><th>Thời gian đăng ký</th></tr></thead>
-                    <tbody id="adminListDangKySK"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- TAB 3: CHECK-IN ĐIỂM DANH (CÓ TÍNH TOÁN VÃNG LAI) -->
-        <div id="tabDiemDanh" class="tab-content">
-            <h2>Check-in Điểm danh sự kiện trực tiếp</h2>
-            
-            <form id="adminDiemDanhForm" class="add-dd-box">
-                <select id="chonHoatDong" required>
-                    <option value="" disabled selected>-- Chọn sự kiện check-in --</option>
-                    <option value="Workshop Làm đồ dân gian">Workshop Làm đồ dân gian</option>
-                </select>
-                <input type="text" id="adminMssv" placeholder="Nhập MSSV (VD: 3123130144)..." required>
-                <button type="submit" class="add-dd-btn">Xác nhận Check-in</button>
+    <!-- TRANG ĐĂNG KÝ SỰ KIỆN -->
+    <div id="trangDangKyHoatDong" class="an-giao-dien">
+        <div class="form-container" style="max-width: 600px;">
+            <h2 id="tieuDeFormSK">Đăng ký tham gia sự kiện</h2>
+            <form id="formDangKySuKien">
+                <input type="hidden" id="tenSuKienInput">
+                <div class="form-group"><input type="text" id="dkHoTen" placeholder="Họ và tên sinh viên..." required></div>
+                <div class="form-group"><input type="text" id="dkMssv" placeholder="Mã số sinh viên (VD: 3123130144)..." required></div>
+                <div class="form-group"><input type="text" id="dkLop" placeholder="Lớp (VD: DNA23)..." required></div>
+                <button type="submit" class="btn" style="width: 100%;">Xác nhận đăng ký</button>
             </form>
 
+            <div style="margin-top: 35px; border-top: 2px dashed #bbf7d0; padding-top: 25px;">
+                <h3 style="color: #166534; font-size: 1.1rem; margin-bottom: 12px;">Danh sách sinh viên đã đăng ký:</h3>
+                <div class="table-responsive" style="max-height: 200px; overflow-y: auto;">
+                    <table>
+                        <thead><tr><th>STT</th><th>Mã số sinh viên (Đã ẩn)</th></tr></thead>
+                        <tbody id="listDaDangKySv"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="trangSV5Tot" class="an-giao-dien">
+        <div class="form-container" style="max-width: 900px;">
+            <h2>Danh hiệu Sinh viên 5 Tốt (Năm học 2025 - 2026)</h2>
+            <div style="line-height: 1.8; color: #374151; font-size: 1rem; margin-top: 15px;">
+                <p style="margin-bottom: 15px;">Danh hiệu <strong>"Sinh viên 5 Tốt"</strong> bao gồm 5 tiêu chí: <strong>Đạo đức tốt, Học tập tốt, Thể lực tốt, Tình nguyện tốt, Hội nhập tốt</strong>.</p>
+                <button class="btn" onclick="chuyenTrang('trangDangKy')">Nộp hồ sơ ngay</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="trangDangKy" class="an-giao-dien">
+        <div class="form-container">
+            <h2>Cổng Nộp Hồ Sơ Xét Duyệt Danh Hiệu</h2>
+            <form id="dataForm">
+                <div class="form-group"><input type="text" id="hoTen" placeholder="Họ và tên..." required></div>
+                <div class="form-group"><input type="text" id="mssv" placeholder="Mã số sinh viên (VD: 3123130144)..." required></div>
+                <div class="form-group"><input type="text" id="lop" placeholder="Lớp..." required></div>
+                <div class="form-group"><input type="tel" id="sdt" placeholder="Số điện thoại..." required></div>
+                <div class="form-group">
+                    <select id="nganh" required>
+                        <option value="" disabled selected>Chọn ngành học...</option>
+                        <option value="Sư phạm tiếng Anh">Sư phạm tiếng Anh</option>
+                        <option value="Ngôn ngữ Anh">Ngôn ngữ Anh</option>
+                        <option value="Ngôn ngữ Anh (chương trình CLC)">Ngôn ngữ Anh (chương trình CLC)</option>
+                    </select>
+                </div>
+                <div class="form-group"><input type="text" id="diaChi" placeholder="Địa chỉ nhà..." required></div>
+                <div class="form-group"><input type="email" id="email" placeholder="Email..." required></div>
+                <div class="form-group"><input type="text" id="chucVu" placeholder="Chức vụ (nếu có)..."></div>
+                <div class="form-group">
+                    <select id="danhHieu" required>
+                        <option value="" disabled selected>-- Chọn danh hiệu ứng tuyển --</option>
+                        <option value="Sinh viên 5 Tốt">Sinh viên 5 Tốt</option>
+                        <option value="Đoàn viên Ưu tú">Đoàn viên Ưu tú</option>
+                    </select>
+                </div>
+                <div class="form-group"><input type="url" id="linkDrive" placeholder="Đường dẫn thư mục Google Drive chứa tệp minh chứng..." required></div>
+                <button type="submit" class="btn" style="width: 100%;">Gửi hồ sơ ngay</button>
+            </form>
+        </div>
+
+        <div class="table-container">
+            <h2>Tiến độ xét duyệt hồ sơ</h2>
+            <div class="filter-tabs">
+                <button class="filter-btn active" onclick="locDanhHieu('Sinh viên 5 Tốt', this)">Sinh viên 5 Tốt</button>
+                <button class="filter-btn" onclick="locDanhHieu('Đoàn viên Ưu tú', this)">Đoàn viên Ưu tú</button>
+            </div>
             <div class="table-responsive">
                 <table>
-                    <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Mã số sinh viên</th>
-                            <th>Họ và tên</th>
-                            <th>Trạng thái tham gia</th>
-                            <th>Thời gian check-in</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody id="adminListCheckinSK"></tbody>
+                    <thead><tr><th>STT</th><th>Họ tên</th><th>Mã số sinh viên</th><th>Tình hình xét duyệt</th></tr></thead>
+                    <tbody id="listHoSoChung"></tbody>
                 </table>
             </div>
         </div>
     </div>
 
+    <!-- TRANG ĐIỂM DANH (ĐÃ KHÔI PHỤC ĐẦY ĐỦ CÁC HOẠT ĐỘNG VÀ HỌC KỲ CHO SINH VIÊN TRA CỨU) -->
+    <div id="trangDiemDanh" class="an-giao-dien">
+        <div class="table-container" style="max-width: 950px; margin-top: 40px;">
+            <h2>Danh sách điểm danh hoạt động</h2>
+            <p style="margin-bottom: 20px; color: #4b5563; font-weight: 700;">Chọn Học kỳ và Hoạt động bên dưới để tra cứu:</p>
+            
+            <div class="hocky-tabs">
+                <button class="hk-btn active" onclick="chuyenHocKy('hk1')">Học kỳ 1 (2026 - 2027)</button>
+                <button class="hk-btn" onclick="chuyenHocKy('hk2')">Học kỳ 2 (2026 - 2027)</button>
+                <button class="hk-btn" onclick="chuyenHocKy('hk3')">Học kỳ 3 (2026 - 2027)</button>
+            </div>
+
+            <!-- HỌC KỲ 1 -->
+            <div id="hk1" class="hocky-content active">
+                <div class="hoat-dong-header">
+                    <button class="hd-btn active" onclick="chuyenHoatDongSub('hk1', 'hd1_workshop', this)">Workshop Làm đồ dân gian</button>
+                    <button class="hd-btn" onclick="chuyenHoatDongSub('hk1', 'hd1_1', this)">Ngày hội CLB khoa NN</button>
+                    <button class="hd-btn" onclick="chuyenHoatDongSub('hk1', 'hd1_2', this)">Lễ đón TSV K26</button>
+                </div>
+                <div id="hd1_workshop" class="hd-subcontent active">
+                    <div class="table-responsive">
+                        <table>
+                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Họ tên</th><th>Thời gian điểm danh</th></tr></thead>
+                            <tbody id="listDiemDanhWorkshop"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="hd1_1" class="hd-subcontent">
+                    <div class="table-responsive">
+                        <table>
+                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
+                            <tbody id="listDiemDanhHK1_HD1"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="hd1_2" class="hd-subcontent">
+                    <div class="table-responsive">
+                        <table>
+                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
+                            <tbody id="listDiemDanhHK1_HD2"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HỌC KỲ 2 -->
+            <div id="hk2" class="hocky-content">
+                <div class="hoat-dong-header">
+                    <button class="hd-btn active" onclick="chuyenHoatDongSub('hk2', 'hd2_1', this)">Hội thao truyền thống</button>
+                    <button class="hd-btn" onclick="chuyenHoatDongSub('hk2', 'hd2_2', this)">Cuộc thi Hùng biện tiếng Anh</button>
+                </div>
+                <div id="hd2_1" class="hd-subcontent active">
+                    <div class="table-responsive">
+                        <table>
+                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
+                            <tbody id="listDiemDanhHK2_HD1"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="hd2_2" class="hd-subcontent">
+                    <div class="table-responsive">
+                        <table>
+                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
+                            <tbody id="listDiemDanhHK2_HD2"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HỌC KỲ 3 -->
+            <div id="hk3" class="hocky-content">
+                <div class="hoat-dong-header">
+                    <button class="hd-btn active" onclick="chuyenHoatDongSub('hk3', 'hd3_1', this)">Tổng kết chiến dịch Mùa hè xanh</button>
+                    <button class="hd-btn" onclick="chuyenHoatDongSub('hk3', 'hd3_2', this)">Đêm hội văn nghệ khoa</button>
+                </div>
+                <div id="hd3_1" class="hd-subcontent active">
+                    <div class="table-responsive">
+                        <table>
+                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
+                            <tbody id="listDiemDanhHK3_HD1"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="hd3_2" class="hd-subcontent">
+                    <div class="table-responsive">
+                        <table>
+                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
+                            <tbody id="listDiemDanhHK3_HD2"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Bản quyền thuộc về Đoàn TN - Hội Sinh viên Khoa Ngoại ngữ, Đại học Sài Gòn.</p>
+    </footer>
+
     <script>
-        const PHAN_QUYEN = {
-            "admin123": { ten: "Đoàn Khoa Ngoại ngữ", quyenHoSo: true },
-            "mod2026": { ten: "CLB MOD", quyenHoSo: false },
-            "ec2026": { ten: "CLB English Club (EC)", quyenHoSo: false },
-            "fflc2026": { ten: "CLB FFLC", quyenHoSo: false },
-            "media2026": { ten: "CLB Media", quyenHoSo: false },
-            "fmcc2026": { ten: "CLB FMCC", quyenHoSo: false }
-        };
+        let selectedDanhHieu = "Sinh viên 5 Tốt";
+        let globalSnapshot = null;
+        let currentSuKien = "Workshop Làm đồ dân gian";
 
-        let currentRole = null;
-        let selectedAdminDanhHieu = "Sinh viên 5 Tốt";
-        let globalAdminSnapshot = null;
-
-        function kiemTraMatKhau() {
-            const val = document.getElementById("adminPassword").value.trim();
-            if (PHAN_QUYEN[val]) {
-                currentRole = PHAN_QUYEN[val];
-                document.getElementById("loginOverlay").style.display = "none";
-                document.getElementById("adminContainer").style.display = "block";
-                document.getElementById("bannerTitle").innerText = `Hệ thống Quản trị - ${currentRole.ten}`;
-
-                if (!currentRole.quyenHoSo) {
-                    document.getElementById("tabHeaderNav").style.display = "none";
-                    chuyenTab('tabDiemDanh');
-                }
-            } else {
-                alert("Mật khẩu không chính xác!");
-                document.getElementById("adminPassword").value = "";
-            }
+        function chuyenTrang(idTrang) {
+            document.getElementById('trangChu').classList.add('an-giao-dien');
+            document.getElementById('trangDangKyHoatDong').classList.add('an-giao-dien');
+            document.getElementById('trangSV5Tot').classList.add('an-giao-dien');
+            document.getElementById('trangDangKy').classList.add('an-giao-dien');
+            document.getElementById('trangDiemDanh').classList.add('an-giao-dien');
+            document.getElementById(idTrang).classList.remove('an-giao-dien');
+            window.scrollTo(0, 0);
         }
 
-        document.getElementById("adminPassword").addEventListener("keypress", function(e) {
-            if (e.key === 'Enter') { kiemTraMatKhau(); }
-        });
+        function chonSuKienDK(tenSk) {
+            currentSuKien = tenSk;
+            document.getElementById('tieuDeFormSK').innerText = `Đăng ký tham gia: ${tenSk}`;
+            document.getElementById('tenSuKienInput').value = tenSk;
+            chuyenTrang('trangDangKyHoatDong');
+            loadDanhSachDaDangKy(tenSk);
+        }
 
-        function locDanhHieuAdmin(danhHieu, btnElement) {
-            selectedAdminDanhHieu = danhHieu;
+        function locDanhHieu(danhHieu, btnElement) {
+            selectedDanhHieu = danhHieu;
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             btnElement.classList.add('active');
-            renderAdminHoSoTable();
+            renderHoSoTable();
         }
 
-        function renderAdminHoSoTable() {
-            if (!globalAdminSnapshot) return;
-            const dataList = document.getElementById("dataList");
-            if (!dataList) return;
-            dataList.innerHTML = "";
+        function renderHoSoTable() {
+            if (!globalSnapshot) return;
+            const container = document.getElementById("listHoSoChung");
+            container.innerHTML = "";
             let stt = 1;
 
-            globalAdminSnapshot.forEach((docSnap) => {
+            globalSnapshot.forEach((docSnap) => {
                 const data = docSnap.data();
-                if (data.danh_hieu === selectedAdminDanhHieu) {
-                    const docId = docSnap.id;
-                    const tr = document.createElement("tr");
-                    tr.innerHTML = `
-                        <td><strong>${stt++}</strong></td>
-                        <td><strong>${data.ho_ten}</strong></td>
-                        <td>${data.mssv}</td>
-                        <td>${data.lop}</td>
-                        <td>${data.sdt}</td>
-                        <td>${data.nganh}</td>
-                        <td>${data.dia_chi}</td>
-                        <td>${data.email}</td>
-                        <td>${data.chuc_vu || "Không có"}</td>
-                        <td><strong>${data.danh_hieu}</strong></td>
-                        <td><a href="${data.link_drive}" target="_blank" class="mini-btn">Mở tệp</a></td>
-                        <td>
-                            <div class="review-box">
-                                <select class="status-select" data-id="${docId}">
-                                    <option value="Chưa duyệt" ${data.trang_thai === 'Chưa duyệt' ? 'selected' : ''}>Chưa duyệt</option>
-                                    <option value="Đã duyệt" ${data.trang_thai === 'Đã duyệt' ? 'selected' : ''}>Đã duyệt</option>
-                                    <option value="Không duyệt" ${data.trang_thai === 'Không duyệt' ? 'selected' : ''}>Không duyệt</option>
-                                </select>
-                                <input type="text" class="reason-input" data-id="${docId}" placeholder="Nhập lý do..." value="${data.ly_do || ''}">
-                                <button class="save-eval-btn" data-id="${docId}">Lưu</button>
-                            </div>
-                        </td>
-                    `;
-                    dataList.appendChild(tr);
-                }
-            });
+                if (data.danh_hieu === selectedDanhHieu) {
+                    let trangThaiHTML = `<span class="status-tag status-chua-duyet">Chưa duyệt</span>`;
+                    if (data.trang_thai === 'Đã duyệt') trangThaiHTML = `<span class="status-tag status-da-duyet">Đã duyệt</span>`;
+                    else if (data.trang_thai === 'Không duyệt') trangThaiHTML = `<span class="status-tag status-khong-duyet">Không duyệt: ${data.ly_do || ''}</span>`;
 
-            document.querySelectorAll('.save-eval-btn').forEach(button => {
-                button.addEventListener('click', async (e) => {
-                    const id = e.target.getAttribute('data-id');
-                    const row = e.target.closest('.review-box');
-                    const trangThai = row.querySelector('.status-select').value;
-                    const lyDo = row.querySelector('.reason-input').value;
-                    try {
-                        await updateDoc(doc(db, "HoSo_BaoMat", id), { trang_thai: trangThai, ly_do: lyDo });
-                        await updateDoc(doc(db, "HoSo_CongKhai", id), { trang_thai: trangThai, ly_do: lyDo });
-                        alert("Đã lưu thành công!");
-                    } catch (error) {
-                        alert("Lỗi kết nối.");
-                    }
-                });
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.ho_ten}</strong></td><td>${data.mssv_an}</td><td>${trangThaiHTML}</td>`;
+                    container.appendChild(tr);
+                }
             });
         }
 
-        function chuyenTab(idTab) {
-            document.getElementById('tabHoSo').classList.remove('active');
-            document.getElementById('tabDangKySK').classList.remove('active');
-            document.getElementById('tabDiemDanh').classList.remove('active');
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(idTab).classList.add('active');
+        function chuyenHocKy(idHk) {
+            document.getElementById('hk1').classList.remove('active');
+            document.getElementById('hk2').classList.remove('active');
+            document.getElementById('hk3').classList.remove('active');
+            document.querySelectorAll('.hk-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(idHk).classList.add('active');
             event.currentTarget.classList.add('active');
+        }
+
+        function chuyenHoatDongSub(hkId, subId, btnElement) {
+            const hkContainer = document.getElementById(hkId);
+            hkContainer.querySelectorAll('.hd-subcontent').forEach(sub => sub.classList.remove('active'));
+            hkContainer.querySelectorAll('.hd-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(subId).classList.add('active');
+            btnElement.classList.add('active');
         }
     </script>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, query, orderBy, doc, updateDoc, setDoc, deleteDoc, getDocs, where } 
+        import { getFirestore, collection, doc, setDoc, onSnapshot, query, orderBy, where, getDocs } 
         from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -274,103 +407,118 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Lắng nghe danh sách sinh viên đã đăng ký sự kiện
-        const adminListDangKySK = document.getElementById("adminListDangKySK");
-        onSnapshot(query(collection(db, "DangKy_SuKien"), orderBy("thoi_gian_dk", "desc")), (snapshot) => {
-            adminListDangKySK.innerHTML = "";
-            let stt = 1;
-            snapshot.forEach((docSnap) => {
-                const data = docSnap.data();
-                let thoiGianStr = data.thoi_gian_dk ? data.thoi_gian_dk.toDate().toLocaleTimeString('vi-VN') + " - " + data.thoi_gian_dk.toDate().toLocaleDateString('vi-VN') : "";
-                const tr = document.createElement("tr");
-                tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv}</strong></td><td>${data.ho_ten}</td><td>${data.lop}</td><td><span class="status-tag status-da-duyet">${data.su_kien}</span></td><td>${thoiGianStr}</td>`;
-                adminListDangKySK.appendChild(tr);
-            });
-        });
-
-        // Xử lý Check-in thông minh (Tự tính toán: Đã đăng ký trước vs Khách vãng lai)
-        const adminDiemDanhForm = document.getElementById("adminDiemDanhForm");
-        adminDiemDanhForm.addEventListener("submit", async (e) => {
+        const formDangKySuKien = document.getElementById("formDangKySuKien");
+        formDangKySuKien.addEventListener("submit", async (e) => {
             e.preventDefault();
-            const suKienName = document.getElementById("chonHoatDong").value;
-            const mssvInput = document.getElementById("adminMssv").value.trim();
-
-            if (!/^312\d{7}$/.test(mssvInput)) {
+            const mssv = document.getElementById("dkMssv").value.trim();
+            if (!/^312\d{7}$/.test(mssv)) {
                 alert("Mã số sinh viên không hợp lệ! Phải bắt đầu bằng '312' và đúng 10 chữ số.");
                 return;
             }
 
+            const hoTen = document.getElementById("dkHoTen").value.trim();
+            const lop = document.getElementById("dkLop").value.trim();
+            const skName = document.getElementById("tenSuKienInput").value || "Workshop Làm đồ dân gian";
+
+            const checkQ = query(collection(db, "DangKy_SuKien"), where("mssv", "==", mssv), where("su_kien", "==", skName));
+            if (!(await getDocs(checkQ)).empty) {
+                alert("Bạn đã đăng ký tham gia sự kiện này rồi!");
+                return;
+            }
+
             try {
-                // Kiểm tra xem đã check-in chưa
-                const checkQ = query(collection(db, "DiemDanh_SuKien"), where("mssv", "==", mssvInput), where("su_kien", "==", suKienName));
-                if (!(await getDocs(checkQ)).empty) {
-                    alert("Sinh viên này đã check-in sự kiện này rồi!");
-                    return;
-                }
-
-                // Kiểm tra xem sinh viên có đăng ký trước đó hay không
-                const regQ = query(collection(db, "DangKy_SuKien"), where("mssv", "==", mssvInput), where("su_kien", "==", suKienName));
-                const regSnap = await getDocs(regQ);
-
-                let hoTenSv = "Khách vãng lai";
-                let trangThaiThamGia = "Vãng lai (Không đăng ký trước)";
-
-                if (!regSnap.empty) {
-                    hoTenSv = regSnap.docs[0].data().ho_ten;
-                    trangThaiThamGia = "Đã đăng ký trước";
-                } else {
-                    const xacNhan = confirm(`MSSV ${mssvInput} chưa đăng ký giữ chỗ trước. Hệ thống sẽ ghi nhận là KHÁCH VÃNG LAI. Bạn có muốn tiếp tục?`);
-                    if (!xacNhan) return;
-                }
-
-                const newRef = doc(collection(db, "DiemDanh_SuKien"));
-                await setDoc(doc(db, "DiemDanh_SuKien", newRef.id), {
-                    mssv: mssvInput,
-                    ho_ten: hoTenSv,
-                    su_kien: suKienName,
-                    trang_thai: trangThaiThamGia,
-                    thoi_gian: new Date()
+                const newRef = doc(collection(db, "DangKy_SuKien"));
+                await setDoc(doc(db, "DangKy_SuKien", newRef.id), {
+                    mssv: mssv, ho_ten: hoTen, lop: lop, su_kien: skName, thoi_gian_dk: new Date()
                 });
-
-                document.getElementById("adminMssv").value = "";
-                alert(`Check-in thành công cho: ${hoTenSv} (${trangThaiThamGia})!`);
+                formDangKySuKien.reset();
+                document.getElementById("tenSuKienInput").value = skName;
+                alert("Đăng ký giữ chỗ thành công!");
+                loadDanhSachDaDangKy(skName);
             } catch (err) {
-                alert("Lỗi kết nối hệ thống.");
+                alert("Lỗi kết nối.");
             }
         });
 
-        // Lắng nghe danh sách check-in thực tế hiển thị trên bảng quản trị
-        const adminListCheckinSK = document.getElementById("adminListCheckinSK");
-        onSnapshot(query(collection(db, "DiemDanh_SuKien"), orderBy("thoi_gian", "desc")), (snapshot) => {
-            adminListCheckinSK.innerHTML = "";
-            let stt = 1;
-            snapshot.forEach((docSnap) => {
-                const data = docSnap.data();
-                const docId = docSnap.id;
-                let thoiGianStr = data.thoi_gian ? data.thoi_gian.toDate().toLocaleTimeString('vi-VN') + " - " + data.thoi_gian.toDate().toLocaleDateString('vi-VN') : "";
-                
-                // Tính toán nhãn hiển thị badge trực quan
-                let badgeHTML = `<span class="badge-dangky">✓ Đã đăng ký trước</span>`;
-                if (data.trang_thai && data.trang_thai.includes("Vãng lai")) {
-                    badgeHTML = `<span class="badge-vanglai">⚡ Vãng lai (Điểm danh trực tiếp)</span>`;
-                }
-
-                const tr = document.createElement("tr");
-                tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv}</strong></td><td>${data.ho_ten}</td><td>${badgeHTML}</td><td>${thoiGianStr}</td><td><button class="delete-btn" onclick="xoaCheckinSK('${docId}')">Xóa</button></td>`;
-                adminListCheckinSK.appendChild(tr);
+        window.loadDanhSachDaDangKy = function(skName) {
+            const tableBody = document.getElementById("listDaDangKySv");
+            const qReg = query(collection(db, "DangKy_SuKien"), where("su_kien", "==", skName), orderBy("thoi_gian_dk", "desc"));
+            onSnapshot(qReg, (snapshot) => {
+                tableBody.innerHTML = "";
+                let stt = 1;
+                snapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    let mssvAn = data.mssv ? data.mssv.substring(0, 4) + "***" : "";
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${mssvAn}</strong></td>`;
+                    tableBody.appendChild(tr);
+                });
             });
+        }
+        loadDanhSachDaDangKy("Workshop Làm đồ dân gian");
+
+        const form = document.getElementById("dataForm");
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const mssv = document.getElementById("mssv").value.trim();
+            if (!/^312\d{7}$/.test(mssv)) {
+                alert("Mã số sinh viên không hợp lệ!");
+                return;
+            }
+
+            const checkQuery = query(collection(db, "HoSo_BaoMat"), where("mssv", "==", mssv));
+            if (!(await getDocs(checkQuery)).empty) {
+                alert("MSSV này đã nộp hồ sơ trước đó.");
+                return;
+            }
+
+            const newDocRef = doc(collection(db, "HoSo_BaoMat"));
+            await setDoc(doc(db, "HoSo_BaoMat", newDocRef.id), {
+                ho_ten: document.getElementById("hoTen").value, mssv: mssv, lop: document.getElementById("lop").value, 
+                sdt: document.getElementById("sdt").value, nganh: document.getElementById("nganh").value, 
+                dia_chi: document.getElementById("diaChi").value, email: document.getElementById("email").value, 
+                chuc_vu: document.getElementById("chucVu").value, danh_hieu: document.getElementById("danhHieu").value, 
+                link_drive: document.getElementById("linkDrive").value, trang_thai: "Chưa duyệt", ly_do: "", thoi_gian: new Date()
+            });
+
+            await setDoc(doc(db, "HoSo_CongKhai", newDocRef.id), {
+                ho_ten: document.getElementById("hoTen").value, mssv_an: mssv.substring(0, 4) + "***", 
+                danh_hieu: document.getElementById("danhHieu").value, trang_thai: "Chưa duyệt", ly_do: "", thoi_gian: new Date()
+            });
+
+            form.reset();
+            alert("Gửi hồ sơ thành công!");
         });
 
-        window.xoaCheckinSK = async function(id) {
-            if (confirm("Bạn có chắc chắn muốn xóa lượt check-in này?")) {
-                await deleteDoc(doc(db, "DiemDanh_SuKien", id));
-            }
+        onSnapshot(query(collection(db, "HoSo_CongKhai"), orderBy("thoi_gian", "desc")), (snap) => {
+            window.globalSnapshot = snap;
+            renderHoSoTable();
+        });
+
+        // Hàm helper load bảng điểm danh các hoạt động
+        function bindDiemDanh(colName, elementId) {
+            const container = document.getElementById(elementId);
+            if (!container) return;
+            onSnapshot(query(collection(db, colName), orderBy("thoi_gian", "desc")), (snapshot) => {
+                container.innerHTML = "";
+                let stt = 1;
+                snapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    let thoiGianStr = data.thoi_gian ? data.thoi_gian.toDate().toLocaleTimeString('vi-VN') + " - " + data.thoi_gian.toDate().toLocaleDateString('vi-VN') : "";
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv}</strong></td><td>${data.ho_ten || 'N/A'}</td><td>${thoiGianStr}</td>`;
+                    container.appendChild(tr);
+                });
+            });
         }
 
-        onSnapshot(query(collection(db, "HoSo_BaoMat"), orderBy("thoi_gian", "desc")), (snap) => {
-            window.globalAdminSnapshot = snap;
-            renderAdminHoSoTable();
-        });
+        bindDiemDanh("DiemDanh_Workshop", "listDiemDanhWorkshop");
+        bindDiemDanh("DiemDanh_HK1_HD1", "listDiemDanhHK1_HD1");
+        bindDiemDanh("DiemDanh_HK1_HD2", "listDiemDanhHK1_HD2");
+        bindDiemDanh("DiemDanh_HK2_HD1", "listDiemDanhHK2_HD1");
+        bindDiemDanh("DiemDanh_HK2_HD2", "listDiemDanhHK2_HD2");
+        bindDiemDanh("DiemDanh_HK3_HD1", "listDiemDanhHK3_HD1");
+        bindDiemDanh("DiemDanh_HK3_HD2", "listDiemDanhHK3_HD2");
     </script>
 </body>
 </html>
