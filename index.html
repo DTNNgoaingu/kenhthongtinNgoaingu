@@ -177,7 +177,7 @@
                 <h3 style="color: #166534; font-size: 1.1rem; margin-bottom: 12px;">Danh sách sinh viên đã đăng ký:</h3>
                 <div class="table-responsive" style="max-height: 220px; overflow-y: auto;">
                     <table>
-                        <thead><tr><th>STT</th><th>Mã số sinh viên (Đã ẩn)</th></tr></thead>
+                        <thead><tr><th>STT</th><th>Mã số sinh viên</th></tr></thead>
                         <tbody id="listDaDangKySv"></tbody>
                     </table>
                 </div>
@@ -446,7 +446,6 @@
             const tableBody = document.getElementById("listDaDangKySv");
             if (!tableBody) return;
 
-            // Hủy listener cũ nếu có để tránh chồng chéo data giữa các sự kiện
             if (unsubscribeCurrent) {
                 unsubscribeCurrent();
             }
@@ -458,23 +457,19 @@
                 let stt = 1;
                 snapshot.forEach((docSnap) => {
                     const data = docSnap.data();
-                    let mssvAn = data.mssv ? data.mssv.substring(0, 4) + "***" : "";
                     const tr = document.createElement("tr");
-                    tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${mssvAn}</strong></td>`;
+                    tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv}</strong></td>`;
                     tableBody.appendChild(tr);
                 });
             }, (error) => {
-                // Trường hợp Firestore chưa tạo Index cho query phức hợp, log ra console và dùng query dự phòng
-                console.warn("Đang dùng query dự phòng do chưa tạo index:", error);
                 const qFallback = query(collection(db, "DangKy_SuKien"), where("su_kien", "==", skName));
                 onSnapshot(qFallback, (snapshot) => {
                     tableBody.innerHTML = "";
                     let stt = 1;
                     snapshot.forEach((docSnap) => {
                         const data = docSnap.data();
-                        let mssvAn = data.mssv ? data.mssv.substring(0, 4) + "***" : "";
                         const tr = document.createElement("tr");
-                        tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${mssvAn}</strong></td>`;
+                        tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv}</strong></td>`;
                         tableBody.appendChild(tr);
                     });
                 });
