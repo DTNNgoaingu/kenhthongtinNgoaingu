@@ -60,7 +60,7 @@
             <ul>
                 <li><a onclick="chuyenTrang('trangChu')">Trang chủ</a></li>
                 <li><a onclick="chuyenTrang('trangDangKy')">Xét danh hiệu</a></li>
-                <li><a onclick="chuyenTrang('trangDiemDanh')">Điểm danh Đoàn khoa</a></li>
+                <li><a onclick="chuyenTrang('trangDiemDanh')">Theo dõi điểm danh</a></li>
             </ul>
         </nav>
     </header>
@@ -76,9 +76,9 @@
                 <div class="card">
                     <h2>Thông báo & Sự kiện</h2>
                     <div class="news-item">
-                        <h3>Cổng điểm danh trực tuyến Đoàn khoa</h3>
-                        <p>Các bạn sinh viên tham gia chương trình có thể sử dụng cổng điểm danh nhanh bằng Mã số sinh viên để ghi nhận kết quả trực tiếp.</p>
-                        <button class="btn" onclick="chuyenTrang('trangDiemDanh')">Điểm danh ngay</button>
+                        <h3>Danh sách điểm danh hoạt động Đoàn khoa</h3>
+                        <p>Các bạn sinh viên có thể theo dõi danh sách điểm danh trực tuyến do Đoàn khoa cập nhật trực tiếp tại đây.</p>
+                        <button class="btn" onclick="chuyenTrang('trangDiemDanh')">Xem điểm danh</button>
                     </div>
                     <div class="news-item">
                         <h3>Cổng nộp hồ sơ xét duyệt danh hiệu cấp Khoa</h3>
@@ -141,20 +141,11 @@
         </div>
     </div>
 
-    <!-- GIAO DIỆN ĐIỂM DANH -->
+    <!-- GIAO DIỆN XEM ĐIỂM DANH -->
     <div id="trangDiemDanh" class="an-giao-dien">
-        <div class="form-container">
-            <h2>Điểm danh hoạt động Đoàn khoa</h2>
-            <form id="diemDanhForm">
-                <div class="form-group"><input type="text" id="ddHoTen" placeholder="Họ và tên..." required></div>
-                <div class="form-group"><input type="text" id="ddMssv" placeholder="Mã số sinh viên..." required></div>
-                <div class="form-group"><input type="text" id="ddLop" placeholder="Lớp (Ví dụ: DSE1231)..." required></div>
-                <button type="submit" class="btn">Xác nhận điểm danh</button>
-            </form>
-        </div>
-
-        <div class="table-container">
+        <div class="table-container" style="max-width: 1000px; margin-top: 40px;">
             <h2>Danh sách sinh viên đã điểm danh</h2>
+            <p style="margin-bottom: 20px; color: #555;">Dữ liệu được cập nhật trực tiếp từ ban tổ chức Đoàn khoa.</p>
             <div class="table-responsive">
                 <table>
                     <thead>
@@ -187,7 +178,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, doc, setDoc, addDoc, onSnapshot, query, orderBy, where, getDocs } 
+        import { getFirestore, collection, doc, setDoc, onSnapshot, query, orderBy, where, getDocs } 
         from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -267,38 +258,8 @@
             });
         });
 
-        // Xử lý tính năng điểm danh Đoàn khoa
-        const diemDanhForm = document.getElementById("diemDanhForm");
+        // Hiển thị danh sách điểm danh (Chỉ xem)
         const diemDanhList = document.getElementById("diemDanhList");
-
-        diemDanhForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const ddMssv = document.getElementById("ddMssv").value.trim();
-            const ddHoTen = document.getElementById("ddHoTen").value.trim();
-            const ddLop = document.getElementById("ddLop").value.trim();
-
-            const checkDdQuery = query(collection(db, "DiemDanh"), where("mssv", "==", ddMssv));
-            const ddSnapshot = await getDocs(checkDdQuery);
-
-            if (!ddSnapshot.empty) {
-                alert("Mã số sinh viên này đã thực hiện điểm danh trước đó rồi!");
-                return;
-            }
-
-            try {
-                await addDoc(collection(db, "DiemDanh"), {
-                    ho_ten: ddHoTen,
-                    mssv: ddMssv,
-                    lop: ddLop,
-                    thoi_gian: new Date()
-                });
-                diemDanhForm.reset();
-                alert("Điểm danh thành công!");
-            } catch (error) {
-                alert("Không thể ghi nhận điểm danh. Vui lòng thử lại.");
-            }
-        });
-
         const ddQuery = query(collection(db, "DiemDanh"), orderBy("thoi_gian", "desc"));
         onSnapshot(ddQuery, (snapshot) => {
             diemDanhList.innerHTML = "";
