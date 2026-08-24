@@ -91,6 +91,7 @@
         <nav>
             <ul>
                 <li><a onclick="chuyenTrang('trangChu')">Trang chủ</a></li>
+                <li><a onclick="chuyenTrang('trangGioiThieu')">Giới thiệu</a></li>
                 <li><a onclick="moManHinhChonSuKien()">Đăng ký sự kiện</a></li>
                 <li><a onclick="chuyenTrang('trangSV5Tot')">Sinh viên 5 Tốt</a></li>
                 <li><a onclick="chuyenTrang('trangDangKy')">Nộp hồ sơ</a></li>
@@ -99,6 +100,7 @@
         </nav>
     </header>
 
+    <!-- TRANG CHỦ -->
     <div id="trangChu">
         <div class="hero-wrapper">
             <section class="hero">
@@ -121,12 +123,34 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="card">
+                    <h2>Tiêu chí Sinh viên 5 Tốt</h2>
+                    <div style="color: #4b5563; font-weight: 500; margin-bottom: 15px;">
+                        <p>Danh hiệu <strong>"Sinh viên 5 Tốt"</strong> là phần thưởng cao quý dành cho đoàn viên, sinh viên đạt chuẩn toàn diện về 5 tiêu chí:</p>
+                        <ul style="margin: 10px 0 15px 20px; line-height: 1.8;">
+                            <li><strong>Đạo đức tốt:</strong> Phẩm chất chính trị, đạo đức lối sống lành mạnh.</li>
+                            <li><strong>Học tập tốt:</strong> Kết quả học tập xuất sắc, tích cực nghiên cứu khoa học.</li>
+                            <li><strong>Thể lực tốt:</strong> Đạt danh hiệu "Thanh niên khỏe" hoặc tham gia tốt các hội thao.</li>
+                            <li><strong>Tình nguyện tốt:</strong> Tích cực tham gia các hoạt động cộng đồng, Mùa hè xanh.</li>
+                            <li><strong>Hội nhập tốt:</strong> Năng lực ngoại ngữ, tin học và kỹ năng mềm vững vàng.</li>
+                        </ul>
+                    </div>
+                    <button class="btn" onclick="chuyenTrang('trangDangKy')">Nộp hồ sơ xét duyệt ngay</button>
+                </div>
+
+                <div class="card">
+                    <h2>Tra cứu Điểm danh nhanh</h2>
+                    <p style="color: #4b5563; margin-bottom: 15px; font-weight: 500;">Bạn có thể tra cứu nhanh danh sách mã số sinh viên đã check-in tham gia các chương trình cấp khoa tại mục Điểm danh chi tiết.</p>
+                    <button class="btn" onclick="chuyenTrang('trangDiemDanh')">Đến trang tra cứu điểm danh</button>
+                </div>
             </main>
+
             <aside class="sidebar">
                 <div class="card">
-                    <h2>Về Đoàn - Hội Khoa</h2>
+                    <h2>Thông tin nhanh</h2>
                     <div class="about-doan">
-                        <p><strong>Đoàn TNCS Hồ Chí Minh - Hội Sinh viên Khoa Ngoại ngữ (SGU)</strong> là ngôi nhà chung năng động, tiên phong trong học tập và các hoạt động tình nguyện.</p>
+                        <p>Hệ thống hỗ trợ sinh viên tra cứu thông tin hoạt động, đăng ký sự kiện và nộp hồ sơ xét duyệt danh hiệu cấp khoa.</p>
                     </div>
                     <h2>Chương trình đào tạo</h2>
                     <div class="ctdt-grid">
@@ -137,6 +161,28 @@
                     </div>
                 </div>
             </aside>
+        </div>
+    </div>
+
+    <!-- TRANG GIỚI THIỆU -->
+    <div id="trangGioiThieu" class="an-giao-dien">
+        <div class="form-container" style="max-width: 900px;">
+            <h2>Giới thiệu Đoàn - Hội khoa Ngoại ngữ</h2>
+            <div style="line-height: 1.8; color: #374151; font-size: 1rem; margin-top: 15px;">
+                <p style="margin-bottom: 15px;"><strong>Đoàn TNCS Hồ Chí Minh - Hội Sinh viên khoa Ngoại ngữ (Đại học Sài Gòn)</strong> là ngôi nhà chung năng động, nhiệt huyết và là môi trường rèn luyện uy tín của toàn thể đoàn viên, sinh viên khối ngành ngôn ngữ và sư phạm.</p>
+                
+                <h3 style="color: #166534; margin: 20px 0 10px 0; font-size: 1.2rem;">Sứ mệnh và Tầm nhìn</h3>
+                <p style="margin-bottom: 15px;">Tiên phong trong học tập, sáng tạo, chuyển đổi số và hội nhập quốc tế. Đồng thời tạo môi trường rèn luyện các tiêu chí trong phong trào "Sinh viên 5 Tốt", bồi dưỡng bản lĩnh chính trị và kỹ năng thực tế cho thế hệ trẻ.</p>
+
+                <h3 style="color: #166534; margin: 20px 0 10px 0; font-size: 1.2rem;">Các Câu lạc bộ trực thuộc</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li><strong>CLB Tiếng Anh - EC:</strong> Môi trường trau dồi và phát triển kỹ năng giao tiếp ngoại ngữ.</li>
+                    <li><strong>CLB Truyền thông - FFL Media:</strong> Đội ngũ sáng tạo nội dung, thiết kế và sản xuất ấn phẩm truyền thông.</li>
+                    <li><strong>CLB Văn nghệ - MOD:</strong> Nơi hội tụ những tài năng nghệ thuật, âm nhạc và vũ đạo.</li>
+                    <li><strong>CLB 5 Tốt Đồng hành - FMCC:</strong> Hỗ trợ sinh viên định hướng và chinh phục danh hiệu Sinh viên 5 Tốt.</li>
+                    <li><strong>CLB Cộng tác viên - FFLC:</strong> Lực lượng xung kích hỗ trợ công tác tổ chức sự kiện cấp khoa.</li>
+                </ul>
+            </div>
         </div>
     </div>
 
@@ -152,8 +198,6 @@
                         <option value="Workshop Làm đồ dân gian">Workshop: Làm đồ dân gian truyền thống (25/09/2026)</option>
                         <option value="Ngày hội CLB khoa NN">Ngày hội các Câu lạc bộ khoa Ngoại ngữ</option>
                         <option value="Lễ đón TSV K26">Lễ đón Tân sinh viên khóa K26</option>
-                        <option value="Hội thao truyền thống">Hội thao truyền thống sinh viên</option>
-                        <option value="Cuộc thi Hùng biện tiếng Anh">Cuộc thi Hùng biện tiếng Anh cấp khoa</option>
                     </select>
                 </div>
                 <button type="button" class="btn" onclick="chuyenSangBuocNhapForm()" style="width: 100%;">Tiếp tục đăng ký</button>
@@ -183,6 +227,7 @@
         </div>
     </div>
 
+    <!-- TRANG SINH VIÊN 5 TỐT -->
     <div id="trangSV5Tot" class="an-giao-dien">
         <div class="form-container" style="max-width: 900px;">
             <h2>Danh hiệu Sinh viên 5 Tốt (Năm học 2025 - 2026)</h2>
@@ -193,6 +238,7 @@
         </div>
     </div>
 
+    <!-- TRANG NỘP HỒ SƠ -->
     <div id="trangDangKy" class="an-giao-dien">
         <div class="form-container">
             <h2>Cổng Nộp Hồ Sơ Xét Duyệt Danh Hiệu</h2>
@@ -239,16 +285,14 @@
         </div>
     </div>
 
-    <!-- MÀN HÌNH TRA CỨU ĐIỂM DANH -->
+    <!-- MÀN HÌNH TRA CỨU ĐIỂM DANH (CHỈ GIỮ LẠI HỌC KỲ 1) -->
     <div id="trangDiemDanh" class="an-giao-dien">
         <div class="table-container" style="max-width: 950px; margin-top: 40px;">
             <h2>Danh sách điểm danh hoạt động</h2>
-            <p style="margin-bottom: 20px; color: #4b5563; font-weight: 700;">Chọn Học kỳ và Hoạt động bên dưới để tra cứu:</p>
+            <p style="margin-bottom: 20px; color: #4b5563; font-weight: 700;">Chọn hoạt động Học kỳ 1 bên dưới để tra cứu:</p>
             
             <div class="hocky-tabs">
-                <button class="hk-btn active" onclick="chuyenHocKy('hk1')">Học kỳ 1 (2026 - 2027)</button>
-                <button class="hk-btn" onclick="chuyenHocKy('hk2')">Học kỳ 2 (2026 - 2027)</button>
-                <button class="hk-btn" onclick="chuyenHocKy('hk3')">Học kỳ 3 (2026 - 2027)</button>
+                <button class="hk-btn active">Học kỳ 1 (2026 - 2027)</button>
             </div>
 
             <div id="hk1" class="hocky-content active">
@@ -282,52 +326,6 @@
                     </div>
                 </div>
             </div>
-
-            <div id="hk2" class="hocky-content">
-                <div class="hoat-dong-header">
-                    <button class="hd-btn active" onclick="chuyenHoatDongSub('hk2', 'hd2_1', this)">Hội thao truyền thống</button>
-                    <button class="hd-btn" onclick="chuyenHoatDongSub('hk2', 'hd2_2', this)">Cuộc thi Hùng biện tiếng Anh</button>
-                </div>
-                <div id="hd2_1" class="hd-subcontent active">
-                    <div class="table-responsive">
-                        <table>
-                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian check-in</th></tr></thead>
-                            <tbody id="listDiemDanhHK2_HD1"></tbody>
-                        </table>
-                    </div>
-                </div>
-                <div id="hd2_2" class="hd-subcontent">
-                    <div class="table-responsive">
-                        <table>
-                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian check-in</th></tr></thead>
-                            <tbody id="listDiemDanhHK2_HD2"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div id="hk3" class="hocky-content">
-                <div class="hoat-dong-header">
-                    <button class="hd-btn active" onclick="chuyenHoatDongSub('hk3', 'hd3_1', this)">Tổng kết chiến dịch Mùa hè xanh</button>
-                    <button class="hd-btn" onclick="chuyenHoatDongSub('hk3', 'hd3_2', this)">Đêm hội văn nghệ khoa</button>
-                </div>
-                <div id="hk3_1" class="hd-subcontent active">
-                    <div class="table-responsive">
-                        <table>
-                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian check-in</th></tr></thead>
-                            <tbody id="listDiemDanhHK3_HD1"></tbody>
-                        </table>
-                    </div>
-                </div>
-                <div id="hd3_2" class="hd-subcontent">
-                    <div class="table-responsive">
-                        <table>
-                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian check-in</th></tr></thead>
-                            <tbody id="listDiemDanhHK3_HD2"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -342,6 +340,7 @@
 
         function chuyenTrang(idTrang) {
             document.getElementById('trangChu').classList.add('an-giao-dien');
+            document.getElementById('trangGioiThieu').classList.add('an-giao-dien');
             document.getElementById('trangDangKyHoatDong').classList.add('an-giao-dien');
             document.getElementById('trangSV5Tot').classList.add('an-giao-dien');
             document.getElementById('trangDangKy').classList.add('an-giao-dien');
@@ -401,15 +400,6 @@
                     container.appendChild(tr);
                 }
             });
-        }
-
-        function chuyenHocKy(idHk) {
-            document.getElementById('hk1').classList.remove('active');
-            document.getElementById('hk2').classList.remove('active');
-            document.getElementById('hk3').classList.remove('active');
-            document.querySelectorAll('.hk-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(idHk).classList.add('active');
-            event.currentTarget.classList.add('active');
         }
 
         function chuyenHoatDongSub(hkId, subId, btnElement) {
@@ -562,7 +552,6 @@
                         thoiGianStr = data.thoi_gian.toDate().toLocaleTimeString('vi-VN') + " - " + data.thoi_gian.toDate().toLocaleDateString('vi-VN');
                     }
                     const tr = document.createElement("tr");
-                    // Chỉ hiển thị STT, MSSV và Thời gian check-in (Đã bỏ cột Họ tên)
                     tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv}</strong></td><td>${thoiGianStr}</td>`;
                     container.appendChild(tr);
                 });
@@ -572,10 +561,6 @@
         bindDiemDanh("DiemDanh_SuKien", "listDiemDanhWorkshop");
         bindDiemDanh("DiemDanh_HK1_HD1", "listDiemDanhHK1_HD1");
         bindDiemDanh("DiemDanh_HK1_HD2", "listDiemDanhHK1_HD2");
-        bindDiemDanh("DiemDanh_HK2_HD1", "listDiemDanhHK2_HD1");
-        bindDiemDanh("DiemDanh_HK2_HD2", "listDiemDanhHK2_HD2");
-        bindDiemDanh("DiemDanh_HK3_HD1", "listDiemDanhHK3_HD1");
-        bindDiemDanh("DiemDanh_HK3_HD2", "listDiemDanhHK3_HD2");
     </script>
 </body>
 </html>
