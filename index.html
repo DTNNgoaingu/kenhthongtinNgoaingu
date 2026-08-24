@@ -72,6 +72,7 @@
         <nav>
             <ul>
                 <li><a onclick="chuyenTrang('trangChu')">Trang chủ</a></li>
+                <li><a onclick="chuyenTrang('trangSV5Tot')">Sinh viên 5 Tốt 2025-2026</a></li>
                 <li><a onclick="chuyenTrang('trangDangKy')">Xét danh hiệu</a></li>
                 <li><a onclick="chuyenTrang('trangDiemDanh')">Theo dõi điểm danh</a></li>
             </ul>
@@ -92,8 +93,8 @@
                     <h2>Thông báo & Sự kiện</h2>
                     <div class="news-item">
                         <h3>Danh hiệu Sinh viên 5 Tốt năm học 2025 - 2026</h3>
-                        <p>Triển khai kế hoạch xét chọn danh hiệu "Sinh viên 5 Tốt" cấp Khoa và cấp Trường năm học 2025 - 2026. Sinh viên chuẩn bị hồ sơ minh chứng theo tiêu chí.</p>
-                        <button class="btn" onclick="chuyenTrang('trangDangKy')">Ứng tuyển ngay</button>
+                        <p>Triển khai kế hoạch xét chọn danh hiệu "Sinh viên 5 Tốt" cấp Khoa và cấp Trường năm học 2025 - 2026. Xem chi tiết các tiêu chí tại mục riêng trên menu.</p>
+                        <button class="btn" onclick="chuyenTrang('trangSV5Tot')">Xem chi tiết</button>
                     </div>
                     <div class="news-item">
                         <h3>Danh sách điểm danh hoạt động Đoàn khoa</h3>
@@ -123,9 +124,27 @@
         </div>
     </div>
 
+    <!-- THẺ THÔNG TIN SINH VIÊN 5 TỐT -->
+    <div id="trangSV5Tot" class="an-giao-dien">
+        <div class="form-container" style="max-width: 900px;">
+            <h2>Danh hiệu Sinh viên 5 Tốt (Năm học 2025 - 2026)</h2>
+            <div style="line-height: 1.8; color: #374151; font-size: 1rem; margin-top: 15px;">
+                <p style="margin-bottom: 15px;">Danh hiệu <strong>"Sinh viên 5 Tốt"</strong> là danh hiệu cao quý của Hội Sinh viên Việt Nam trao tặng cho sinh viên đạt đủ 5 tiêu chí cốt lõi:</p>
+                <ul style="padding-left: 20px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 10px;">
+                    <li><strong>Đạo đức tốt:</strong> Xếp hạng rèn luyện loại Khối trở lên, không vi phạm pháp luật và nội quy nhà trường.</li>
+                    <li><strong>Học tập tốt:</strong> Điểm trung bình chung học tập đạt từ 2.5/4.0 trở lên (hoặc tương đương).</li>
+                    <li><strong>Thể lực tốt:</strong> Đạt danh hiệu "Thanh niên khỏe" hoặc tham gia các hoạt động thể thao cấp Khoa/Trường.</li>
+                    <li><strong>Tình nguyện tốt:</strong> Tham gia tích cực các hoạt động chiến dịch tình nguyện (Mùa hè xanh, Xuân tình nguyện, hiến máu nhân đạo,...).</li>
+                    <li><strong>Hội nhập tốt:</strong> Có chứng chỉ ngoại ngữ theo quy định hoặc tham gia các hoạt động hội nhập quốc tế.</li>
+                </ul>
+                <p>Các bạn sinh viên đạt đủ tiêu chuẩn chuẩn bị hồ sơ minh chứng đầy đủ trên Google Drive và tiến hành nộp qua cổng <a onclick="chuyenTrang('trangDangKy')" style="color: #15803d; font-weight: 800; cursor: pointer; text-decoration: underline;">Xét danh hiệu</a>.</p>
+            </div>
+        </div>
+    </div>
+
     <div id="trangDangKy" class="an-giao-dien">
         <div class="form-container">
-            <h2>Hồ sơ xét duyệt danh hiệu (Sinh viên 5 Tốt 2025 - 2026)</h2>
+            <h2>Hồ sơ xét duyệt danh hiệu</h2>
             <form id="dataForm">
                 <div class="form-group"><input type="text" id="hoTen" placeholder="Họ và tên..." required></div>
                 <div class="form-group"><input type="text" id="mssv" placeholder="Mã số sinh viên..." required></div>
@@ -213,6 +232,7 @@
     <script>
         function chuyenTrang(idTrang) {
             document.getElementById('trangChu').classList.add('an-giao-dien');
+            document.getElementById('trangSV5Tot').classList.add('an-giao-dien');
             document.getElementById('trangDangKy').classList.add('an-giao-dien');
             document.getElementById('trangDiemDanh').classList.add('an-giao-dien');
             document.getElementById(idTrang).classList.remove('an-giao-dien');
