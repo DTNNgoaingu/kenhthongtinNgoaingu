@@ -19,7 +19,6 @@
         /* BANNER / HERO SÁNG SỦA, SANG TRỌNG & RÕ NÉT */
         .hero-wrapper { max-width: 1200px; margin: 40px auto 25px auto; padding: 0 20px; }
         .hero { 
-            /* Giảm độ tối, tăng độ sáng trong để khoe trọn ảnh nền */
             background: linear-gradient(135deg, rgba(21, 128, 61, 0.52) 0%, rgba(20, 83, 45, 0.62) 60%, rgba(15, 23, 42, 0.68) 100%), 
                         url('banner.jpg') center/cover no-repeat;
             color: white; 
@@ -65,7 +64,6 @@
             text-shadow: 0 2px 8px rgba(0,0,0,0.8); 
         }
 
-        /* DẢI THỐNG KÊ 2 CỘT GỌN GÀNG VÀ NỔI BẬT */
         .hero-stats {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -80,23 +78,50 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
 
-        .stat-item {
-            text-align: center;
-        }
+        .stat-item { text-align: center; }
+        .stat-number { font-size: 1.6rem; font-weight: 900; color: #fef08a; display: block; }
+        .stat-label { font-size: 0.82rem; color: #e5e7eb; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        .stat-number {
-            font-size: 1.6rem;
+        /* THẺ CARD TIMELINE CHỌN SỰ KIỆN HIỆN ĐẠI MỚI MẺ */
+        .event-cards-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .event-pick-card {
+            background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+            border: 3px solid #bbf7d0;
+            padding: 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .event-pick-card:hover {
+            transform: translateY(-3px);
+            border-color: #22c55e;
+            box-shadow: 0 10px 25px rgba(22, 101, 52, 0.12);
+        }
+        .event-pick-card.selected {
+            background: linear-gradient(135deg, #15803d 0%, #166534 100%);
+            color: #ffffff;
+            border-color: #eab308;
+            box-shadow: 0 8px 25px rgba(22, 101, 52, 0.3);
+        }
+        .event-pick-card.selected h4, .event-pick-card.selected p {
+            color: #ffffff;
+        }
+        .event-pick-card h4 {
+            font-size: 1.1rem;
             font-weight: 900;
-            color: #fef08a;
-            display: block;
+            color: #166534;
+            margin-bottom: 5px;
         }
-
-        .stat-label {
-            font-size: 0.82rem;
-            color: #e5e7eb;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .event-pick-card p {
+            font-size: 0.85rem;
+            color: #555;
+            font-weight: 600;
         }
 
         .container { width: 90%; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
@@ -262,23 +287,33 @@
         </div>
     </div>
 
-    <!-- MÀN HÌNH ĐĂNG KÝ SỰ KIỆN -->
+    <!-- MÀN HÌNH ĐĂNG KÝ SỰ KIỆN (DẠNG THẺ CARD TIMELINE HIỆN ĐẠI) -->
     <div id="trangDangKyHoatDong" class="an-giao-dien">
-        <div class="form-container" style="max-width: 600px;">
-            <h2 id="tieuDeChonHoatDong">Đăng ký giữ chỗ sự kiện</h2>
+        <div class="form-container" style="max-width: 650px;">
+            <h2 style="margin-bottom: 10px;">Đăng ký giữ chỗ sự kiện</h2>
+            <p style="color: #555; font-weight: 600; margin-bottom: 25px; font-size: 0.95rem;">Chọn sự kiện bạn muốn tham gia từ danh sách bên dưới:</p>
             
-            <div id="buocChonSuKien" style="margin-bottom: 25px;">
-                <p style="margin-bottom: 12px; font-weight: 700; color: #374151;">Chọn hoạt động bạn muốn tham gia:</p>
-                <div class="form-group">
-                    <select id="selectHoatDongTimeline">
-                        <option value="Workshop Làm đồ dân gian">Workshop: Làm đồ dân gian truyền thống (25/09/2026)</option>
-                        <option value="Ngày hội CLB khoa NN">Ngày hội các Câu lạc bộ khoa Ngoại ngữ</option>
-                        <option value="Lễ đón TSV K26">Lễ đón Tân sinh viên khóa K26</option>
-                    </select>
+            <!-- Bước 1: Chọn sự kiện bằng thẻ card -->
+            <div id="buocChonSuKien">
+                <div class="event-cards-grid">
+                    <div class="event-pick-card selected" onclick="chonTheSuKien(this, 'Workshop Làm đồ dân gian')">
+                        <h4>Workshop: Làm đồ dân gian truyền thống</h4>
+                        <p>⏰ 18h00 - Ngày 25/09/2026 | Cơ sở chính ĐH Sài Gòn</p>
+                    </div>
+                    <div class="event-pick-card" onclick="chonTheSuKien(this, 'Ngày hội CLB khoa NN')">
+                        <h4>Ngày hội các Câu lạc bộ khoa Ngoại ngữ</h4>
+                        <p>Sân chơi giao lưu toàn diện các CLB trực thuộc khoa.</p>
+                    </div>
+                    <div class="event-pick-card" onclick="chonTheSuKien(this, 'Lễ đón TSV K26')">
+                        <h4>Lễ đón Tân sinh viên khóa K26</h4>
+                        <p>Chương trình chào đón đặc biệt dành riêng cho Tân sinh viên.</p>
+                    </div>
                 </div>
-                <button type="button" class="btn" onclick="chuyenSangBuocNhapForm()" style="width: 100%;">Tiếp tục đăng ký</button>
+                <input type="hidden" id="selectHoatDongTimeline" value="Workshop Làm đồ dân gian">
+                <button type="button" class="btn" onclick="chuyenSangBuocNhapForm()" style="width: 100%; margin-top: 10px;">Tiếp tục đăng ký</button>
             </div>
 
+            <!-- Bước 2: Form nhập thông tin -->
             <form id="formDangKySuKien" class="an-giao-dien">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                     <span id="nhanTenSuKienDangChon" style="color: #15803d; font-weight: 900; font-size: 1rem;"></span>
@@ -433,9 +468,14 @@
             chuyenTrang('trangDangKyHoatDong');
         }
 
+        function chonTheSuKien(cardElement, tenSuKien) {
+            document.querySelectorAll('.event-pick-card').forEach(card => card.classList.remove('selected'));
+            cardElement.classList.add('selected');
+            document.getElementById('selectHoatDongTimeline').value = tenSuKien;
+        }
+
         function chuyenSangBuocNhapForm() {
-            const selectEl = document.getElementById('selectHoatDongTimeline');
-            activeSuKienDangChon = selectEl.value;
+            activeSuKienDangChon = document.getElementById('selectHoatDongTimeline').value;
 
             document.getElementById('nhanTenSuKienDangChon').innerText = `Hoạt động: ${activeSuKienDangChon}`;
             document.getElementById('tenSuKienInput').value = activeSuKienDangChon;
