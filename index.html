@@ -145,7 +145,6 @@
         <div class="form-container" style="max-width: 600px;">
             <h2 id="tieuDeChonHoatDong">Đăng ký giữ chỗ sự kiện</h2>
             
-            <!-- Bước 1: Chọn hoạt động từ thanh thời gian -->
             <div id="buocChonSuKien" style="margin-bottom: 25px;">
                 <p style="margin-bottom: 12px; font-weight: 700; color: #374151;">Chọn hoạt động bạn muốn tham gia:</p>
                 <div class="form-group">
@@ -160,7 +159,6 @@
                 <button type="button" class="btn" onclick="chuyenSangBuocNhapForm()" style="width: 100%;">Tiếp tục đăng ký</button>
             </div>
 
-            <!-- Bước 2: Form nhập thông tin -->
             <form id="formDangKySuKien" class="an-giao-dien">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                     <span id="nhanTenSuKienDangChon" style="color: #15803d; font-weight: 900; font-size: 1rem;"></span>
@@ -241,6 +239,7 @@
         </div>
     </div>
 
+    <!-- MÀN HÌNH TRA CỨU ĐIỂM DANH -->
     <div id="trangDiemDanh" class="an-giao-dien">
         <div class="table-container" style="max-width: 950px; margin-top: 40px;">
             <h2>Danh sách điểm danh hoạt động</h2>
@@ -261,7 +260,7 @@
                 <div id="hd1_workshop" class="hd-subcontent active">
                     <div class="table-responsive">
                         <table>
-                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Họ tên</th><th>Thời gian điểm danh</th></tr></thead>
+                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian check-in</th></tr></thead>
                             <tbody id="listDiemDanhWorkshop"></tbody>
                         </table>
                     </div>
@@ -269,7 +268,7 @@
                 <div id="hd1_1" class="hd-subcontent">
                     <div class="table-responsive">
                         <table>
-                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
+                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian check-in</th></tr></thead>
                             <tbody id="listDiemDanhHK1_HD1"></tbody>
                         </table>
                     </div>
@@ -277,7 +276,7 @@
                 <div id="hd1_2" class="hd-subcontent">
                     <div class="table-responsive">
                         <table>
-                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
+                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian check-in</th></tr></thead>
                             <tbody id="listDiemDanhHK1_HD2"></tbody>
                         </table>
                     </div>
@@ -292,7 +291,7 @@
                 <div id="hd2_1" class="hd-subcontent active">
                     <div class="table-responsive">
                         <table>
-                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
+                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian check-in</th></tr></thead>
                             <tbody id="listDiemDanhHK2_HD1"></tbody>
                         </table>
                     </div>
@@ -300,7 +299,7 @@
                 <div id="hd2_2" class="hd-subcontent">
                     <div class="table-responsive">
                         <table>
-                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
+                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian check-in</th></tr></thead>
                             <tbody id="listDiemDanhHK2_HD2"></tbody>
                         </table>
                     </div>
@@ -312,10 +311,10 @@
                     <button class="hd-btn active" onclick="chuyenHoatDongSub('hk3', 'hd3_1', this)">Tổng kết chiến dịch Mùa hè xanh</button>
                     <button class="hd-btn" onclick="chuyenHoatDongSub('hk3', 'hd3_2', this)">Đêm hội văn nghệ khoa</button>
                 </div>
-                <div id="hd3_1" class="hd-subcontent active">
+                <div id="hk3_1" class="hd-subcontent active">
                     <div class="table-responsive">
                         <table>
-                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
+                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian check-in</th></tr></thead>
                             <tbody id="listDiemDanhHK3_HD1"></tbody>
                         </table>
                     </div>
@@ -323,7 +322,7 @@
                 <div id="hd3_2" class="hd-subcontent">
                     <div class="table-responsive">
                         <table>
-                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian điểm danh</th></tr></thead>
+                            <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian check-in</th></tr></thead>
                             <tbody id="listDiemDanhHK3_HD2"></tbody>
                         </table>
                     </div>
@@ -563,7 +562,8 @@
                         thoiGianStr = data.thoi_gian.toDate().toLocaleTimeString('vi-VN') + " - " + data.thoi_gian.toDate().toLocaleDateString('vi-VN');
                     }
                     const tr = document.createElement("tr");
-                    tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv}</strong></td><td>${data.ho_ten || 'N/A'}</td><td>${thoiGianStr}</td>`;
+                    // Chỉ hiển thị STT, MSSV và Thời gian check-in (Đã bỏ cột Họ tên)
+                    tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv}</strong></td><td>${thoiGianStr}</td>`;
                     container.appendChild(tr);
                 });
             });
