@@ -16,7 +16,6 @@
         nav a { color: #166534; text-decoration: none; font-weight: 800; padding: 10px 22px; border-radius: 25px; transition: all 0.3s; cursor: pointer; background: #f0fdf4; border: 2px solid #bbf7d0; }
         nav a:hover { background: linear-gradient(135deg, #166534 0%, #ca8a04 100%); color: #fff; border-color: transparent; box-shadow: 0 4px 15px rgba(22, 101, 52, 0.3); }
         
-        /* Banner chính dạng gradient rực rỡ */
         .hero-wrapper { max-width: 1100px; margin: 40px auto 20px auto; padding: 0 20px; }
         .hero { background: linear-gradient(135deg, #15803d 0%, #22c55e 50%, #eab308 100%); color: white; text-align: center; padding: 4rem 20px; border-radius: 40px; box-shadow: 0 15px 40px rgba(22, 101, 52, 0.25); position: relative; overflow: hidden; border: 3px solid #fef08a; }
         .hero h1 { font-size: 3rem; margin-bottom: 12px; color: #ffffff; font-weight: 900; text-shadow: 0 3px 6px rgba(0,0,0,0.2); }
@@ -31,13 +30,14 @@
         .news-item h3 { font-size: 1.3rem; color: #166534; margin-bottom: 8px; font-weight: 900; }
         .news-item p { font-size: 0.95rem; color: #4b5563; margin-bottom: 18px; font-weight: 500; }
         
-        /* Nút bấm gradient cam vàng xanh cực rực rỡ */
         .btn { display: inline-block; padding: 14px 30px; background: linear-gradient(135deg, #22c55e 0%, #ca8a04 100%); color: #ffffff; text-decoration: none; border-radius: 30px; font-weight: 900; font-size: 1rem; transition: all 0.3s; cursor: pointer; border: none; box-shadow: 0 6px 20px rgba(202, 138, 4, 0.4); text-align: center; text-transform: uppercase; letter-spacing: 0.5px; }
         .btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(202, 138, 4, 0.6); }
         
-        .sidebar .resource-link { display: block; padding: 18px 22px; background: #f0fdf4; margin-bottom: 15px; text-decoration: none; color: #166534; font-weight: 900; border-radius: 25px; border: 2px solid #bbf7d0; transition: all 0.3s; }
-        .sidebar .resource-link:hover { background: linear-gradient(135deg, #166534 0%, #ca8a04 100%); color: #fff; padding-left: 28px; }
+        .sidebar .resource-link { display: block; padding: 14px 18px; background: #f0fdf4; margin-bottom: 12px; text-decoration: none; color: #166534; font-weight: 800; border-radius: 20px; border: 2px solid #bbf7d0; transition: all 0.3s; font-size: 0.92rem; }
+        .sidebar .resource-link:hover { background: linear-gradient(135deg, #166534 0%, #ca8a04 100%); color: #fff; padding-left: 22px; }
         
+        .about-doan { background: linear-gradient(135deg, #f0fdf4 0%, #eef2f6 100%); border-left: 6px solid #15803d; padding: 20px; border-radius: 20px; margin-bottom: 25px; font-size: 0.95rem; color: #374151; font-weight: 600; }
+
         .form-container, .table-container { max-width: 950px; margin: 30px auto; background: #ffffff; padding: 45px; border-radius: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 3px solid #bbf7d0; }
         .form-group { margin-bottom: 22px; }
         input, select { width: 100%; padding: 18px 24px; border-radius: 25px; font-size: 16px; outline: none; border: 2px solid #bbf7d0; background-color: #fafdfa; color: #1f2937; font-weight: 700; transition: all 0.3s; }
@@ -91,6 +91,11 @@
                 <div class="card">
                     <h2>Thông báo & Sự kiện</h2>
                     <div class="news-item">
+                        <h3>Danh hiệu Sinh viên 5 Tốt năm học 2025 - 2026</h3>
+                        <p>Triển khai kế hoạch xét chọn danh hiệu "Sinh viên 5 Tốt" cấp Khoa và cấp Trường năm học 2025 - 2026. Sinh viên chuẩn bị hồ sơ minh chứng theo tiêu chí.</p>
+                        <button class="btn" onclick="chuyenTrang('trangDangKy')">Ứng tuyển ngay</button>
+                    </div>
+                    <div class="news-item">
                         <h3>Danh sách điểm danh hoạt động Đoàn khoa</h3>
                         <p>Theo dõi trực quan danh sách Mã số sinh viên đã tham gia điểm danh các hoạt động lớn của Đoàn khoa.</p>
                         <button class="btn" onclick="chuyenTrang('trangDiemDanh')">Xem điểm danh ngay</button>
@@ -104,9 +109,15 @@
             </main>
             <aside class="sidebar">
                 <div class="card">
-                    <h2>Tài liệu nhanh</h2>
-                    <a href="#" class="resource-link">Kho tài liệu Sư phạm</a>
-                    <a href="#" class="resource-link">Giáo trình Hán ngữ 1</a>
+                    <h2>Về Đoàn - Hội Khoa</h2>
+                    <div class="about-doan">
+                        <p><strong>Đoàn TNCS Hồ Chí Minh - Hội Sinh viên Khoa Ngoại ngữ (SGU)</strong> là ngôi nhà chung năng động, tiên phong trong học tập, nghiên cứu khoa học và các hoạt động tình nguyện.</p>
+                    </div>
+                    <h2>Chương trình đào tạo</h2>
+                    <a href="#" class="resource-link">Ngôn ngữ Anh (2020 - 2024)</a>
+                    <a href="#" class="resource-link">Ngôn ngữ Anh (2024 - 2028)</a>
+                    <a href="#" class="resource-link">Sư phạm tiếng Anh (2020 - 2024)</a>
+                    <a href="#" class="resource-link">Sư phạm tiếng Anh (2024 - 2028)</a>
                 </div>
             </aside>
         </div>
@@ -114,7 +125,7 @@
 
     <div id="trangDangKy" class="an-giao-dien">
         <div class="form-container">
-            <h2>Hồ sơ xét duyệt danh hiệu</h2>
+            <h2>Hồ sơ xét duyệt danh hiệu (Sinh viên 5 Tốt 2025 - 2026)</h2>
             <form id="dataForm">
                 <div class="form-group"><input type="text" id="hoTen" placeholder="Họ và tên..." required></div>
                 <div class="form-group"><input type="text" id="mssv" placeholder="Mã số sinh viên..." required></div>
@@ -131,7 +142,7 @@
                 <div class="form-group"><input type="text" id="diaChi" placeholder="Địa chỉ nhà..." required></div>
                 <div class="form-group"><input type="email" id="email" placeholder="Email..." required></div>
                 <div class="form-group"><input type="text" id="chucVu" placeholder="Chức vụ (nếu có)..."></div>
-                <div class="form-group"><input type="text" id="danhHieu" placeholder="Tên danh hiệu ứng tuyển..." required></div>
+                <div class="form-group"><input type="text" id="danhHieu" placeholder="Tên danh hiệu ứng tuyển (VD: Sinh viên 5 Tốt)..." required></div>
                 <div class="form-group"><input type="url" id="linkDrive" placeholder="Đường dẫn thư mục Google Drive chứa tệp minh chứng..." required></div>
                 <button type="submit" class="btn" style="width: 100%;">Gửi hồ sơ ngay</button>
             </form>
@@ -196,7 +207,7 @@
     </div>
 
     <footer>
-        <p>Bản quyền thuộc về Khoa Ngoại ngữ, Đại học Sài Gòn.</p>
+        <p>Bản quyền thuộc về Đoàn TN - Hội Sinh viên Khoa Ngoại ngữ, Đại học Sài Gòn.</p>
     </footer>
 
     <script>
