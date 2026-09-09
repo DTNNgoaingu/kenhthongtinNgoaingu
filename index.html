@@ -696,28 +696,32 @@
             renderHoSoTable();
         });
 
-        function bindDiemDanh(colName, elementId) {
-            const container = document.getElementById(elementId);
-            if (!container) return;
-            onSnapshot(query(collection(db, colName), orderBy("thoi_gian", "desc")), (snapshot) => {
-                container.innerHTML = "";
-                let stt = 1;
-                snapshot.forEach((docSnap) => {
-                    const data = docSnap.data();
-                    let thoiGianStr = "";
-                    if (data.thoi_gian && typeof data.thoi_gian.toDate === 'function') {
-                        thoiGianStr = data.thoi_gian.toDate().toLocaleTimeString('vi-VN') + " - " + data.thoi_gian.toDate().toLocaleDateString('vi-VN');
-                    }
-                    const tr = document.createElement("tr");
-                    tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv}</strong></td><td>${thoiGianStr}</td>`;
-                    container.appendChild(tr);
-                });
-            });
-        }
+        function bindDiemDanh(tenSuKien, elementId) {
+    const container = document.getElementById(elementId);
+    if (!container) return;
 
-        bindDiemDanh("DiemDanh_SuKien", "listDiemDanhWorkshop");
-        bindDiemDanh("DiemDanh_HK1_HD1", "listDiemDanhHK1_HD1");
-        bindDiemDanh("DiemDanh_HK1_HD2", "listDiemDanhHK1_HD2");
+    onSnapshot(query(collection(db, "DiemDanh_SuKien"), orderBy("thoi_gian", "desc")), (snapshot) => {
+        container.innerHTML = "";
+        let stt = 1;
+        snapshot.forEach((docSnap) => {
+            const data = docSnap.data();
+            
+            if (data.su_kien === tenSuKien) {
+                let thoiGianStr = "";
+                if (data.thoi_gian && typeof data.thoi_gian.toDate === 'function') {
+                    thoiGianStr = data.thoi_gian.toDate().toLocaleTimeString('vi-VN') + " - " + data.thoi_gian.toDate().toLocaleDateString('vi-VN');
+                }
+                const tr = document.createElement("tr");
+                tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv}</strong></td><td>${thoiGianStr}</td>`;
+                container.appendChild(tr);
+            }
+        });
+    });
+}
+
+bindDiemDanh("Workshop Làm đồ dân gian", "listDiemDanhWorkshop");
+bindDiemDanh("Ngày hội CLB khoa NN", "listDiemDanhHK1_HD1");
+bindDiemDanh("Lễ đón TSV K26", "listDiemDanhHK1_HD2");
     </script>
 </body>
 </html>
