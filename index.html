@@ -364,6 +364,15 @@
                 globalDanhSachSuKien.push({ id: docSnap.id, ...docSnap.data() });
             });
             renderGiaoDienSuKien();
+            
+            // Tự động kích hoạt tra cứu điểm danh cho sự kiện đầu tiên ngay khi tải trang
+            const dropdownTraCuu = document.getElementById("dropdownTraCuuSuKien");
+            if (dropdownTraCuu && dropdownTraCuu.options.length > 1) {
+                dropdownTraCuu.selectedIndex = 1;
+                if (typeof window.taiDuLieuDiemDanh === 'function') {
+                    window.taiDuLieuDiemDanh();
+                }
+            }
         });
 
         function renderGiaoDienSuKien() {
