@@ -40,8 +40,6 @@
         .event-meta { font-size: 0.82rem; color: #15803d; font-weight: 800; margin-bottom: 10px; background: #dcfce7; padding: 4px 10px; border-radius: 10px; display: inline-block; }
         .btn { display: inline-block; padding: 12px 22px; background: linear-gradient(135deg, #22c55e 0%, #ca8a04 100%); color: #ffffff; text-decoration: none; border-radius: 25px; font-weight: 900; font-size: 0.85rem; cursor: pointer; border: none; text-transform: uppercase; }
         .btn:disabled { background: #9ca3af; cursor: not-allowed; opacity: 0.6; }
-        .ctdt-grid { display: flex; flex-direction: column; gap: 8px; }
-        .ctdt-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #f0fdf4; text-decoration: none; color: #166534; font-weight: 800; border-radius: 14px; border: 2px solid #bbf7d0; font-size: 0.85rem; }
         .form-container, .table-container { width: 92%; max-width: 900px; margin: 25px auto; background: #ffffff; padding: 30px; border-radius: 30px; border: 3px solid #bbf7d0; }
         .form-group { margin-bottom: 18px; }
         input, select { width: 100%; padding: 15px 20px; border-radius: 20px; font-size: 15px; outline: none; border: 2px solid #bbf7d0; background-color: #fafdfa; color: #1f2937; font-weight: 700; }
@@ -121,7 +119,6 @@
                 <div class="form-group"><input type="text" id="dkMssv" placeholder="MSSV (312...)..." required></div>
                 <div class="form-group"><input type="text" id="dkLop" placeholder="Lớp..." required></div>
                 <button type="submit" id="btnSubmitDangKy" class="btn" style="width: 100%;">Xác nhận đăng ký giữ chỗ</button>
-                <p id="thongBaoHetCho" style="color: #dc2626; font-weight: 800; text-align: center; margin-top: 10px; display: none;">Sự kiện đã đầy!</p>
             </form>
 
             <div style="margin-top: 30px; border-top: 2px dashed #bbf7d0; padding-top: 20px;">
@@ -259,7 +256,7 @@
             renderGiaoDienSuKien();
             
             const dropdown = document.getElementById("dropdownTraCuuSuKien");
-            if (dropdown && dropdown.options.length > 1) {
+            if (dropdown && dropdown.options.length > 1 && !dropdown.value) {
                 dropdown.selectedIndex = 1;
                 window.taiDuLieuDiemDanh();
             }
@@ -267,6 +264,7 @@
 
         function renderGiaoDienSuKien() {
             const tl = document.getElementById("trangChuTimeline"), pick = document.getElementById("vungChonSuKienDangKy"), drop = document.getElementById("dropdownTraCuuSuKien");
+            const currentSelectedVal = drop.value; // Giữ lại giá trị đang chọn nếu có
             tl.innerHTML = ""; pick.innerHTML = ""; drop.innerHTML = `<option value="" disabled selected>-- Chọn sự kiện cần tra cứu --</option>`;
 
             if (globalDanhSachSuKien.length === 0) {
@@ -281,6 +279,10 @@
                 pick.innerHTML += `<div class="event-pick-card" onclick="chonTheSuKien(this, '${sk.ten_su_kien}')"><h4>${sk.ten_su_kien}</h4><p>⏰ ${sk.thoi_gian}<br>📍 ${sk.dia_diem}</p><p style="margin-top:8px;font-size:0.75rem;color:#ca8a04;">Giới hạn: ${limit}</p></div>`;
                 drop.innerHTML += `<option value="${sk.ten_su_kien}">${sk.ten_su_kien}</option>`;
             });
+
+            if (currentSelectedVal) {
+                drop.value = currentSelectedVal;
+            }
         }
 
         window.taiDanhSachDangKyTheoSuKien = function(skName) {
@@ -301,36 +303,34 @@
             });
         };
 
-        const formDangKySuKien = document.getElementById("formDangKySuKien");
-        formDangKySuKien.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const mssv = document.getElementById("dkMssv").value.trim();
-            if (!/^312\d{7}$/.test(mssv)) { alert("MSSV phải bắt đầu bằng 312 và đúng 10 số!"); return; }
-            const hoTen = document.getElementById("dkHoTen").value.trim(), lop = document.getElementById("dkLop").value.trim(), skName = document.getElementById("tenSuKienInput").value;
-            
-            const checkQ = query(collection(db, "DangKy_SuKien"), where("mssv", "==", mssv), where("su_kien", "==", skName));
-            if (!(await getDocs(checkQ)).empty) { alert("Bạn đã đăng ký sự kiện này rồi!"); return; }
-
-            const newRef = doc(collection(db, "DangKy_SuKien"));
-            await setDoc(doc(db, "DangKy_SuKien", newRef.id), { mssv, ho_ten: hoTen, lop, su_kien: skName, thoi_gian_dk: new Date() });
-            document.getElementById("dkHoTen").value = ""; document.getElementById("dkMssv").value = ""; document.getElementById("dkLop").value = "";
-            alert("Đăng ký thành công!");
-        });
-
         window.taiDuLieuDiemDanh = function() {
             const skName = document.getElementById("dropdownTraCuuSuKien").value;
             const container = document.getElementById("listDiemDanhChung");
             if (!skName) return;
             if (unsubscribeCurrentCheckin) unsubscribeCurrentCheckin();
 
-            unsubscribeCurrentCheckin = onSnapshot(query(collection(db, "DiemDanh_SuKien"), where("su_kien", "==", skName), orderBy("thoi_gian", "desc")), (snapshot) => {
+            // Lắng nghe trực tiếp từ collection DiemDanh_SuKien theo sự kiện được chọn
+            unsubscribeCurrentCheckin = onSnapshot(query(collection(db, "DiemDanh_SuKien"), where("su_kien", "==", skName)), (snapshot) => {
                 container.innerHTML = ""; let stt = 1;
+                
+                // Chuyển đổi dữ liệu sang mảng và sắp xếp theo thời gian mới nhất thủ công để tránh lỗi thiếu Index trên Firestore
+                let list = [];
                 snapshot.forEach(docSnap => {
-                    const data = docSnap.data();
+                    list.push({ id: docSnap.id, ...docSnap.data() });
+                });
+
+                list.sort((a, b) => {
+                    let tA = a.thoi_gian?.toMillis ? a.thoi_gian.toMillis() : 0;
+                    let tB = b.thoi_gian?.toMillis ? b.thoi_gian.toMillis() : 0;
+                    return tB - tA;
+                });
+
+                list.forEach(data => {
                     let timeStr = data.thoi_gian?.toDate ? data.thoi_gian.toDate().toLocaleTimeString('vi-VN') + " - " + data.thoi_gian.toDate().toLocaleDateString('vi-VN') : "";
                     container.innerHTML += `<tr><td><strong>${stt++}</strong></td><td><strong>${data.mssv.substring(0,4)}******</strong></td><td>${timeStr}</td></tr>`;
                 });
-                if (snapshot.empty) container.innerHTML = `<tr><td colspan="3" class="empty-state">Chưa có ai check-in.</td></tr>`;
+
+                if (list.length === 0) container.innerHTML = `<tr><td colspan="3" class="empty-state">Chưa có ai check-in.</td></tr>`;
             });
         };
     </script>
