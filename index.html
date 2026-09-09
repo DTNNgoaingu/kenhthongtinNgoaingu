@@ -7,101 +7,51 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #2d3748; background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #fefce8 100%); min-height: 100vh; padding-bottom: 50px; }
-        
         .an-giao-dien { display: none !important; }
-
         header { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 1rem 3%; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #bbf7d0; box-shadow: 0 4px 20px rgba(22, 101, 52, 0.08); position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 10px; }
         .logo { font-size: 2rem; font-weight: 900; background: linear-gradient(135deg, #15803d 0%, #ca8a04 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; letter-spacing: 1px; }
         nav ul { list-style: none; display: flex; gap: 8px; flex-wrap: wrap; }
         nav a { color: #166534; text-decoration: none; font-weight: 800; padding: 8px 14px; border-radius: 20px; transition: all 0.3s; cursor: pointer; background: #f0fdf4; border: 2px solid #bbf7d0; font-size: 0.85rem; }
         nav a:hover { background: linear-gradient(135deg, #166534 0%, #ca8a04 100%); color: #fff; border-color: transparent; box-shadow: 0 4px 15px rgba(22, 101, 52, 0.3); }
-        
         .hero-wrapper { max-width: 1200px; margin: 30px auto 20px auto; padding: 0 15px; }
-        .hero { 
-            background: linear-gradient(135deg, rgba(21, 128, 61, 0.52) 0%, rgba(20, 83, 45, 0.62) 60%, rgba(15, 23, 42, 0.68) 100%), 
-                    url('banner.jpg') center/cover no-repeat; 
-            color: white; 
-            text-align: center; 
-            padding: 4rem 1.5rem 2.5rem 1.5rem; 
-            border-radius: 30px; 
-            box-shadow: 0 20px 40px rgba(22, 101, 52, 0.18); 
-            position: relative; 
-            overflow: hidden; 
-            border: 3px solid rgba(254, 240, 138, 0.7); 
-        }
-
-        .hero-badge { display: inline-block; background: rgba(21, 128, 61, 0.85); border: 1px solid #fef08a; color: #fef08a; padding: 5px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.25); }
-        .hero h1 { font-size: 2.8rem; margin-bottom: 10px; color: #ffffff; font-weight: 900; letter-spacing: -0.5px; text-shadow: 0 4px 15px rgba(0,0,0,0.8); }
+        .hero { background: linear-gradient(135deg, rgba(21, 128, 61, 0.52) 0%, rgba(20, 83, 45, 0.62) 60%, rgba(15, 23, 42, 0.68) 100%); color: white; text-align: center; padding: 4rem 1.5rem 2.5rem 1.5rem; border-radius: 30px; box-shadow: 0 20px 40px rgba(22, 101, 52, 0.18); border: 3px solid rgba(254, 240, 138, 0.7); }
+        .hero-badge { display: inline-block; background: rgba(21, 128, 61, 0.85); border: 1px solid #fef08a; color: #fef08a; padding: 5px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 900; text-transform: uppercase; margin-bottom: 12px; }
+        .hero h1 { font-size: 2.8rem; margin-bottom: 10px; color: #ffffff; font-weight: 900; text-shadow: 0 4px 15px rgba(0,0,0,0.8); }
         .hero p { font-size: 1rem; color: #fef08a; font-weight: 700; max-width: 750px; margin: 0 auto 25px auto; text-shadow: 0 2px 8px rgba(0,0,0,0.8); }
-
-        .hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; max-width: 480px; margin: 0 auto; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); padding: 12px 20px; border-radius: 22px; border: 2px solid rgba(187, 247, 208, 0.4); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; max-width: 480px; margin: 0 auto; background: rgba(15, 23, 42, 0.85); padding: 12px 20px; border-radius: 22px; border: 2px solid rgba(187, 247, 208, 0.4); }
         .stat-item { text-align: center; }
         .stat-number { font-size: 1.4rem; font-weight: 900; color: #fef08a; display: block; }
-        .stat-label { font-size: 0.75rem; color: #e5e7eb; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
-
-        .event-timeline-horizontal { display: flex; gap: 15px; overflow-x: auto; padding: 10px 5px 20px 5px; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
-        .event-timeline-horizontal::-webkit-scrollbar { height: 8px; }
-        .event-timeline-horizontal::-webkit-scrollbar-track { background: #f0fdf4; border-radius: 10px; }
-        .event-timeline-horizontal::-webkit-scrollbar-thumb { background: #22c55e; border-radius: 10px; }
-
-        .event-pick-card { min-width: 260px; max-width: 260px; background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%); border: 3px solid #bbf7d0; padding: 22px; border-radius: 25px; cursor: pointer; transition: all 0.3s; flex-shrink: 0; box-shadow: 0 4px 15px rgba(22, 101, 52, 0.04); position: relative; }
-        .event-pick-card:hover { transform: translateY(-4px); border-color: #22c55e; box-shadow: 0 10px 25px rgba(22, 101, 52, 0.12); }
-        .event-pick-card.selected { background: linear-gradient(135deg, #15803d 0%, #166534 100%); color: #ffffff; border-color: #eab308; box-shadow: 0 8px 25px rgba(22, 101, 52, 0.3); }
+        .stat-label { font-size: 0.75rem; color: #e5e7eb; font-weight: 800; text-transform: uppercase; }
+        .event-timeline-horizontal { display: flex; gap: 15px; overflow-x: auto; padding: 10px 5px 20px 5px; scroll-behavior: smooth; }
+        .event-pick-card { min-width: 260px; max-width: 260px; background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%); border: 3px solid #bbf7d0; padding: 22px; border-radius: 25px; cursor: pointer; transition: all 0.3s; flex-shrink: 0; position: relative; }
+        .event-pick-card:hover { transform: translateY(-4px); border-color: #22c55e; }
+        .event-pick-card.selected { background: linear-gradient(135deg, #15803d 0%, #166534 100%); color: #ffffff; border-color: #eab308; }
         .event-pick-card.selected h4, .event-pick-card.selected p { color: #ffffff; }
         .event-pick-card h4 { font-size: 1.05rem; font-weight: 900; color: #166534; margin-bottom: 8px; }
         .event-pick-card p { font-size: 0.82rem; color: #555; font-weight: 600; }
-
         .container { width: 92%; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
         .card { background: #ffffff; padding: 30px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 25px; border: 3px solid #bbf7d0; }
-        .card h2 { color: #166534; margin-bottom: 20px; font-size: 1.5rem; font-weight: 900; background: linear-gradient(135deg, #15803d 0%, #166534 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
+        .card h2 { color: #166534; margin-bottom: 20px; font-size: 1.5rem; font-weight: 900; }
         .timeline { position: relative; padding-left: 25px; margin-top: 15px; }
         .timeline::before { content: ''; position: absolute; left: 8px; top: 5px; bottom: 5px; width: 4px; background: #bbf7d0; border-radius: 4px; }
-        .timeline-item { position: relative; margin-bottom: 25px; background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%); padding: 20px; border-radius: 25px; border: 2px solid #bbf7d0; box-shadow: 0 4px 15px rgba(22, 101, 52, 0.04); transition: all 0.3s; }
-        .timeline-item:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(22, 101, 52, 0.1); border-color: #22c55e; }
-        .timeline-dot { position: absolute; left: -24px; top: 22px; width: 14px; height: 14px; background: #15803d; border: 3px solid #fef08a; border-radius: 50%; box-shadow: 0 0 0 3px #dcfce7; }
+        .timeline-item { position: relative; margin-bottom: 25px; background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%); padding: 20px; border-radius: 25px; border: 2px solid #bbf7d0; transition: all 0.3s; }
+        .timeline-dot { position: absolute; left: -24px; top: 22px; width: 14px; height: 14px; background: #15803d; border: 3px solid #fef08a; border-radius: 50%; }
         .timeline-item h3 { font-size: 1.2rem; color: #166534; margin-bottom: 6px; font-weight: 900; }
         .event-meta { font-size: 0.82rem; color: #15803d; font-weight: 800; margin-bottom: 10px; background: #dcfce7; padding: 4px 10px; border-radius: 10px; display: inline-block; }
-        
-        .btn { display: inline-block; padding: 12px 22px; background: linear-gradient(135deg, #22c55e 0%, #ca8a04 100%); color: #ffffff; text-decoration: none; border-radius: 25px; font-weight: 900; font-size: 0.85rem; transition: all 0.3s; cursor: pointer; border: none; box-shadow: 0 6px 20px rgba(202, 138, 4, 0.4); text-align: center; text-transform: uppercase; }
-        .btn:hover { transform: scale(1.03); box-shadow: 0 8px 25px rgba(202, 138, 4, 0.6); }
-        .btn:disabled { background: #9ca3af; cursor: not-allowed; box-shadow: none; transform: none; opacity: 0.6; }
-
+        .btn { display: inline-block; padding: 12px 22px; background: linear-gradient(135deg, #22c55e 0%, #ca8a04 100%); color: #ffffff; text-decoration: none; border-radius: 25px; font-weight: 900; font-size: 0.85rem; cursor: pointer; border: none; text-transform: uppercase; }
+        .btn:disabled { background: #9ca3af; cursor: not-allowed; opacity: 0.6; }
         .ctdt-grid { display: flex; flex-direction: column; gap: 8px; }
-        .ctdt-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #f0fdf4; text-decoration: none; color: #166534; font-weight: 800; border-radius: 14px; border: 2px solid #bbf7d0; transition: all 0.3s; font-size: 0.85rem; }
-        .ctdt-link:hover { background: linear-gradient(135deg, #166534 0%, #ca8a04 100%); color: #fff; border-color: transparent; padding-left: 16px; box-shadow: 0 4px 12px rgba(22, 101, 52, 0.2); }
-        .ctdt-link span { font-size: 0.72rem; background: rgba(22, 101, 52, 0.1); padding: 2px 6px; border-radius: 8px; }
-
-        .form-container, .table-container { width: 92%; max-width: 900px; margin: 25px auto; background: #ffffff; padding: 30px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 3px solid #bbf7d0; }
+        .ctdt-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #f0fdf4; text-decoration: none; color: #166534; font-weight: 800; border-radius: 14px; border: 2px solid #bbf7d0; font-size: 0.85rem; }
+        .form-container, .table-container { width: 92%; max-width: 900px; margin: 25px auto; background: #ffffff; padding: 30px; border-radius: 30px; border: 3px solid #bbf7d0; }
         .form-group { margin-bottom: 18px; }
-        input, select { width: 100%; padding: 15px 20px; border-radius: 20px; font-size: 15px; outline: none; border: 2px solid #bbf7d0; background-color: #fafdfa; color: #1f2937; font-weight: 700; transition: all 0.3s; }
-        input:focus, select:focus { border-color: #22c55e; background-color: #ffffff; box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15); }
-        select { appearance: none; cursor: pointer; }
-        
+        input, select { width: 100%; padding: 15px 20px; border-radius: 20px; font-size: 15px; outline: none; border: 2px solid #bbf7d0; background-color: #fafdfa; color: #1f2937; font-weight: 700; }
         .table-responsive { width: 100%; overflow-x: auto; border-radius: 20px; border: 2px solid #bbf7d0; margin-top: 12px; }
         table { width: 100%; border-collapse: collapse; white-space: nowrap; }
         th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 13px; }
         th { background: linear-gradient(135deg, #15803d 0%, #166534 100%); color: #fef08a; font-weight: 900; text-transform: uppercase; }
-        tr:last-child td { border-bottom: none; }
-        tr:hover td { background-color: #f0fdf4; }
-        
-        .status-tag { padding: 6px 12px; border-radius: 15px; font-weight: 900; font-size: 12px; display: inline-block; }
-        .status-da-duyet { background-color: #dcfce7; color: #166534; border: 2px solid #bbf7d0; }
-
+        .status-tag { padding: 6px 12px; border-radius: 15px; font-weight: 900; font-size: 12px; display: inline-block; background-color: #dcfce7; color: #166534; border: 2px solid #bbf7d0; }
         .empty-state { text-align: center; padding: 20px; color: #6b7280; font-weight: 600; font-style: italic; }
-
-        footer { text-align: center; padding: 30px; background: linear-gradient(135deg, #166534 0%, #15803d 100%); color: #fff; margin-top: 50px; border-top-left-radius: 35px; border-top-right-radius: 35px; font-weight: 800; border-top: 4px solid #eab308; font-size: 0.9rem; }
-
-        @media (max-width: 768px) {
-            header { padding: 10px 15px; justify-content: center; }
-            .logo { display: none; }
-            nav ul { justify-content: center; width: 100%; gap: 6px; }
-            nav a { padding: 6px 10px; font-size: 0.75rem; border-radius: 15px; }
-            .container { grid-template-columns: 1fr; width: 95%; }
-            .hero { padding: 3rem 1rem 2rem 1.5rem; border-radius: 20px; }
-            .hero h1 { font-size: 2.1rem; }
-            .form-container, .table-container { padding: 20px; border-radius: 20px; width: 95%; margin: 15px auto; }
-        }
+        footer { text-align: center; padding: 30px; background: linear-gradient(135deg, #166534 0%, #15803d 100%); color: #fff; margin-top: 50px; border-top-left-radius: 35px; border-top-right-radius: 35px; font-weight: 800; border-top: 4px solid #eab308; }
     </style>
 </head>
 <body>
@@ -119,7 +69,6 @@
         </nav>
     </header>
 
-    <!-- TRANG CHỦ -->
     <div id="trangChu">
         <div class="hero-wrapper">
             <section class="hero">
@@ -141,64 +90,38 @@
                         <div class="empty-state">Đang tải danh sách sự kiện...</div>
                     </div>
                 </div>
-
-                <div class="card">
-                    <h2>Tiêu chí Sinh viên 5 Tốt</h2>
-                    <p style="color: #4b5563; font-weight: 500; margin-bottom: 15px; font-size: 0.95rem;">
-                        Phần thưởng cao quý dành cho đoàn viên, sinh viên đạt chuẩn toàn diện về 5 tiêu chí: <em>Đạo đức tốt, Học tập tốt, Thể lực tốt, Tình nguyện tốt và Hội nhập tốt</em>.
-                    </p>
-                    <button class="btn" onclick="chuyenTrang('trangSV5Tot')">Xem chi tiết & Nộp hồ sơ</button>
-                </div>
             </main>
-
-            <aside class="sidebar">
-                <div class="card">
-                    <h2>Chương trình đào tạo</h2>
-                    <div class="ctdt-grid">
-                        <a href="#" class="ctdt-link">Ngôn ngữ Anh <span>2020-2024</span></a>
-                        <a href="#" class="ctdt-link">Ngôn ngữ Anh <span>2024-2028</span></a>
-                        <a href="#" class="ctdt-link">Sư phạm Anh <span>2020-2024</span></a>
-                        <a href="#" class="ctdt-link">Sư phạm Anh <span>2024-2028</span></a>
-                    </div>
-                </div>
-            </aside>
         </div>
     </div>
 
-    <!-- TRANG GIỚI THIỆU -->
     <div id="trangGioiThieu" class="an-giao-dien">
         <div class="form-container" style="max-width: 900px;">
             <h2>Giới thiệu Đoàn - Hội khoa Ngoại ngữ</h2>
-            <div style="line-height: 1.8; color: #374151; font-size: 0.95rem; margin-top: 15px;">
-                <p><strong>Đoàn TNCS Hồ Chí Minh - Hội Sinh viên khoa Ngoại ngữ (Đại học Sài Gòn)</strong> là ngôi nhà chung năng động, nhiệt huyết và là môi trường rèn luyện uy tín của toàn thể đoàn viên, sinh viên.</p>
-            </div>
+            <p><strong>Đoàn TNCS Hồ Chí Minh - Hội Sinh viên khoa Ngoại ngữ (Đại học Sài Gòn)</strong></p>
         </div>
     </div>
 
-    <!-- TRANG ĐĂNG KÝ HOẠT ĐỘNG -->
     <div id="trangDangKyHoatDong" class="an-giao-dien">
         <div class="form-container" style="max-width: 750px;">
             <h2 style="margin-bottom: 10px;">Đăng ký giữ chỗ sự kiện</h2>
-            
             <div id="buocChonSuKien">
-                <p style="color: #555; font-weight: 600; margin-bottom: 20px; font-size: 0.9rem;">Vuốt sang phải để xem thêm và chọn sự kiện bạn muốn tham gia:</p>
+                <p style="color: #555; font-weight: 600; margin-bottom: 20px; font-size: 0.9rem;">Chọn sự kiện bạn muốn tham gia:</p>
                 <div class="event-timeline-horizontal" id="vungChonSuKienDangKy"></div>
                 <input type="hidden" id="selectHoatDongTimeline" value="">
                 <button type="button" id="btnTiepTucDangKy" class="btn" onclick="chuyenSangBuocNhapForm()" style="width: 100%; margin-top: 15px; display: none;">Tiếp tục đăng ký</button>
             </div>
 
             <form id="formDangKySuKien" class="an-giao-dien">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
-                    <span id="nhanTenSuKienDangChon" style="color: #15803d; font-weight: 900; font-size: 0.95rem;"></span>
-                    <button type="button" onclick="quayLaiChonSuKien()" style="background: none; border: none; color: #ca8a04; font-weight: 800; cursor: pointer; text-decoration: underline;">← Chọn sự kiện khác</button>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <span id="nhanTenSuKienDangChon" style="color: #15803d; font-weight: 900;"></span>
+                    <button type="button" onclick="quayLaiChonSuKien()" style="background: none; border: none; color: #ca8a04; font-weight: 800; cursor: pointer;">← Chọn lại</button>
                 </div>
                 <input type="hidden" id="tenSuKienInput">
-                <div class="form-group"><input type="text" id="dkHoTen" placeholder="Họ và tên sinh viên..." required></div>
-                <div class="form-group"><input type="text" id="dkMssv" placeholder="Mã số sinh viên (VD: 3123130144)..." required></div>
-                <div class="form-group"><input type="text" id="dkLop" placeholder="Lớp (VD: DNA23)..." required></div>
-                
+                <div class="form-group"><input type="text" id="dkHoTen" placeholder="Họ và tên..." required></div>
+                <div class="form-group"><input type="text" id="dkMssv" placeholder="MSSV (312...)..." required></div>
+                <div class="form-group"><input type="text" id="dkLop" placeholder="Lớp..." required></div>
                 <button type="submit" id="btnSubmitDangKy" class="btn" style="width: 100%;">Xác nhận đăng ký giữ chỗ</button>
-                <p id="thongBaoHetCho" style="color: #dc2626; font-weight: 800; text-align: center; margin-top: 10px; display: none;">Sự kiện này đã đủ số lượng đăng ký tối đa!</p>
+                <p id="thongBaoHetCho" style="color: #dc2626; font-weight: 800; text-align: center; margin-top: 10px; display: none;">Sự kiện đã đầy!</p>
             </form>
 
             <div style="margin-top: 30px; border-top: 2px dashed #bbf7d0; padding-top: 20px;">
@@ -215,7 +138,6 @@
         </div>
     </div>
 
-    <!-- TRANG SV5T -->
     <div id="trangSV5Tot" class="an-giao-dien">
         <div class="form-container">
             <h2>Nộp Hồ Sơ Sinh viên 5 Tốt</h2>
@@ -231,7 +153,7 @@
                         <option value="Ngôn ngữ Anh">Ngôn ngữ Anh</option>
                     </select>
                 </div>
-                <div class="form-group"><input type="text" id="diaChi" placeholder="Địa chỉ nhà..." required></div>
+                <div class="form-group"><input type="text" id="diaChi" placeholder="Địa chỉ..." required></div>
                 <div class="form-group"><input type="email" id="email" placeholder="Email..." required></div>
                 <div class="form-group">
                     <select id="danhHieu" required>
@@ -240,24 +162,20 @@
                         <option value="Đoàn viên Ưu tú">Đoàn viên Ưu tú</option>
                     </select>
                 </div>
-                <div class="form-group"><input type="url" id="linkDrive" placeholder="Link Google Drive minh chứng..." required></div>
-                <button type="submit" class="btn" style="width: 100%;">Gửi hồ sơ ngay</button>
+                <div class="form-group"><input type="url" id="linkDrive" placeholder="Link Google Drive..." required></div>
+                <button type="submit" class="btn" style="width: 100%;">Gửi hồ sơ</button>
             </form>
         </div>
     </div>
 
-    <!-- TRANG TRA CỨU ĐIỂM DANH -->
     <div id="trangDiemDanh" class="an-giao-dien">
         <div class="table-container" style="max-width: 950px; margin-top: 30px;">
             <h2>Tra cứu điểm danh sự kiện</h2>
-            <p style="margin-bottom: 15px; color: #4b5563; font-weight: 700; font-size: 0.9rem;">Chọn sự kiện để kiểm tra trạng thái điểm danh thực tế của bạn:</p>
-            
             <div class="form-group">
                 <select id="dropdownTraCuuSuKien" onchange="taiDuLieuDiemDanh()">
                     <option value="" disabled selected>-- Chọn sự kiện cần tra cứu --</option>
                 </select>
             </div>
-
             <div class="table-responsive">
                 <table>
                     <thead><tr><th>STT</th><th>Mã số sinh viên</th><th>Thời gian check-in thực tế</th></tr></thead>
@@ -275,30 +193,22 @@
 
     <script>
         function chuyenTrang(idTrang) {
-            const pages = ['trangChu', 'trangGioiThieu', 'trangDangKyHoatDong', 'trangSV5Tot', 'trangDiemDanh'];
-            pages.forEach(page => document.getElementById(page).classList.add('an-giao-dien'));
+            ['trangChu', 'trangGioiThieu', 'trangDangKyHoatDong', 'trangSV5Tot', 'trangDiemDanh'].forEach(p => document.getElementById(p).classList.add('an-giao-dien'));
             document.getElementById(idTrang).classList.remove('an-giao-dien');
             window.scrollTo(0, 0);
         }
-
         function moManHinhChonSuKien() {
             document.getElementById('buocChonSuKien').classList.remove('an-giao-dien');
             document.getElementById('formDangKySuKien').classList.add('an-giao-dien');
             chuyenTrang('trangDangKyHoatDong');
         }
-
-        function chonTheSuKien(cardElement, tenSuKien) {
-            if(cardElement.classList.contains('disabled')) return;
-            document.querySelectorAll('.event-pick-card').forEach(card => card.classList.remove('selected'));
-            cardElement.classList.add('selected');
-            document.getElementById('selectHoatDongTimeline').value = tenSuKien;
+        function chonTheSuKien(card, name) {
+            document.querySelectorAll('.event-pick-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            document.getElementById('selectHoatDongTimeline').value = name;
             document.getElementById('btnTiepTucDangKy').style.display = 'block';
-            
-            if (typeof window.taiDanhSachDangKyTheoSuKien === 'function') {
-                window.taiDanhSachDangKyTheoSuKien(tenSuKien);
-            }
+            if (window.taiDanhSachDangKyTheoSuKien) window.taiDanhSachDangKyTheoSuKien(name);
         }
-
         function chuyenSangBuocNhapForm() {
             const val = document.getElementById('selectHoatDongTimeline').value;
             if (!val) return;
@@ -307,7 +217,6 @@
             document.getElementById('buocChonSuKien').classList.add('an-giao-dien');
             document.getElementById('formDangKySuKien').classList.remove('an-giao-dien');
         }
-
         function quayLaiChonSuKien() {
             document.getElementById('formDangKySuKien').classList.add('an-giao-dien');
             document.getElementById('buocChonSuKien').classList.remove('an-giao-dien');
@@ -329,219 +238,99 @@
             measurementId: "G-0EQY61G439"
         };
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        const db = getFirestore(initializeApp(firebaseConfig));
+        let globalDanhSachSuKien = [], globalGioiHanSuKien = {}, unsubscribeCurrentReg = null, unsubscribeCurrentCheckin = null;
 
-        let globalDanhSachSuKien = [];
-        let globalGioiHanSuKien = {};
-        let unsubscribeCurrentReg = null;
-        let unsubscribeCurrentCheckin = null;
-
-        // LẮNG NGHE CẤU HÌNH GIỚI HẠN TỪ ADMIN
         onSnapshot(collection(db, "DangKy_SuKien"), (snapshot) => {
             globalGioiHanSuKien = {};
-            let tempTime = {};
             snapshot.forEach(docSnap => {
                 const data = docSnap.data();
                 if (data.la_cau_hinh && data.su_kien && data.gioi_han_toi_da) {
-                    let docTime = data.thoi_gian ? data.thoi_gian.toMillis() : 0;
-                    if (!globalGioiHanSuKien[data.su_kien] || docTime > (tempTime[data.su_kien] || 0)) {
-                        globalGioiHanSuKien[data.su_kien] = data.gioi_han_toi_da;
-                        tempTime[data.su_kien] = docTime;
-                    }
+                    globalGioiHanSuKien[data.su_kien] = data.gioi_han_toi_da;
                 }
             });
             const activeSk = document.getElementById("tenSuKienInput").value;
-            if (activeSk) {
-                window.taiDanhSachDangKyTheoSuKien(activeSk);
-            }
+            if (activeSk) window.taiDanhSachDangKyTheoSuKien(activeSk);
         });
 
-        // LẮNG NGHE DANH SÁCH SỰ KIỆN DO ADMIN TẠO
         onSnapshot(query(collection(db, "DanhSach_SuKien"), orderBy("thoi_gian_tao", "desc")), (snapshot) => {
             globalDanhSachSuKien = [];
-            snapshot.forEach(docSnap => {
-                globalDanhSachSuKien.push({ id: docSnap.id, ...docSnap.data() });
-            });
+            snapshot.forEach(docSnap => globalDanhSachSuKien.push({ id: docSnap.id, ...docSnap.data() }));
             renderGiaoDienSuKien();
             
-            // Tự động kích hoạt tra cứu điểm danh cho sự kiện đầu tiên ngay khi tải trang
-            const dropdownTraCuu = document.getElementById("dropdownTraCuuSuKien");
-            if (dropdownTraCuu && dropdownTraCuu.options.length > 1) {
-                dropdownTraCuu.selectedIndex = 1;
-                if (typeof window.taiDuLieuDiemDanh === 'function') {
-                    window.taiDuLieuDiemDanh();
-                }
+            const dropdown = document.getElementById("dropdownTraCuuSuKien");
+            if (dropdown && dropdown.options.length > 1) {
+                dropdown.selectedIndex = 1;
+                window.taiDuLieuDiemDanh();
             }
         });
 
         function renderGiaoDienSuKien() {
-            const tlContainer = document.getElementById("trangChuTimeline");
-            const pickContainer = document.getElementById("vungChonSuKienDangKy");
-            const dropdownTraCuu = document.getElementById("dropdownTraCuuSuKien");
-            
-            tlContainer.innerHTML = "";
-            pickContainer.innerHTML = "";
-            dropdownTraCuu.innerHTML = `<option value="" disabled selected>-- Chọn sự kiện cần tra cứu --</option>`;
+            const tl = document.getElementById("trangChuTimeline"), pick = document.getElementById("vungChonSuKienDangKy"), drop = document.getElementById("dropdownTraCuuSuKien");
+            tl.innerHTML = ""; pick.innerHTML = ""; drop.innerHTML = `<option value="" disabled selected>-- Chọn sự kiện cần tra cứu --</option>`;
 
             if (globalDanhSachSuKien.length === 0) {
-                tlContainer.innerHTML = `<div class="empty-state">Chưa có sự kiện nào được mở.</div>`;
-                pickContainer.innerHTML = `<div class="empty-state" style="width:100%">Chưa có sự kiện để đăng ký.</div>`;
+                tl.innerHTML = `<div class="empty-state">Chưa có sự kiện nào.</div>`;
+                pick.innerHTML = `<div class="empty-state" style="width:100%">Chưa có sự kiện.</div>`;
                 return;
             }
 
             globalDanhSachSuKien.forEach(sk => {
-                const divTL = document.createElement("div");
-                divTL.className = "timeline-item";
-                divTL.innerHTML = `
-                    <div class="timeline-dot"></div>
-                    <h3>${sk.ten_su_kien}</h3>
-                    <div class="event-meta">⏰ ${sk.thoi_gian} | 📍 ${sk.dia_diem}</div>
-                    <p>Học kỳ: ${sk.hoc_ky === 'hk1' ? 'Học kỳ 1' : sk.hoc_ky === 'hk2' ? 'Học kỳ 2' : 'Học kỳ 3'}</p>
-                    <button class="btn" onclick="moManHinhChonSuKien()">Đăng ký tham gia</button>
-                `;
-                tlContainer.appendChild(divTL);
-
-                const limitVal = globalGioiHanSuKien[sk.ten_su_kien];
-                const limitText = limitVal ? `Giới hạn: ${limitVal} người` : 'Chưa đặt giới hạn';
-                
-                const divPick = document.createElement("div");
-                divPick.className = "event-pick-card";
-                divPick.onclick = function() { chonTheSuKien(this, sk.ten_su_kien); };
-                divPick.innerHTML = `
-                    <h4>${sk.ten_su_kien}</h4>
-                    <p>⏰ ${sk.thoi_gian}<br>📍 ${sk.dia_diem}</p>
-                    <p style="margin-top:8px; font-size:0.75rem; color:#ca8a04; font-weight:800;">${limitText}</p>
-                `;
-                pickContainer.appendChild(divPick);
-
-                const opt = document.createElement("option");
-                opt.value = sk.ten_su_kien;
-                opt.innerText = sk.ten_su_kien;
-                dropdownTraCuu.appendChild(opt);
+                tl.innerHTML += `<div class="timeline-item"><div class="timeline-dot"></div><h3>${sk.ten_su_kien}</h3><div class="event-meta">⏰ ${sk.thoi_gian} | 📍 ${sk.dia_diem}</div><button class="btn" onclick="moManHinhChonSuKien()">Đăng ký</button></div>`;
+                const limit = globalGioiHanSuKien[sk.ten_su_kien] || 'Không giới hạn';
+                pick.innerHTML += `<div class="event-pick-card" onclick="chonTheSuKien(this, '${sk.ten_su_kien}')"><h4>${sk.ten_su_kien}</h4><p>⏰ ${sk.thoi_gian}<br>📍 ${sk.dia_diem}</p><p style="margin-top:8px;font-size:0.75rem;color:#ca8a04;">Giới hạn: ${limit}</p></div>`;
+                drop.innerHTML += `<option value="${sk.ten_su_kien}">${sk.ten_su_kien}</option>`;
             });
         }
 
         window.taiDanhSachDangKyTheoSuKien = function(skName) {
             const tableBody = document.getElementById("listDaDangKySv");
             if (!tableBody) return;
-
             if (unsubscribeCurrentReg) unsubscribeCurrentReg();
 
-            const qReg = query(collection(db, "DangKy_SuKien"), where("su_kien", "==", skName), orderBy("thoi_gian_dk", "desc"));
-            
-            unsubscribeCurrentReg = onSnapshot(qReg, (snapshot) => {
-                tableBody.innerHTML = "";
-                let stt = 1;
-                let currentCount = 0;
-
-                snapshot.forEach((docSnap) => {
+            unsubscribeCurrentReg = onSnapshot(query(collection(db, "DangKy_SuKien"), where("su_kien", "==", skName), orderBy("thoi_gian_dk", "desc")), (snapshot) => {
+                tableBody.innerHTML = ""; let stt = 1, count = 0;
+                snapshot.forEach(docSnap => {
                     const data = docSnap.data();
                     if (!data.la_cau_hinh) {
-                        currentCount++;
-                        const tr = document.createElement("tr");
-                        tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv.substring(0,4)}******</strong></td><td><span class="status-tag status-da-duyet">Đã giữ chỗ</span></td>`;
-                        tableBody.appendChild(tr);
+                        count++;
+                        tableBody.innerHTML += `<tr><td><strong>${stt++}</strong></td><td><strong>${data.mssv.substring(0,4)}******</strong></td><td><span class="status-tag">Đã giữ chỗ</span></td></tr>`;
                     }
                 });
-
-                if (currentCount === 0) {
-                    tableBody.innerHTML = `<tr><td colspan="3" class="empty-state">Chưa có sinh viên nào đăng ký.</td></tr>`;
-                }
-
-                const maxLimit = globalGioiHanSuKien[skName] || null;
-                kiemTraGioiHanFormDangKy(currentCount, maxLimit);
+                if (count === 0) tableBody.innerHTML = `<tr><td colspan="3" class="empty-state">Chưa có sinh viên đăng ký.</td></tr>`;
             });
         };
-
-        function kiemTraGioiHanFormDangKy(currentCount, maxLimit) {
-            const btnSubmit = document.getElementById("btnSubmitDangKy");
-            const thongBao = document.getElementById("thongBaoHetCho");
-            
-            if (maxLimit !== null && currentCount >= maxLimit) {
-                btnSubmit.disabled = true;
-                btnSubmit.innerText = "Sự kiện đã đầy";
-                thongBao.style.display = "block";
-                thongBao.innerText = `Đã đạt số lượng tối đa (${maxLimit}/${maxLimit}). Đã đóng đăng ký!`;
-            } else {
-                btnSubmit.disabled = false;
-                btnSubmit.innerText = "Xác nhận đăng ký giữ chỗ";
-                thongBao.style.display = "none";
-            }
-        }
 
         const formDangKySuKien = document.getElementById("formDangKySuKien");
         formDangKySuKien.addEventListener("submit", async (e) => {
             e.preventDefault();
             const mssv = document.getElementById("dkMssv").value.trim();
-            if (!/^312\d{7}$/.test(mssv)) {
-                alert("Mã số sinh viên không hợp lệ! Phải bắt đầu bằng '312' và đúng 10 chữ số.");
-                return;
-            }
-
-            const hoTen = document.getElementById("dkHoTen").value.trim();
-            const lop = document.getElementById("dkLop").value.trim();
-            const skName = document.getElementById("tenSuKienInput").value;
-
+            if (!/^312\d{7}$/.test(mssv)) { alert("MSSV phải bắt đầu bằng 312 và đúng 10 số!"); return; }
+            const hoTen = document.getElementById("dkHoTen").value.trim(), lop = document.getElementById("dkLop").value.trim(), skName = document.getElementById("tenSuKienInput").value;
+            
             const checkQ = query(collection(db, "DangKy_SuKien"), where("mssv", "==", mssv), where("su_kien", "==", skName));
-            if (!(await getDocs(checkQ)).empty) {
-                alert("Bạn đã đăng ký tham gia sự kiện này rồi!");
-                return;
-            }
+            if (!(await getDocs(checkQ)).empty) { alert("Bạn đã đăng ký sự kiện này rồi!"); return; }
 
-            try {
-                const maxLimit = globalGioiHanSuKien[skName] || null;
-                const countQ = query(collection(db, "DangKy_SuKien"), where("su_kien", "==", skName));
-                const countSnap = await getDocs(countQ);
-                
-                let realCount = 0;
-                countSnap.forEach(d => { if(!d.data().la_cau_hinh) realCount++; });
-
-                if (maxLimit !== null && realCount >= maxLimit) {
-                    alert("Rất tiếc! Sự kiện này vừa đủ người trong lúc bạn đang điền form.");
-                    return;
-                }
-
-                const newRef = doc(collection(db, "DangKy_SuKien"));
-                await setDoc(doc(db, "DangKy_SuKien", newRef.id), {
-                    mssv: mssv, ho_ten: hoTen, lop: lop, su_kien: skName, thoi_gian_dk: new Date()
-                });
-                
-                document.getElementById("dkHoTen").value = "";
-                document.getElementById("dkMssv").value = "";
-                document.getElementById("dkLop").value = "";
-                alert("Đăng ký giữ chỗ thành công!");
-            } catch (err) {
-                console.error(err);
-                alert("Lỗi kết nối máy chủ.");
-            }
+            const newRef = doc(collection(db, "DangKy_SuKien"));
+            await setDoc(doc(db, "DangKy_SuKien", newRef.id), { mssv, ho_ten: hoTen, lop, su_kien: skName, thoi_gian_dk: new Date() });
+            document.getElementById("dkHoTen").value = ""; document.getElementById("dkMssv").value = ""; document.getElementById("dkLop").value = "";
+            alert("Đăng ký thành công!");
         });
 
         window.taiDuLieuDiemDanh = function() {
             const skName = document.getElementById("dropdownTraCuuSuKien").value;
             const container = document.getElementById("listDiemDanhChung");
             if (!skName) return;
-
             if (unsubscribeCurrentCheckin) unsubscribeCurrentCheckin();
 
-            const q = query(collection(db, "DiemDanh_SuKien"), where("su_kien", "==", skName), orderBy("thoi_gian", "desc"));
-            unsubscribeCurrentCheckin = onSnapshot(q, (snapshot) => {
-                container.innerHTML = "";
-                let stt = 1;
+            unsubscribeCurrentCheckin = onSnapshot(query(collection(db, "DiemDanh_SuKien"), where("su_kien", "==", skName), orderBy("thoi_gian", "desc")), (snapshot) => {
+                container.innerHTML = ""; let stt = 1;
                 snapshot.forEach(docSnap => {
                     const data = docSnap.data();
-                    let timeStr = "";
-                    if (data.thoi_gian && typeof data.thoi_gian.toDate === 'function') {
-                        timeStr = data.thoi_gian.toDate().toLocaleTimeString('vi-VN') + " - " + data.thoi_gian.toDate().toLocaleDateString('vi-VN');
-                    }
-                    const tr = document.createElement("tr");
-                    tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv.substring(0,4)}******</strong></td><td>${timeStr}</td>`;
-                    container.appendChild(tr);
+                    let timeStr = data.thoi_gian?.toDate ? data.thoi_gian.toDate().toLocaleTimeString('vi-VN') + " - " + data.thoi_gian.toDate().toLocaleDateString('vi-VN') : "";
+                    container.innerHTML += `<tr><td><strong>${stt++}</strong></td><td><strong>${data.mssv.substring(0,4)}******</strong></td><td>${timeStr}</td></tr>`;
                 });
-
-                if (snapshot.empty) {
-                    container.innerHTML = `<tr><td colspan="3" class="empty-state">Chưa có sinh viên nào check-in tại sự kiện này.</td></tr>`;
-                }
+                if (snapshot.empty) container.innerHTML = `<tr><td colspan="3" class="empty-state">Chưa có ai check-in.</td></tr>`;
             });
         };
     </script>
