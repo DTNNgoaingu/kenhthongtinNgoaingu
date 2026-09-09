@@ -264,7 +264,7 @@
 
         function renderGiaoDienSuKien() {
             const tl = document.getElementById("trangChuTimeline"), pick = document.getElementById("vungChonSuKienDangKy"), drop = document.getElementById("dropdownTraCuuSuKien");
-            const currentSelectedVal = drop.value; // Giữ lại giá trị đang chọn nếu có
+            const currentSelectedVal = drop.value;
             tl.innerHTML = ""; pick.innerHTML = ""; drop.innerHTML = `<option value="" disabled selected>-- Chọn sự kiện cần tra cứu --</option>`;
 
             if (globalDanhSachSuKien.length === 0) {
@@ -296,7 +296,8 @@
                     const data = docSnap.data();
                     if (!data.la_cau_hinh) {
                         count++;
-                        tableBody.innerHTML += `<tr><td><strong>${stt++}</strong></td><td><strong>${data.mssv.substring(0,4)}******</strong></td><td><span class="status-tag">Đã giữ chỗ</span></td></tr>`;
+                        // Đã sửa hiển thị đầy đủ MSSV
+                        tableBody.innerHTML += `<tr><td><strong>${stt++}</strong></td><td><strong>${data.mssv}</strong></td><td><span class="status-tag">Đã giữ chỗ</span></td></tr>`;
                     }
                 });
                 if (count === 0) tableBody.innerHTML = `<tr><td colspan="3" class="empty-state">Chưa có sinh viên đăng ký.</td></tr>`;
@@ -309,11 +310,8 @@
             if (!skName) return;
             if (unsubscribeCurrentCheckin) unsubscribeCurrentCheckin();
 
-            // Lắng nghe trực tiếp từ collection DiemDanh_SuKien theo sự kiện được chọn
             unsubscribeCurrentCheckin = onSnapshot(query(collection(db, "DiemDanh_SuKien"), where("su_kien", "==", skName)), (snapshot) => {
                 container.innerHTML = ""; let stt = 1;
-                
-                // Chuyển đổi dữ liệu sang mảng và sắp xếp theo thời gian mới nhất thủ công để tránh lỗi thiếu Index trên Firestore
                 let list = [];
                 snapshot.forEach(docSnap => {
                     list.push({ id: docSnap.id, ...docSnap.data() });
@@ -327,7 +325,8 @@
 
                 list.forEach(data => {
                     let timeStr = data.thoi_gian?.toDate ? data.thoi_gian.toDate().toLocaleTimeString('vi-VN') + " - " + data.thoi_gian.toDate().toLocaleDateString('vi-VN') : "";
-                    container.innerHTML += `<tr><td><strong>${stt++}</strong></td><td><strong>${data.mssv.substring(0,4)}******</strong></td><td>${timeStr}</td></tr>`;
+                    // Đã sửa hiển thị đầy đủ MSSV
+                    container.innerHTML += `<tr><td><strong>${stt++}</strong></td><td><strong>${data.mssv}</strong></td><td>${timeStr}</td></tr>`;
                 });
 
                 if (list.length === 0) container.innerHTML = `<tr><td colspan="3" class="empty-state">Chưa có ai check-in.</td></tr>`;
