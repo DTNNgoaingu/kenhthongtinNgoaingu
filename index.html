@@ -18,7 +18,8 @@
         
         .hero-wrapper { max-width: 1200px; margin: 30px auto 20px auto; padding: 0 15px; }
         .hero { 
-            background: linear-gradient(135deg, rgba(21, 128, 61, 0.52) 0%, rgba(20, 83, 45, 0.62) 60%, rgba(15, 23, 42, 0.68) 100%); 
+            background: linear-gradient(135deg, rgba(21, 128, 61, 0.52) 0%, rgba(20, 83, 45, 0.62) 60%, rgba(15, 23, 42, 0.68) 100%), 
+                    url('banner.jpg') center/cover no-repeat; 
             color: white; 
             text-align: center; 
             padding: 4rem 1.5rem 2.5rem 1.5rem; 
@@ -49,7 +50,6 @@
         .event-pick-card.selected h4, .event-pick-card.selected p { color: #ffffff; }
         .event-pick-card h4 { font-size: 1.05rem; font-weight: 900; color: #166534; margin-bottom: 8px; }
         .event-pick-card p { font-size: 0.82rem; color: #555; font-weight: 600; }
-        .event-badge-full { position: absolute; top: -10px; right: -10px; background: #dc2626; color: white; font-size: 0.7rem; font-weight: bold; padding: 4px 10px; border-radius: 10px; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
 
         .container { width: 92%; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
         .card { background: #ffffff; padding: 30px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 25px; border: 3px solid #bbf7d0; }
@@ -87,8 +87,6 @@
         
         .status-tag { padding: 6px 12px; border-radius: 15px; font-weight: 900; font-size: 12px; display: inline-block; }
         .status-da-duyet { background-color: #dcfce7; color: #166534; border: 2px solid #bbf7d0; }
-        .status-chua-duyet { background-color: #fef9c3; color: #854d0e; border: 2px solid #fef08a; }
-        .status-khong-duyet { background-color: #fee2e2; color: #991b1b; border: 2px solid #fecaca; }
 
         .empty-state { text-align: center; padding: 20px; color: #6b7280; font-weight: 600; font-style: italic; }
 
@@ -140,7 +138,6 @@
                 <div class="card">
                     <h2>Timeline Sự kiện sắp diễn ra</h2>
                     <div class="timeline" id="trangChuTimeline">
-                        <!-- Dữ liệu sự kiện sẽ được render tự động vào đây -->
                         <div class="empty-state">Đang tải danh sách sự kiện...</div>
                     </div>
                 </div>
@@ -185,9 +182,7 @@
             
             <div id="buocChonSuKien">
                 <p style="color: #555; font-weight: 600; margin-bottom: 20px; font-size: 0.9rem;">Vuốt sang phải để xem thêm và chọn sự kiện bạn muốn tham gia:</p>
-                <div class="event-timeline-horizontal" id="vungChonSuKienDangKy">
-                    <!-- Các card sự kiện sẽ được tạo tự động ở đây -->
-                </div>
+                <div class="event-timeline-horizontal" id="vungChonSuKienDangKy"></div>
                 <input type="hidden" id="selectHoatDongTimeline" value="">
                 <button type="button" id="btnTiepTucDangKy" class="btn" onclick="chuyenSangBuocNhapForm()" style="width: 100%; margin-top: 15px; display: none;">Tiếp tục đăng ký</button>
             </div>
@@ -220,7 +215,7 @@
         </div>
     </div>
 
-    <!-- TRANG SV5T (Giữ nguyên) -->
+    <!-- TRANG SV5T -->
     <div id="trangSV5Tot" class="an-giao-dien">
         <div class="form-container">
             <h2>Nộp Hồ Sơ Sinh viên 5 Tốt</h2>
@@ -279,7 +274,6 @@
     </footer>
 
     <script>
-        // Điều hướng các trang
         function chuyenTrang(idTrang) {
             const pages = ['trangChu', 'trangGioiThieu', 'trangDangKyHoatDong', 'trangSV5Tot', 'trangDiemDanh'];
             pages.forEach(page => document.getElementById(page).classList.add('an-giao-dien'));
@@ -300,7 +294,6 @@
             document.getElementById('selectHoatDongTimeline').value = tenSuKien;
             document.getElementById('btnTiepTucDangKy').style.display = 'block';
             
-            // Render thử danh sách giữ chỗ bên dưới (nếu đã kết nối DB)
             if (typeof window.taiDanhSachDangKyTheoSuKien === 'function') {
                 window.taiDanhSachDangKyTheoSuKien(tenSuKien);
             }
@@ -339,12 +332,32 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Biến lưu trữ sự kiện động
         let globalDanhSachSuKien = [];
+        let globalGioiHanSuKien = {};
         let unsubscribeCurrentReg = null;
         let unsubscribeCurrentCheckin = null;
 
-        // TỰ ĐỘNG TẢI DANH SÁCH SỰ KIỆN TỪ ADMIN TẠO
+        // LẮNG NGHE CẤU HÌNH GIỚI HẠN TỪ ADMIN
+        onSnapshot(collection(db, "DangKy_SuKien"), (snapshot) => {
+            globalGioiHanSuKien = {};
+            let tempTime = {};
+            snapshot.forEach(docSnap => {
+                const data = docSnap.data();
+                if (data.la_cau_hinh && data.su_kien && data.gioi_han_toi_da) {
+                    let docTime = data.thoi_gian ? data.thoi_gian.toMillis() : 0;
+                    if (!globalGioiHanSuKien[data.su_kien] || docTime > (tempTime[data.su_kien] || 0)) {
+                        globalGioiHanSuKien[data.su_kien] = data.gioi_han_toi_da;
+                        tempTime[data.su_kien] = docTime;
+                    }
+                }
+            });
+            const activeSk = document.getElementById("tenSuKienInput").value;
+            if (activeSk) {
+                window.taiDanhSachDangKyTheoSuKien(activeSk);
+            }
+        });
+
+        // LẮNG NGHE DANH SÁCH SỰ KIỆN DO ADMIN TẠO
         onSnapshot(query(collection(db, "DanhSach_SuKien"), orderBy("thoi_gian_tao", "desc")), (snapshot) => {
             globalDanhSachSuKien = [];
             snapshot.forEach(docSnap => {
@@ -353,7 +366,6 @@
             renderGiaoDienSuKien();
         });
 
-        // Hàm vẽ tự động các thẻ Sự kiện dựa trên Firebase
         function renderGiaoDienSuKien() {
             const tlContainer = document.getElementById("trangChuTimeline");
             const pickContainer = document.getElementById("vungChonSuKienDangKy");
@@ -364,13 +376,12 @@
             dropdownTraCuu.innerHTML = `<option value="" disabled selected>-- Chọn sự kiện cần tra cứu --</option>`;
 
             if (globalDanhSachSuKien.length === 0) {
-                tlContainer.innerHTML = `<div class="empty-state">Hiện tại chưa có sự kiện nào được mở.</div>`;
+                tlContainer.innerHTML = `<div class="empty-state">Chưa có sự kiện nào được mở.</div>`;
                 pickContainer.innerHTML = `<div class="empty-state" style="width:100%">Chưa có sự kiện để đăng ký.</div>`;
                 return;
             }
 
             globalDanhSachSuKien.forEach(sk => {
-                // Render cho Trang Chủ (Timeline)
                 const divTL = document.createElement("div");
                 divTL.className = "timeline-item";
                 divTL.innerHTML = `
@@ -382,19 +393,19 @@
                 `;
                 tlContainer.appendChild(divTL);
 
-                // Render cho Trang Đăng Ký (Cards)
-                const limitText = sk.gioi_han ? `Giới hạn: ${sk.gioi_han} người` : 'Không giới hạn';
+                const limitVal = globalGioiHanSuKien[sk.ten_su_kien];
+                const limitText = limitVal ? `Giới hạn: ${limitVal} người` : 'Chưa đặt giới hạn';
+                
                 const divPick = document.createElement("div");
                 divPick.className = "event-pick-card";
                 divPick.onclick = function() { chonTheSuKien(this, sk.ten_su_kien); };
                 divPick.innerHTML = `
                     <h4>${sk.ten_su_kien}</h4>
                     <p>⏰ ${sk.thoi_gian}<br>📍 ${sk.dia_diem}</p>
-                    <p style="margin-top:8px; font-size:0.75rem; color:#ca8a04;">${limitText}</p>
+                    <p style="margin-top:8px; font-size:0.75rem; color:#ca8a04; font-weight:800;">${limitText}</p>
                 `;
                 pickContainer.appendChild(divPick);
 
-                // Render cho Trang Tra cứu điểm danh (Dropdown)
                 const opt = document.createElement("option");
                 opt.value = sk.ten_su_kien;
                 opt.innerText = sk.ten_su_kien;
@@ -402,7 +413,6 @@
             });
         }
 
-        // TẢI DANH SÁCH ĐÃ ĐĂNG KÝ VÀ KIỂM TRA GIỚI HẠN
         window.taiDanhSachDangKyTheoSuKien = function(skName) {
             const tableBody = document.getElementById("listDaDangKySv");
             if (!tableBody) return;
@@ -417,20 +427,20 @@
                 let currentCount = 0;
 
                 snapshot.forEach((docSnap) => {
-                    currentCount++;
                     const data = docSnap.data();
-                    const tr = document.createElement("tr");
-                    tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv.substring(0,4)}******</strong></td><td><span class="status-tag status-da-duyet">Đã giữ chỗ</span></td>`;
-                    tableBody.appendChild(tr);
+                    if (!data.la_cau_hinh) {
+                        currentCount++;
+                        const tr = document.createElement("tr");
+                        tr.innerHTML = `<td><strong>${stt++}</strong></td><td><strong>${data.mssv.substring(0,4)}******</strong></td><td><span class="status-tag status-da-duyet">Đã giữ chỗ</span></td>`;
+                        tableBody.appendChild(tr);
+                    }
                 });
 
                 if (currentCount === 0) {
                     tableBody.innerHTML = `<tr><td colspan="3" class="empty-state">Chưa có sinh viên nào đăng ký.</td></tr>`;
                 }
 
-                // Tìm giới hạn của sự kiện hiện tại
-                const currentEvent = globalDanhSachSuKien.find(e => e.ten_su_kien === skName);
-                const maxLimit = currentEvent ? parseInt(currentEvent.gioi_han) : null;
+                const maxLimit = globalGioiHanSuKien[skName] || null;
                 kiemTraGioiHanFormDangKy(currentCount, maxLimit);
             });
         };
@@ -439,11 +449,11 @@
             const btnSubmit = document.getElementById("btnSubmitDangKy");
             const thongBao = document.getElementById("thongBaoHetCho");
             
-            if (maxLimit && currentCount >= maxLimit) {
+            if (maxLimit !== null && currentCount >= maxLimit) {
                 btnSubmit.disabled = true;
                 btnSubmit.innerText = "Sự kiện đã đầy";
                 thongBao.style.display = "block";
-                thongBao.innerText = `Đã đạt số lượng tối đa (${maxLimit}/${maxLimit}). Bạn không thể đăng ký thêm!`;
+                thongBao.innerText = `Đã đạt số lượng tối đa (${maxLimit}/${maxLimit}). Đã đóng đăng ký!`;
             } else {
                 btnSubmit.disabled = false;
                 btnSubmit.innerText = "Xác nhận đăng ký giữ chỗ";
@@ -451,7 +461,6 @@
             }
         }
 
-        // XỬ LÝ NÚT BẤM GỬI FORM ĐĂNG KÝ
         const formDangKySuKien = document.getElementById("formDangKySuKien");
         formDangKySuKien.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -465,7 +474,6 @@
             const lop = document.getElementById("dkLop").value.trim();
             const skName = document.getElementById("tenSuKienInput").value;
 
-            // Kiểm tra trùng lắp
             const checkQ = query(collection(db, "DangKy_SuKien"), where("mssv", "==", mssv), where("su_kien", "==", skName));
             if (!(await getDocs(checkQ)).empty) {
                 alert("Bạn đã đăng ký tham gia sự kiện này rồi!");
@@ -473,20 +481,18 @@
             }
 
             try {
-                // Double Check bảo mật: Đếm số lượng thực tế trong DB lúc bấm nút
-                const currentEvent = globalDanhSachSuKien.find(ev => ev.ten_su_kien === skName);
-                const maxLimit = currentEvent ? parseInt(currentEvent.gioi_han) : null;
-
+                const maxLimit = globalGioiHanSuKien[skName] || null;
                 const countQ = query(collection(db, "DangKy_SuKien"), where("su_kien", "==", skName));
                 const countSnap = await getDocs(countQ);
-                const countReal = countSnap.size;
+                
+                let realCount = 0;
+                countSnap.forEach(d => { if(!d.data().la_cau_hinh) realCount++; });
 
-                if (maxLimit && countReal >= maxLimit) {
-                    alert("Rất tiếc! Sự kiện này vừa đủ người trong lúc bạn đang điền form. Vui lòng chọn sự kiện khác.");
-                    return; // Chặn ghi đè
+                if (maxLimit !== null && realCount >= maxLimit) {
+                    alert("Rất tiếc! Sự kiện này vừa đủ người trong lúc bạn đang điền form.");
+                    return;
                 }
 
-                // Lưu dữ liệu
                 const newRef = doc(collection(db, "DangKy_SuKien"));
                 await setDoc(doc(db, "DangKy_SuKien", newRef.id), {
                     mssv: mssv, ho_ten: hoTen, lop: lop, su_kien: skName, thoi_gian_dk: new Date()
@@ -496,14 +502,12 @@
                 document.getElementById("dkMssv").value = "";
                 document.getElementById("dkLop").value = "";
                 alert("Đăng ký giữ chỗ thành công!");
-
             } catch (err) {
                 console.error(err);
                 alert("Lỗi kết nối máy chủ.");
             }
         });
 
-        // TẢI DỮ LIỆU ĐIỂM DANH THỰC TẾ (TRA CỨU)
         window.taiDuLieuDiemDanh = function() {
             const skName = document.getElementById("dropdownTraCuuSuKien").value;
             const container = document.getElementById("listDiemDanhChung");
@@ -530,20 +534,7 @@
                     container.innerHTML = `<tr><td colspan="3" class="empty-state">Chưa có sinh viên nào check-in tại sự kiện này.</td></tr>`;
                 }
             });
-        }
-
-        // HỒ SƠ SV 5 TỐT (GIỮ NGUYÊN CODE CŨ CỦA BẠN TRƯỚC ĐÓ)
-        const formSV5T = document.getElementById("dataForm");
-        formSV5T.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const mssv = document.getElementById("mssv").value.trim();
-            if (!/^312\d{7}$/.test(mssv)) {
-                alert("Mã số sinh viên không hợp lệ!");
-                return;
-            }
-            // Code xử lý nộp hồ sơ y như cũ của bạn ...
-            alert("Nộp thành công (Demo)!");
-        });
+        };
     </script>
 </body>
 </html>
